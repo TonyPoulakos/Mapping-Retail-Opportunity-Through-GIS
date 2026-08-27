@@ -1,0 +1,406 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>New Balance Columbus V1</title>
+
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+<style>
+html, body {
+  height:100%;
+  margin:0;
+  padding:0;
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+}
+
+#map {
+  position:fixed;
+  inset:0;
+  width:100%;
+  height:100%;
+}
+
+#title {
+  position:absolute;
+  top:max(12px, env(safe-area-inset-top));
+  left:12px;
+  right:12px;
+  z-index:1000;
+  background:rgba(255,255,255,.96);
+  border-radius:14px;
+  padding:11px 13px;
+  box-shadow:0 3px 14px rgba(0,0,0,.20);
+  max-width:430px;
+}
+
+#title h1 {
+  margin:0 0 4px;
+  font-size:17px;
+  color:#172b4d;
+}
+
+#title p {
+  margin:0;
+  font-size:12px;
+  line-height:1.3;
+  color:#586474;
+}
+
+.marker {
+  width:28px;
+  height:28px;
+  border-radius:50%;
+  border:3px solid white;
+  box-shadow:0 1px 6px rgba(0,0,0,.45);
+  color:white;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:13px;
+  font-weight:800;
+}
+
+.small {
+  width:22px;
+  height:22px;
+  border-width:2px;
+  font-size:10px;
+}
+
+.a { background:#18864b; }
+.b { background:#245bbf; }
+.c { background:#df3e32; }
+.nb { background:#d71920; }
+.crc { background:#1667b1; }
+.retail { background:#666; }
+
+.legend {
+  background:rgba(255,255,255,.96);
+  padding:8px 10px;
+  border-radius:10px;
+  box-shadow:0 2px 10px rgba(0,0,0,.17);
+  font-size:11px;
+  line-height:1.45;
+}
+
+.legend-row {
+  white-space:nowrap;
+}
+
+.dot {
+  display:inline-block;
+  width:10px;
+  height:10px;
+  border-radius:50%;
+  margin-right:6px;
+}
+
+.ring {
+  display:inline-block;
+  width:18px;
+  height:9px;
+  border:2px dashed #7c3aed;
+  border-radius:50%;
+  margin-right:6px;
+  vertical-align:-2px;
+}
+
+.leaflet-control-layers {
+  margin-top:112px !important;
+  border-radius:10px !important;
+}
+</style>
+</head>
+
+<body>
+
+<div id="map"></div>
+
+<div id="title">
+  <h1>New Balance Columbus — V1 Geographic Control</h1>
+  <p>Pan and zoom. Tap markers for coordinates. Toggle layers at upper right.</p>
+</div>
+
+<script>
+
+const points = [
+  {
+    id:"A",
+    name:"Dublin / Bridge Park",
+    lat:40.10424,
+    lon:-83.11018,
+    type:"candidate",
+    score:87
+  },
+  {
+    id:"B",
+    name:"Short North / High Street",
+    lat:39.977984,
+    lon:-83.004006,
+    type:"candidate",
+    score:86
+  },
+  {
+    id:"C",
+    name:"Easton Town Center",
+    lat:40.0510,
+    lon:-82.9150,
+    type:"candidate",
+    score:84
+  },
+  {
+    id:"NB",
+    name:"New Balance Factory Store — Sunbury",
+    lat:40.2690,
+    lon:-82.9270,
+    type:"new_balance"
+  },
+  {
+    id:"CRC-D",
+    name:"Columbus Running Company — Dublin",
+    lat:40.1020,
+    lon:-83.1620,
+    type:"crc"
+  },
+  {
+    id:"CRC-SN",
+    name:"Columbus Running Company — Short North",
+    lat:39.977984,
+    lon:-83.004006,
+    type:"crc"
+  },
+  {
+    id:"CRC-W",
+    name:"Columbus Running Company — Westerville",
+    lat:40.1278,
+    lon:-82.9290,
+    type:"crc"
+  },
+  {
+    id:"CRC-DE",
+    name:"Columbus Running Company — Delaware",
+    lat:40.2998,
+    lon:-83.0670,
+    type:"crc"
+  },
+  {
+    id:"CRC-GC",
+    name:"Columbus Running Company — Grove City",
+    lat:39.8810,
+    lon:-83.0930,
+    type:"crc"
+  },
+  {
+    id:"CRC-P",
+    name:"Columbus Running Company — Pickerington",
+    lat:39.9050,
+    lon:-82.7530,
+    type:"crc"
+  },
+  {
+    id:"POL",
+    name:"Polaris Fashion Place",
+    lat:40.1455,
+    lon:-82.9810,
+    type:"retail"
+  }
+];
+
+const map = L.map("map", {
+  zoomControl:true,
+  preferCanvas:true
+});
+
+const osm = L.tileLayer(
+  "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+  {
+    maxZoom:19,
+    attribution:"&copy; OpenStreetMap contributors"
+  }
+).addTo(map);
+
+const layers = {
+  candidates:L.layerGroup().addTo(map),
+  rings:L.layerGroup().addTo(map),
+  nb:L.layerGroup().addTo(map),
+  crc:L.layerGroup().addTo(map),
+  retail:L.layerGroup().addTo(map)
+};
+
+function makeIcon(label, cls, small=false) {
+  const size = small ? 22 : 28;
+
+  return L.divIcon({
+    className:"",
+    html:
+      `<div class="marker ${small ? "small " : ""}${cls}">
+        ${label}
+      </div>`,
+    iconSize:[size,size],
+    iconAnchor:[size/2,size/2],
+    popupAnchor:[0,-size/2]
+  });
+}
+
+const candidateColors = {
+  A:"#18864b",
+  B:"#245bbf",
+  C:"#df3e32"
+};
+
+points.forEach(p => {
+
+  let target;
+  let icon;
+
+  if (p.type === "candidate") {
+
+    target = layers.candidates;
+    icon = makeIcon(p.id, p.id.toLowerCase());
+
+    L.circle([p.lat,p.lon], {
+      radius:4828.032,
+      color:candidateColors[p.id],
+      weight:2,
+      dashArray:"7 6",
+      fillColor:candidateColors[p.id],
+      fillOpacity:.055
+    })
+    .bindTooltip(`${p.id} — 3-mile evaluation area`)
+    .addTo(layers.rings);
+
+  }
+
+  else if (p.type === "new_balance") {
+    target = layers.nb;
+    icon = makeIcon("NB","nb",true);
+  }
+
+  else if (p.type === "crc") {
+    target = layers.crc;
+    icon = makeIcon("R","crc",true);
+  }
+
+  else {
+    target = layers.retail;
+    icon = makeIcon("•","retail",true);
+  }
+
+  const score =
+    p.score
+      ? `<br><b>Illustrative score:</b> ${p.score}`
+      : "";
+
+  L.marker([p.lat,p.lon], {icon})
+    .bindPopup(
+      `<b>${p.name}</b>
+       ${score}
+       <br>
+       <span style="font-size:11px">
+       ${p.lat.toFixed(6)}, ${p.lon.toFixed(6)}
+       </span>`
+    )
+    .bindTooltip(
+      p.name,
+      {
+        direction:"top",
+        offset:[0,-8]
+      }
+    )
+    .addTo(target);
+
+});
+
+L.control.layers(
+  null,
+  {
+    "Candidate Areas":layers.candidates,
+    "3-Mile Evaluation Areas":layers.rings,
+    "New Balance Owned Retail":layers.nb,
+    "Columbus Running Company":layers.crc,
+    "Major Retail Reference Node":layers.retail
+  },
+  {
+    collapsed:true,
+    position:"topright"
+  }
+).addTo(map);
+
+L.control.scale({
+  imperial:true,
+  metric:true,
+  position:"bottomleft"
+}).addTo(map);
+
+const legend = L.control({
+  position:"bottomright"
+});
+
+legend.onAdd = function() {
+
+  const d = L.DomUtil.create(
+    "div",
+    "legend"
+  );
+
+  d.innerHTML = `
+    <b>V1 Control Layers</b><br>
+
+    <span class="legend-row">
+      <span class="dot" style="background:#18864b"></span>
+      A Dublin / Bridge Park
+    </span><br>
+
+    <span class="legend-row">
+      <span class="dot" style="background:#245bbf"></span>
+      B Short North
+    </span><br>
+
+    <span class="legend-row">
+      <span class="dot" style="background:#df3e32"></span>
+      C Easton
+    </span><br>
+
+    <span class="legend-row">
+      <span class="ring"></span>
+      3-mile evaluation area
+    </span><br>
+
+    <span class="legend-row">
+      <span class="dot" style="background:#d71920"></span>
+      New Balance store
+    </span><br>
+
+    <span class="legend-row">
+      <span class="dot" style="background:#1667b1"></span>
+      CRC location
+    </span><br>
+
+    <span class="legend-row">
+      <span class="dot" style="background:#666"></span>
+      Retail reference node
+    </span>
+  `;
+
+  return d;
+};
+
+legend.addTo(map);
+
+const bounds =
+  L.latLngBounds(
+    points.map(p => [p.lat,p.lon])
+  );
+
+map.fitBounds(
+  bounds.pad(.08)
+);
+
+</script>
+
+</body>
+</html>
