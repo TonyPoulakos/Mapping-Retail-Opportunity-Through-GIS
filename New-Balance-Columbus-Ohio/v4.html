@@ -1,1 +1,1358 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
 
+<title>New Balance Columbus V4</title>
+
+<link
+  rel="stylesheet"
+  href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+/>
+
+<script
+  src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js">
+</script>
+
+<style>
+
+html,
+body {
+  height:100%;
+  margin:0;
+  padding:0;
+  font-family:
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    Arial,
+    sans-serif;
+}
+
+#map {
+  position:fixed;
+  inset:0;
+  width:100%;
+  height:100%;
+}
+
+
+/* =====================================================
+   TITLE PANEL
+   ===================================================== */
+
+#title {
+  position:absolute;
+  top:max(12px, env(safe-area-inset-top));
+  left:12px;
+  right:12px;
+  z-index:1000;
+
+  background:rgba(255,255,255,.96);
+  border-radius:14px;
+  padding:11px 13px;
+
+  box-shadow:
+    0 3px 14px rgba(0,0,0,.20);
+
+  max-width:440px;
+}
+
+#title h1 {
+  margin:0 0 4px;
+  font-size:17px;
+  line-height:1.15;
+  color:#172b4d;
+}
+
+#title p {
+  margin:0;
+  font-size:12px;
+  line-height:1.35;
+  color:#586474;
+}
+
+
+/* =====================================================
+   GENERAL MARKERS
+   ===================================================== */
+
+.marker {
+  width:28px;
+  height:28px;
+
+  border-radius:50%;
+  border:3px solid white;
+
+  box-shadow:
+    0 1px 6px rgba(0,0,0,.45);
+
+  color:white;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  font-size:13px;
+  font-weight:800;
+}
+
+.marker.small {
+  width:22px;
+  height:22px;
+  border-width:2px;
+  font-size:10px;
+}
+
+
+/* Candidate colors */
+
+.a {
+  background:#18864b;
+}
+
+.b {
+  background:#245bbf;
+}
+
+.c {
+  background:#df3e32;
+}
+
+
+/* New Balance owned retail */
+
+.nb {
+  background:#d71920;
+}
+
+
+/* Specialty running / New Balance distribution */
+
+.crc {
+  background:#1667b1;
+}
+
+
+/* Major athletic retail node */
+
+.major-retail {
+  background:#7b3fc6;
+}
+
+
+/* =====================================================
+   ACTIVE-LIFESTYLE SYMBOL
+   ===================================================== */
+
+.active-marker {
+  width:18px;
+  height:18px;
+
+  border-radius:50%;
+  border:2px solid white;
+
+  background:#059669;
+
+  box-shadow:
+    0 1px 6px rgba(0,0,0,.40);
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  color:white;
+  font-weight:800;
+  font-size:9px;
+}
+
+
+/* =====================================================
+   BRAND-MARKET FIT SCORE BADGES
+   ===================================================== */
+
+.score-badge {
+  min-width:48px;
+  height:26px;
+
+  padding:0 7px;
+
+  border-radius:13px;
+  border:2px solid white;
+
+  box-shadow:
+    0 2px 8px rgba(0,0,0,.32);
+
+  color:white;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  font-size:11px;
+  font-weight:800;
+
+  white-space:nowrap;
+}
+
+.score-a {
+  background:#18864b;
+}
+
+.score-b {
+  background:#245bbf;
+}
+
+.score-c {
+  background:#df3e32;
+}
+
+
+/* =====================================================
+   LEGEND
+   ===================================================== */
+
+.legend {
+  background:rgba(255,255,255,.96);
+
+  padding:9px 11px;
+
+  border-radius:10px;
+
+  box-shadow:
+    0 2px 10px rgba(0,0,0,.17);
+
+  font-size:11px;
+  line-height:1.5;
+}
+
+.legend-section {
+  font-weight:800;
+  color:#172b4d;
+  margin-top:5px;
+  margin-bottom:2px;
+}
+
+.legend-row {
+  white-space:nowrap;
+}
+
+.dot {
+  display:inline-block;
+  width:10px;
+  height:10px;
+
+  border-radius:50%;
+
+  margin-right:6px;
+}
+
+.ring {
+  display:inline-block;
+
+  width:18px;
+  height:9px;
+
+  border:2px dashed #7c3aed;
+
+  border-radius:50%;
+
+  margin-right:6px;
+
+  vertical-align:-2px;
+}
+
+.active-line {
+  display:inline-block;
+  width:20px;
+
+  border-top:4px solid #059669;
+
+  opacity:.7;
+
+  margin-right:6px;
+
+  vertical-align:3px;
+}
+
+.fit-halo {
+  display:inline-block;
+
+  width:16px;
+  height:10px;
+
+  border:1px solid rgba(23,43,77,.35);
+  border-radius:5px;
+
+  margin-right:6px;
+
+  vertical-align:-1px;
+
+  background:rgba(36,91,191,.10);
+}
+
+
+/* =====================================================
+   LAYER CONTROL
+   ===================================================== */
+
+.leaflet-control-layers {
+  margin-top:112px !important;
+  border-radius:10px !important;
+}
+
+
+/* =====================================================
+   POPUPS
+   ===================================================== */
+
+.popup-title {
+  font-weight:800;
+  font-size:14px;
+  margin-bottom:4px;
+}
+
+.popup-category {
+  color:#64748b;
+  font-size:10px;
+  font-weight:700;
+  text-transform:uppercase;
+  letter-spacing:.04em;
+  margin-bottom:5px;
+}
+
+.popup-note {
+  margin-top:7px;
+  font-size:11px;
+  color:#64748b;
+}
+
+.popup-score {
+  font-size:20px;
+  font-weight:800;
+  margin:3px 0 6px;
+}
+
+.popup-role {
+  margin-top:7px;
+  font-size:12px;
+  line-height:1.4;
+}
+
+
+/* =====================================================
+   DESKTOP
+   ===================================================== */
+
+@media (min-width:700px) {
+
+  #title {
+    right:auto;
+    width:400px;
+  }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<div id="map"></div>
+
+<div id="title">
+  <h1>New Balance Columbus | V4 Brand-Market Fit</h1>
+  <p>
+    Compare candidate areas alongside the existing New Balance retail ecosystem,
+    specialty-running distribution, active-lifestyle geography,
+    and overall Brand-Market Fit.
+  </p>
+</div>
+
+<script>
+
+
+/* =====================================================
+   MASTER GEOGRAPHIC CONTROL POINTS
+   V2 + V3 GEOGRAPHY PRESERVED
+   ===================================================== */
+
+const points = [
+
+  /* ---------- CANDIDATES ---------- */
+
+  {
+    id:"A",
+    name:"Dublin / Bridge Park",
+    lat:40.10424,
+    lon:-83.11018,
+    type:"candidate",
+    score:87,
+    headline:"Balanced Growth Opportunity",
+    strategy:
+      "Dublin offers the strongest overall balance of market quality, active-lifestyle alignment, mixed-use placemaking, and network expansion potential.",
+    role:
+      "Expand the owned retail network into a high-value mixed-use market with strong lifestyle and experiential alignment."
+  },
+
+  {
+    id:"B",
+    name:"Short North / High Street",
+    lat:39.977984,
+    lon:-83.004006,
+    type:"candidate",
+    score:86,
+    headline:"Running & Urban Brand Connection",
+    strategy:
+      "Short North provides the strongest direct connection to Columbus's urban running and lifestyle culture.",
+    role:
+      "Build deeper brand relevance through an urban location closely connected to running, community, culture, and lifestyle."
+  },
+
+  {
+    id:"C",
+    name:"Easton Town Center",
+    lat:40.0510,
+    lon:-82.9150,
+    type:"candidate",
+    score:84,
+    headline:"Regional Retail Visibility",
+    strategy:
+      "Easton offers the strongest conventional regional retail platform of the three candidates.",
+    role:
+      "Capture regional destination traffic and maximize visibility within an established athletic and lifestyle retail cluster."
+  },
+
+
+  /* ---------- NEW BALANCE OWNED RETAIL ---------- */
+
+  {
+    id:"NB-SUNBURY",
+    name:"New Balance Factory Store - Sunbury",
+    lat:40.2690,
+    lon:-82.9270,
+    type:"new_balance",
+    description:
+      "Existing New Balance-owned factory store serving the Columbus market from the north."
+  },
+
+
+  /* ---------- COLUMBUS RUNNING COMPANY ---------- */
+
+  {
+    id:"CRC-DUBLIN",
+    name:"Columbus Running Company - Dublin",
+    lat:40.1020,
+    lon:-83.1620,
+    type:"crc",
+    description:
+      "Specialty running retailer with New Balance distribution and community running activity."
+  },
+
+  {
+    id:"CRC-SHORTNORTH",
+    name:"Columbus Running Company - Short North",
+    lat:39.977984,
+    lon:-83.004006,
+    type:"crc",
+    description:
+      "Specialty running retailer with New Balance distribution and recurring community running activity."
+  },
+
+  {
+    id:"CRC-WESTERVILLE",
+    name:"Columbus Running Company - Westerville",
+    lat:40.1278,
+    lon:-82.9290,
+    type:"crc",
+    description:
+      "Specialty running retailer and New Balance distribution point."
+  },
+
+  {
+    id:"CRC-DELAWARE",
+    name:"Columbus Running Company - Delaware",
+    lat:40.2998,
+    lon:-83.0670,
+    type:"crc",
+    description:
+      "Specialty running retailer and New Balance distribution point."
+  },
+
+  {
+    id:"CRC-GROVECITY",
+    name:"Columbus Running Company - Grove City",
+    lat:39.8810,
+    lon:-83.0930,
+    type:"crc",
+    description:
+      "Specialty running retailer and New Balance distribution point."
+  },
+
+  {
+    id:"CRC-PICKERINGTON",
+    name:"Columbus Running Company - Pickerington",
+    lat:39.9050,
+    lon:-82.7530,
+    type:"crc",
+    description:
+      "Specialty running retailer and New Balance distribution point."
+  },
+
+
+  /* ---------- MAJOR ATHLETIC RETAIL NODES ---------- */
+
+  {
+    id:"EASTON-NODE",
+    name:"Easton Athletic Retail Cluster",
+    lat:40.0510,
+    lon:-82.9150,
+    type:"major_retail",
+    description:
+      "Major regional athletic and lifestyle retail cluster with substantial complementary and competitive athletic retail.",
+    role:
+      "Provides strong retail visibility and market draw, while also representing substantial existing multibrand athletic distribution."
+  },
+
+  {
+    id:"POLARIS",
+    name:"Polaris Athletic Retail Cluster",
+    lat:40.1455,
+    lon:-82.9810,
+    type:"major_retail",
+    description:
+      "Major regional retail node with substantial athletic retail presence north of Columbus.",
+    role:
+      "Provides important context for the existing athletic-retail ecosystem north of the candidate areas."
+  }
+
+];
+
+
+/* =====================================================
+   V3 ACTIVE-LIFESTYLE POINTS
+   ===================================================== */
+
+const activePoints = [
+
+  {
+    id:"AL-DUBLIN",
+    name:"Dublin Link / Bridge Park",
+    lat:40.0997,
+    lon:-83.1143,
+    description:
+      "Major pedestrian connection across the Scioto River linking Historic Dublin and Bridge Park.",
+    role:
+      "Supports the active-lifestyle character of Candidate A and connects Bridge Park directly into a walkable riverfront environment."
+  },
+
+  {
+    id:"AL-OLENTANGY",
+    name:"Olentangy Trail - Short North Access",
+    lat:39.9835,
+    lon:-83.0194,
+    description:
+      "Key north-south recreational and running corridor serving central Columbus.",
+    role:
+      "CRC's Short North running routes use both the north and south Olentangy Trail, reinforcing Candidate B's connection to established running infrastructure."
+  },
+
+  {
+    id:"AL-BRIDGEPARK-RUN",
+    name:"Bridge Park Community Running Activity",
+    lat:40.1032,
+    lon:-83.1130,
+    description:
+      "Bridge Park is an emerging community-running destination, including CRC-supported social running activity.",
+    role:
+      "Adds direct evidence of running-community activity within Candidate A's immediate mixed-use environment."
+  },
+
+  {
+    id:"AL-SHORTNORTH-RUN",
+    name:"Short North Running Community",
+    lat:39.9810,
+    lon:-83.0065,
+    description:
+      "Recurring community runs and seasonal workouts operate in and around the Short North.",
+    role:
+      "Reinforces Candidate B as a location embedded in an established urban running and active-lifestyle community."
+  }
+
+];
+
+
+/* =====================================================
+   V3 ACTIVE-LIFESTYLE CORRIDOR GUIDES
+   GENERALIZED CARTOGRAPHIC CONTEXT
+   ===================================================== */
+
+const activeCorridors = [
+
+  {
+    name:"Olentangy Running Corridor",
+    coordinates:[
+      [40.1160,-83.0330],
+      [40.0960,-83.0320],
+      [40.0750,-83.0290],
+      [40.0540,-83.0260],
+      [40.0350,-83.0240],
+      [40.0170,-83.0220],
+      [39.9980,-83.0200],
+      [39.9835,-83.0194],
+      [39.9680,-83.0165],
+      [39.9520,-83.0125]
+    ],
+    description:
+      "Generalized representation of the Olentangy recreational corridor through central Columbus."
+  },
+
+  {
+    name:"Dublin Scioto / Bridge Park Active Corridor",
+    coordinates:[
+      [40.1130,-83.1175],
+      [40.1080,-83.1165],
+      [40.1030,-83.1150],
+      [40.0997,-83.1143],
+      [40.0950,-83.1135],
+      [40.0900,-83.1125]
+    ],
+    description:
+      "Generalized active-lifestyle corridor centered on the Dublin Link, Scioto riverfront, and Bridge Park environment."
+  }
+
+];
+
+
+/* =====================================================
+   MAP
+   ===================================================== */
+
+const map = L.map(
+  "map",
+  {
+    zoomControl:true,
+    preferCanvas:true
+  }
+);
+
+
+/* =====================================================
+   BASEMAP
+   ===================================================== */
+
+const osm = L.tileLayer(
+  "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+  {
+    maxZoom:19,
+    attribution:
+      '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+  }
+).addTo(map);
+
+
+/* =====================================================
+   LAYER GROUPS
+   ===================================================== */
+
+const layers = {
+
+  candidates:
+    L.layerGroup().addTo(map),
+
+  rings:
+    L.layerGroup().addTo(map),
+
+  nb:
+    L.layerGroup().addTo(map),
+
+  crc:
+    L.layerGroup().addTo(map),
+
+  majorRetail:
+    L.layerGroup().addTo(map),
+
+  active:
+    L.layerGroup().addTo(map),
+
+  brandFit:
+    L.layerGroup().addTo(map)
+
+};
+
+
+/* =====================================================
+   ICON FUNCTIONS
+   ===================================================== */
+
+function makeIcon(label, cls, small=false) {
+
+  const size = small ? 22 : 28;
+
+  return L.divIcon({
+    className:"",
+    html:
+      `<div class="marker ${small ? "small " : ""}${cls}">
+        ${label}
+      </div>`,
+    iconSize:[size,size],
+    iconAnchor:[size/2,size/2],
+    popupAnchor:[0,-size/2]
+  });
+
+}
+
+
+function makeActiveIcon() {
+
+  return L.divIcon({
+    className:"",
+    html:
+      `<div class="active-marker">R</div>`,
+    iconSize:[18,18],
+    iconAnchor:[9,9],
+    popupAnchor:[0,-10]
+  });
+
+}
+
+
+function makeScoreIcon(p) {
+
+  return L.divIcon({
+    className:"",
+    html:
+      `<div class="score-badge score-${p.id.toLowerCase()}">
+        ${p.id} | ${p.score}
+      </div>`,
+    iconSize:[58,26],
+    iconAnchor:[29,13],
+    popupAnchor:[0,-15]
+  });
+
+}
+
+
+/* =====================================================
+   CANDIDATE COLORS
+   ===================================================== */
+
+const candidateColors = {
+  A:"#18864b",
+  B:"#245bbf",
+  C:"#df3e32"
+};
+
+
+/* =====================================================
+   POPUPS
+   ===================================================== */
+
+function candidatePopup(p) {
+
+  return `
+
+    <div class="popup-title">
+      ${p.id} | ${p.name}
+    </div>
+
+    <div class="popup-category">
+      Candidate Area
+    </div>
+
+    <div class="popup-score">
+      Brand-Market Fit: ${p.score}
+    </div>
+
+    <b>${p.headline}</b>
+
+    <div class="popup-role">
+      ${p.strategy}
+    </div>
+
+    <div class="popup-role">
+      <b>Strategic role:</b><br>
+      ${p.role}
+    </div>
+
+    <div class="popup-note">
+      Candidate areas are compared using consistent
+      3-mile study areas within an independent
+      Brand-Market Fit framework.
+    </div>
+
+  `;
+
+}
+
+
+function generalPopup(p) {
+
+  if (p.type === "new_balance") {
+
+    return `
+
+      <div class="popup-title">
+        ${p.name}
+      </div>
+
+      <div class="popup-category">
+        New Balance Owned Retail
+      </div>
+
+      ${p.description}
+
+      <div class="popup-note">
+        Owned retail is analytically distinct from
+        specialty or multibrand distribution.
+      </div>
+
+    `;
+
+  }
+
+
+  if (p.type === "crc") {
+
+    return `
+
+      <div class="popup-title">
+        ${p.name}
+      </div>
+
+      <div class="popup-category">
+        Specialty Running / New Balance Distribution
+      </div>
+
+      ${p.description}
+
+      <div class="popup-note">
+        Specialty running locations provide both
+        distribution context and evidence of the
+        local running ecosystem.
+      </div>
+
+    `;
+
+  }
+
+
+  if (p.type === "major_retail") {
+
+    return `
+
+      <div class="popup-title">
+        ${p.name}
+      </div>
+
+      <div class="popup-category">
+        Major Athletic Retail Node
+      </div>
+
+      ${p.description}
+
+      <div class="popup-role">
+        <b>Strategic relevance:</b><br>
+        ${p.role}
+      </div>
+
+    `;
+
+  }
+
+}
+
+
+/* =====================================================
+   ADD CANDIDATES, RINGS, RETAIL ECOSYSTEM
+   ===================================================== */
+
+points.forEach(p => {
+
+  let target;
+  let icon;
+
+
+  if (p.type === "candidate") {
+
+    target =
+      layers.candidates;
+
+    icon =
+      makeIcon(
+        p.id,
+        p.id.toLowerCase()
+      );
+
+
+    L.circle(
+      [p.lat,p.lon],
+      {
+        radius:4828.032,
+        color:candidateColors[p.id],
+        weight:2,
+        dashArray:"7 6",
+        fillColor:candidateColors[p.id],
+        fillOpacity:.055
+      }
+    )
+    .bindTooltip(
+      `${p.id} | 3-mile evaluation area`
+    )
+    .addTo(
+      layers.rings
+    );
+
+  }
+
+
+  else if (p.type === "new_balance") {
+
+    target =
+      layers.nb;
+
+    icon =
+      makeIcon(
+        "NB",
+        "nb",
+        true
+      );
+
+  }
+
+
+  else if (p.type === "crc") {
+
+    target =
+      layers.crc;
+
+    icon =
+      makeIcon(
+        "R",
+        "crc",
+        true
+      );
+
+  }
+
+
+  else if (p.type === "major_retail") {
+
+    target =
+      layers.majorRetail;
+
+    icon =
+      makeIcon(
+        "M",
+        "major-retail",
+        true
+      );
+
+  }
+
+
+  L.marker(
+    [p.lat,p.lon],
+    {
+      icon:icon
+    }
+  )
+  .bindPopup(
+    p.type === "candidate"
+      ? candidatePopup(p)
+      : generalPopup(p),
+    {
+      maxWidth:320
+    }
+  )
+  .bindTooltip(
+    p.name,
+    {
+      direction:"top",
+      offset:[0,-8]
+    }
+  )
+  .addTo(
+    target
+  );
+
+});
+
+
+/* =====================================================
+   ADD ACTIVE-LIFESTYLE CORRIDORS
+   ===================================================== */
+
+activeCorridors.forEach(corridor => {
+
+  L.polyline(
+    corridor.coordinates,
+    {
+      color:"#059669",
+      weight:5,
+      opacity:.45,
+      lineCap:"round",
+      lineJoin:"round"
+    }
+  )
+  .bindPopup(
+    `
+      <div class="popup-title">
+        ${corridor.name}
+      </div>
+
+      <div class="popup-category">
+        Running / Active-Lifestyle Corridor
+      </div>
+
+      ${corridor.description}
+
+      <div class="popup-note">
+        Corridor geometry is generalized for
+        metropolitan-scale analytical context.
+      </div>
+    `
+  )
+  .bindTooltip(
+    corridor.name
+  )
+  .addTo(
+    layers.active
+  );
+
+});
+
+
+/* =====================================================
+   ADD ACTIVE-LIFESTYLE POINTS
+   ===================================================== */
+
+activePoints.forEach(p => {
+
+  L.marker(
+    [p.lat,p.lon],
+    {
+      icon:makeActiveIcon(),
+      zIndexOffset:250
+    }
+  )
+  .bindPopup(
+    `
+      <div class="popup-title">
+        ${p.name}
+      </div>
+
+      <div class="popup-category">
+        Running / Active-Lifestyle Geography
+      </div>
+
+      ${p.description}
+
+      <div class="popup-role">
+        <b>Strategic relevance:</b><br>
+        ${p.role}
+      </div>
+    `,
+    {
+      maxWidth:320
+    }
+  )
+  .bindTooltip(
+    p.name,
+    {
+      direction:"top",
+      offset:[0,-7]
+    }
+  )
+  .addTo(
+    layers.active
+  );
+
+});
+
+
+/* =====================================================
+   V4 BRAND-MARKET FIT LAYER
+   NO SUBSCORES
+   ===================================================== */
+
+const scoreOffsets = {
+
+  A:[40.1220,-83.1000],
+
+  B:[39.9940,-82.9910],
+
+  C:[40.0680,-82.9000]
+
+};
+
+
+points
+.filter(p => p.type === "candidate")
+.forEach(p => {
+
+
+  /* Soft analytical halo */
+
+  L.circle(
+    [p.lat,p.lon],
+    {
+      radius:6900,
+      color:candidateColors[p.id],
+      weight:1.25,
+      opacity:.55,
+      fillColor:candidateColors[p.id],
+      fillOpacity:.07
+    }
+  )
+  .bindPopup(
+    candidatePopup(p),
+    {
+      maxWidth:320
+    }
+  )
+  .bindTooltip(
+    `${p.id} | Brand-Market Fit ${p.score}`
+  )
+  .addTo(
+    layers.brandFit
+  );
+
+
+  /* Overall score badge */
+
+  L.marker(
+    scoreOffsets[p.id],
+    {
+      icon:makeScoreIcon(p),
+      zIndexOffset:500
+    }
+  )
+  .bindPopup(
+    candidatePopup(p),
+    {
+      maxWidth:320
+    }
+  )
+  .bindTooltip(
+    `${p.name} | Brand-Market Fit ${p.score}`,
+    {
+      direction:"top",
+      offset:[0,-8]
+    }
+  )
+  .addTo(
+    layers.brandFit
+  );
+
+});
+
+
+/* =====================================================
+   LAYER CONTROL
+   ===================================================== */
+
+L.control.layers(
+
+  null,
+
+  {
+    "Candidate Areas":
+      layers.candidates,
+
+    "3-Mile Evaluation Areas":
+      layers.rings,
+
+    "New Balance Owned Retail":
+      layers.nb,
+
+    "Specialty Running / NB Distribution":
+      layers.crc,
+
+    "Major Athletic Retail Nodes":
+      layers.majorRetail,
+
+    "Running & Active-Lifestyle Geography":
+      layers.active,
+
+    "Brand-Market Fit Analysis":
+      layers.brandFit
+  },
+
+  {
+    collapsed:true,
+    position:"topright"
+  }
+
+).addTo(map);
+
+
+/* =====================================================
+   SCALE
+   ===================================================== */
+
+L.control.scale(
+  {
+    imperial:true,
+    metric:true,
+    position:"bottomleft"
+  }
+).addTo(map);
+
+
+/* =====================================================
+   LEGEND
+   ===================================================== */
+
+const legend =
+  L.control(
+    {
+      position:"bottomright"
+    }
+  );
+
+
+legend.onAdd =
+function() {
+
+  const d =
+    L.DomUtil.create(
+      "div",
+      "legend"
+    );
+
+
+  d.innerHTML = `
+
+    <div class="legend-section">
+      CANDIDATE AREAS
+    </div>
+
+    <span class="legend-row">
+      <span class="dot" style="background:#18864b"></span>
+      A Dublin / Bridge Park
+    </span>
+
+    <br>
+
+    <span class="legend-row">
+      <span class="dot" style="background:#245bbf"></span>
+      B Short North / High Street
+    </span>
+
+    <br>
+
+    <span class="legend-row">
+      <span class="dot" style="background:#df3e32"></span>
+      C Easton Town Center
+    </span>
+
+    <br>
+
+    <span class="legend-row">
+      <span class="ring"></span>
+      3-mile evaluation area
+    </span>
+
+
+    <div class="legend-section">
+      BRAND & RETAIL ECOSYSTEM
+    </div>
+
+    <span class="legend-row">
+      <span class="dot" style="background:#d71920"></span>
+      NB New Balance owned retail
+    </span>
+
+    <br>
+
+    <span class="legend-row">
+      <span class="dot" style="background:#1667b1"></span>
+      R Specialty running / NB distribution
+    </span>
+
+    <br>
+
+    <span class="legend-row">
+      <span class="dot" style="background:#7b3fc6"></span>
+      M Major athletic retail node
+    </span>
+
+
+    <div class="legend-section">
+      ACTIVE-LIFESTYLE GEOGRAPHY
+    </div>
+
+    <span class="legend-row">
+      <span class="dot" style="background:#059669"></span>
+      Running / active-lifestyle node
+    </span>
+
+    <br>
+
+    <span class="legend-row">
+      <span class="active-line"></span>
+      Running / recreational corridor
+    </span>
+
+
+    <div class="legend-section">
+      BRAND-MARKET FIT
+    </div>
+
+    <span class="legend-row">
+      <span class="fit-halo"></span>
+      Candidate analytical context
+    </span>
+
+    <br>
+
+    <span class="legend-row">
+      Score badge = overall Brand-Market Fit
+    </span>
+
+  `;
+
+
+  return d;
+
+};
+
+
+legend.addTo(map);
+
+
+/* =====================================================
+   INITIAL MAP EXTENT
+   ===================================================== */
+
+const allControlPoints = [
+
+  ...points.map(
+    p => [p.lat,p.lon]
+  ),
+
+  ...activePoints.map(
+    p => [p.lat,p.lon]
+  )
+
+];
+
+
+const bounds =
+  L.latLngBounds(
+    allControlPoints
+  );
+
+
+map.fitBounds(
+  bounds.pad(.08)
+);
+
+</script>
+
+</body>
+</html>
