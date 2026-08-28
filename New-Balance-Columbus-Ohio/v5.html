@@ -23,7 +23,6 @@ body {
   height:100%;
   margin:0;
   padding:0;
-
   font-family:
     -apple-system,
     BlinkMacSystemFont,
@@ -31,7 +30,6 @@ body {
     Roboto,
     Arial,
     sans-serif;
-
   background:#f4f5f7;
 }
 
@@ -49,88 +47,63 @@ body {
 
 #title {
   position:absolute;
-
   top:max(14px, env(safe-area-inset-top));
   left:14px;
-
   z-index:1000;
-
   width:min(390px, calc(100vw - 28px));
-
   box-sizing:border-box;
-
   background:rgba(255,255,255,.97);
-
   border:1px solid rgba(15,23,42,.08);
-
   border-radius:12px;
-
   padding:12px 14px;
-
-  box-shadow:
-    0 4px 18px rgba(15,23,42,.16);
+  box-shadow:0 4px 18px rgba(15,23,42,.16);
 }
 
 #title .eyebrow {
   font-size:10px;
   line-height:1.2;
-
   font-weight:800;
-
   letter-spacing:.08em;
-
   color:#64748b;
-
   text-transform:uppercase;
-
   margin-bottom:4px;
 }
 
 #title h1 {
   margin:0 0 5px;
-
   font-size:18px;
   line-height:1.15;
-
   color:#172b4d;
 }
 
 #title p {
   margin:0;
-
   font-size:11.5px;
   line-height:1.35;
-
   color:#586474;
 }
 
 
 /* =====================================================
    CANDIDATE MARKERS
-   A RED / B BLUE / C GREEN
+   TRUE CENTROIDS
+   LARGER + SEMI-TRANSPARENT
    ===================================================== */
 
 .candidate-marker {
-  width:36px;
-  height:36px;
-
+  width:40px;
+  height:40px;
   border-radius:50%;
-
-  border:3px solid white;
-
+  border:3px solid rgba(255,255,255,.95);
   box-sizing:border-box;
-
-  box-shadow:
-    0 2px 8px rgba(0,0,0,.42);
-
+  box-shadow:0 2px 8px rgba(0,0,0,.30);
   color:white;
-
   display:flex;
   align-items:center;
   justify-content:center;
-
-  font-size:16px;
+  font-size:17px;
   font-weight:900;
+  opacity:.78;
 }
 
 .a {
@@ -153,27 +126,17 @@ body {
 .nb-marker {
   width:28px;
   height:28px;
-
   box-sizing:border-box;
-
   background:#ffffff;
-
   border:2px solid #111827;
-
   border-radius:3px;
-
-  box-shadow:
-    0 1px 5px rgba(0,0,0,.28);
-
+  box-shadow:0 1px 5px rgba(0,0,0,.28);
   color:#111827;
-
   display:flex;
   align-items:center;
   justify-content:center;
-
   font-size:10px;
   font-weight:900;
-
   letter-spacing:-.3px;
 }
 
@@ -184,71 +147,50 @@ body {
 
 .crc-marker-wrap {
   position:relative;
-
   width:30px;
   height:28px;
 }
 
 .crc-triangle {
   position:absolute;
-
   left:1px;
   top:1px;
-
   width:0;
   height:0;
-
   border-left:14px solid transparent;
   border-right:14px solid transparent;
   border-bottom:25px solid #f28c28;
-
-  filter:
-    drop-shadow(0 1px 2px rgba(0,0,0,.35));
+  filter:drop-shadow(0 1px 2px rgba(0,0,0,.35));
 }
 
 .crc-letter {
   position:absolute;
-
   left:0;
   top:10px;
-
   width:30px;
-
   text-align:center;
-
   color:white;
-
   font-size:10px;
   font-weight:900;
-
   z-index:2;
 }
 
 
 /* =====================================================
    MAJOR ATHLETIC RETAIL NODE
-   PURPLE SQUARE
    ===================================================== */
 
 .major-retail-marker {
   width:24px;
   height:24px;
-
   box-sizing:border-box;
-
   background:#7b3fc6;
-
   border-radius:2px;
-
-  box-shadow:
-    0 1px 5px rgba(0,0,0,.30);
-
+  box-shadow:0 1px 5px rgba(0,0,0,.30);
   color:white;
-
   display:flex;
   align-items:center;
   justify-content:center;
-
   font-size:11px;
   font-weight:900;
 }
@@ -260,43 +202,31 @@ body {
 
 .active-marker-wrap {
   position:relative;
-
   width:26px;
   height:24px;
 }
 
 .active-triangle {
   position:absolute;
-
   left:1px;
   top:1px;
-
   width:0;
   height:0;
-
   border-left:12px solid transparent;
   border-right:12px solid transparent;
   border-bottom:22px solid #6b7280;
-
-  filter:
-    drop-shadow(0 1px 2px rgba(0,0,0,.28));
+  filter:drop-shadow(0 1px 2px rgba(0,0,0,.28));
 }
 
 .active-letter {
   position:absolute;
-
   left:0;
   top:8px;
-
   width:26px;
-
   text-align:center;
-
   color:white;
-
   font-size:8px;
   font-weight:900;
-
   z-index:2;
 }
 
@@ -307,41 +237,27 @@ body {
 
 .legend {
   background:rgba(255,255,255,.97);
-
   padding:9px 11px;
-
   border-radius:10px;
-
   border:1px solid rgba(15,23,42,.08);
-
-  box-shadow:
-    0 2px 11px rgba(15,23,42,.15);
-
+  box-shadow:0 2px 11px rgba(15,23,42,.15);
   font-size:10.5px;
   line-height:1.45;
-
   max-width:235px;
 }
 
 .legend-title {
   font-size:10px;
-
   font-weight:900;
-
   letter-spacing:.06em;
-
   color:#334155;
-
   margin-bottom:4px;
-
   text-transform:uppercase;
 }
 
 .legend-section {
   font-weight:800;
-
   color:#172b4d;
-
   margin-top:6px;
   margin-bottom:2px;
 }
@@ -352,79 +268,53 @@ body {
 
 .dot {
   display:inline-block;
-
   width:10px;
   height:10px;
-
   border-radius:50%;
-
   margin-right:6px;
 }
 
 .nb-key {
   display:inline-flex;
-
   width:15px;
   height:15px;
-
   box-sizing:border-box;
-
   background:white;
-
   border:1.5px solid #111827;
-
   border-radius:2px;
-
   margin-right:6px;
-
   align-items:center;
   justify-content:center;
-
   font-size:6px;
   font-weight:900;
-
   color:#111827;
-
   vertical-align:-3px;
 }
 
 .major-key {
   display:inline-flex;
-
   width:14px;
   height:14px;
-
   box-sizing:border-box;
-
   background:#7b3fc6;
-
   border-radius:1px;
-
   margin-right:7px;
-
   align-items:center;
   justify-content:center;
-
   color:white;
-
   font-size:7px;
   font-weight:900;
-
   vertical-align:-2px;
 }
 
 .triangle-key {
   display:inline-block;
-
   width:0;
   height:0;
-
   border-left:7px solid transparent;
   border-right:7px solid transparent;
   border-bottom:13px solid;
-
   margin-right:7px;
-
   vertical-align:-2px;
 }
 
@@ -438,30 +328,20 @@ body {
 
 .gray-line {
   display:inline-block;
-
   width:20px;
-
   border-top:4px solid #6b7280;
-
   opacity:.72;
-
   margin-right:6px;
-
   vertical-align:3px;
 }
 
 .ring-key {
   display:inline-block;
-
   width:18px;
   height:9px;
-
   border:2px dashed #64748b;
-
   border-radius:50%;
-
   margin-right:6px;
-
   vertical-align:-2px;
 }
 
@@ -472,13 +352,9 @@ body {
 
 .leaflet-control-layers {
   margin-top:118px !important;
-
   border-radius:10px !important;
-
   border:1px solid rgba(15,23,42,.08) !important;
-
-  box-shadow:
-    0 2px 10px rgba(15,23,42,.14) !important;
+  box-shadow:0 2px 10px rgba(15,23,42,.14) !important;
 }
 
 
@@ -489,52 +365,38 @@ body {
 .popup-title {
   font-weight:800;
   font-size:14px;
-
   margin-bottom:4px;
 }
 
 .popup-category {
   color:#64748b;
-
   font-size:10px;
   font-weight:700;
-
   text-transform:uppercase;
-
   letter-spacing:.04em;
-
   margin-bottom:5px;
 }
 
 .popup-score {
   margin:3px 0 6px;
-
   font-size:19px;
   font-weight:900;
-
   color:#172b4d;
 }
 
 .popup-role {
   margin-top:7px;
-
   font-size:12px;
   line-height:1.4;
 }
 
 .popup-note {
   margin-top:7px;
-
   font-size:11px;
   line-height:1.35;
-
   color:#64748b;
 }
 
-
-/* =====================================================
-   MOBILE
-   ===================================================== */
 
 @media (max-width:699px) {
 
@@ -549,10 +411,6 @@ body {
 
 }
 
-
-/* =====================================================
-   PRINT
-   ===================================================== */
 
 @media print {
 
@@ -790,14 +648,13 @@ const activePoints = [
 
 
 /* =====================================================
-   GENERALIZED ACTIVE CORRIDORS
+   ACTIVE CORRIDORS
    ===================================================== */
 
 const activeCorridors = [
 
   {
     name:"Olentangy Running Corridor",
-
     coordinates:[
       [40.1160,-83.0330],
       [40.0960,-83.0320],
@@ -810,14 +667,12 @@ const activeCorridors = [
       [39.9680,-83.0165],
       [39.9520,-83.0125]
     ],
-
     description:
       "Generalized representation of the Olentangy recreational corridor through central Columbus."
   },
 
   {
     name:"Dublin Scioto / Bridge Park Active Corridor",
-
     coordinates:[
       [40.1130,-83.1175],
       [40.1080,-83.1165],
@@ -826,7 +681,6 @@ const activeCorridors = [
       [40.0950,-83.1135],
       [40.0900,-83.1125]
     ],
-
     description:
       "Generalized active-lifestyle corridor centered on the Dublin Link, Scioto riverfront, and Bridge Park environment."
   }
@@ -893,13 +747,9 @@ const layers = {
    ===================================================== */
 
 const candidateColors = {
-
   A:"#d73027",
-
   B:"#245bbf",
-
   C:"#18864b"
-
 };
 
 
@@ -910,20 +760,14 @@ const candidateColors = {
 function makeCandidateIcon(id) {
 
   return L.divIcon({
-
     className:"",
-
     html:
       `<div class="candidate-marker ${id.toLowerCase()}">
         ${id}
       </div>`,
-
-    iconSize:[36,36],
-
-    iconAnchor:[18,18],
-
-    popupAnchor:[0,-19]
-
+    iconSize:[40,40],
+    iconAnchor:[20,20],
+    popupAnchor:[0,-21]
   });
 
 }
@@ -932,18 +776,12 @@ function makeCandidateIcon(id) {
 function makeNBIcon() {
 
   return L.divIcon({
-
     className:"",
-
     html:
       `<div class="nb-marker">NB</div>`,
-
     iconSize:[28,28],
-
     iconAnchor:[14,14],
-
     popupAnchor:[0,-15]
-
   });
 
 }
@@ -952,21 +790,15 @@ function makeNBIcon() {
 function makeCRCIcon() {
 
   return L.divIcon({
-
     className:"",
-
     html:
       `<div class="crc-marker-wrap">
         <div class="crc-triangle"></div>
         <div class="crc-letter">R</div>
       </div>`,
-
     iconSize:[30,28],
-
     iconAnchor:[15,14],
-
     popupAnchor:[0,-15]
-
   });
 
 }
@@ -975,18 +807,12 @@ function makeCRCIcon() {
 function makeMajorRetailIcon() {
 
   return L.divIcon({
-
     className:"",
-
     html:
       `<div class="major-retail-marker">M</div>`,
-
     iconSize:[24,24],
-
     iconAnchor:[12,12],
-
     popupAnchor:[0,-13]
-
   });
 
 }
@@ -995,21 +821,15 @@ function makeMajorRetailIcon() {
 function makeActiveIcon() {
 
   return L.divIcon({
-
     className:"",
-
     html:
       `<div class="active-marker-wrap">
         <div class="active-triangle"></div>
         <div class="active-letter">R</div>
       </div>`,
-
     iconSize:[26,24],
-
     iconAnchor:[13,12],
-
     popupAnchor:[0,-13]
-
   });
 
 }
@@ -1035,9 +855,7 @@ function candidatePopup(p) {
       Brand-Market Fit: ${p.score}
     </div>
 
-    <b>
-      ${p.headline}
-    </b>
+    <b>${p.headline}</b>
 
     <div class="popup-role">
       ${p.strategy}
@@ -1058,7 +876,6 @@ function generalPopup(p) {
   if (p.type === "new_balance") {
 
     return `
-
       <div class="popup-title">
         ${p.name}
       </div>
@@ -1068,7 +885,6 @@ function generalPopup(p) {
       </div>
 
       ${p.description}
-
     `;
 
   }
@@ -1077,7 +893,6 @@ function generalPopup(p) {
   if (p.type === "crc") {
 
     return `
-
       <div class="popup-title">
         ${p.name}
       </div>
@@ -1087,7 +902,6 @@ function generalPopup(p) {
       </div>
 
       ${p.description}
-
     `;
 
   }
@@ -1096,7 +910,6 @@ function generalPopup(p) {
   if (p.type === "major_retail") {
 
     return `
-
       <div class="popup-title">
         ${p.name}
       </div>
@@ -1111,7 +924,6 @@ function generalPopup(p) {
         <b>Strategic relevance:</b><br>
         ${p.role}
       </div>
-
     `;
 
   }
@@ -1121,7 +933,6 @@ function generalPopup(p) {
 
 /* =====================================================
    CANDIDATE RINGS
-   TRUE CENTROIDS
    ===================================================== */
 
 points
@@ -1132,17 +943,11 @@ points
     [p.lat,p.lon],
     {
       radius:4828.032,
-
       color:candidateColors[p.id],
-
       weight:2,
-
       dashArray:"7 6",
-
       opacity:.78,
-
       fillColor:candidateColors[p.id],
-
       fillOpacity:.025
     }
   )
@@ -1157,58 +962,19 @@ points
 
 
 /* =====================================================
-   CANDIDATE SYMBOL POSITIONS
-   SLIGHT NORTHWARD CARTOGRAPHIC OFFSET
+   CANDIDATE MARKERS
+   TRUE CENTROIDS / LOWEST POINT Z-ORDER
    ===================================================== */
-
-const candidateDisplayPoints = {
-
-  A:[40.1118,-83.11018],
-
-  B:[39.9855,-83.004006],
-
-  C:[40.0585,-82.9150]
-
-};
-
 
 points
 .filter(p => p.type === "candidate")
 .forEach(p => {
 
-  const truePoint =
-    [p.lat,p.lon];
-
-  const displayPoint =
-    candidateDisplayPoints[p.id];
-
-
-  L.polyline(
-    [
-      truePoint,
-      displayPoint
-    ],
-    {
-      color:candidateColors[p.id],
-
-      weight:1.25,
-
-      opacity:.55,
-
-      dashArray:"2 3"
-    }
-  )
-  .addTo(
-    layers.candidates
-  );
-
-
   L.marker(
-    displayPoint,
+    [p.lat,p.lon],
     {
       icon:makeCandidateIcon(p.id),
-
-      zIndexOffset:900
+      zIndexOffset:100
     }
   )
   .bindPopup(
@@ -1221,7 +987,7 @@ points
     `${p.id} | ${p.name}`,
     {
       direction:"top",
-      offset:[0,-10]
+      offset:[0,-12]
     }
   )
   .addTo(
@@ -1232,7 +998,7 @@ points
 
 
 /* =====================================================
-   NEW BALANCE OWNED STORE
+   NEW BALANCE OWNED RETAIL
    ===================================================== */
 
 const nb =
@@ -1245,8 +1011,7 @@ L.marker(
   [nb.lat,nb.lon],
   {
     icon:makeNBIcon(),
-
-    zIndexOffset:450
+    zIndexOffset:500
   }
 )
 .bindPopup(
@@ -1268,34 +1033,19 @@ L.marker(
 
 
 /* =====================================================
-   CRC MARKERS
-   SHORT NORTH OFFSET PRESERVES TRUE LOCATION
+   SPECIALTY RUNNING
+   TRUE LOCATIONS / ABOVE CANDIDATES
    ===================================================== */
-
-const crcVisualOffsets = {
-
-  "CRC-SHORTNORTH":
-    [39.9747,-83.0080]
-
-};
-
 
 points
 .filter(p => p.type === "crc")
 .forEach(p => {
 
-  const displayPoint =
-    crcVisualOffsets[p.id]
-      ? crcVisualOffsets[p.id]
-      : [p.lat,p.lon];
-
-
   L.marker(
-    displayPoint,
+    [p.lat,p.lon],
     {
       icon:makeCRCIcon(),
-
-      zIndexOffset:500
+      zIndexOffset:650
     }
   )
   .bindPopup(
@@ -1315,62 +1065,23 @@ points
     layers.crc
   );
 
-
-  if (crcVisualOffsets[p.id]) {
-
-    L.polyline(
-      [
-        displayPoint,
-        [p.lat,p.lon]
-      ],
-      {
-        color:"#f28c28",
-
-        weight:1.2,
-
-        opacity:.65,
-
-        dashArray:"3 3"
-      }
-    )
-    .addTo(
-      layers.crc
-    );
-
-  }
-
 });
 
 
 /* =====================================================
    MAJOR RETAIL NODES
-   EASTON OFFSET PRESERVES TRUE LOCATION
+   TRUE LOCATIONS / ABOVE CANDIDATES
    ===================================================== */
-
-const retailVisualOffsets = {
-
-  "EASTON-NODE":
-    [40.0472,-82.9105]
-
-};
-
 
 points
 .filter(p => p.type === "major_retail")
 .forEach(p => {
 
-  const displayPoint =
-    retailVisualOffsets[p.id]
-      ? retailVisualOffsets[p.id]
-      : [p.lat,p.lon];
-
-
   L.marker(
-    displayPoint,
+    [p.lat,p.lon],
     {
       icon:makeMajorRetailIcon(),
-
-      zIndexOffset:475
+      zIndexOffset:600
     }
   )
   .bindPopup(
@@ -1390,30 +1101,6 @@ points
     layers.majorRetail
   );
 
-
-  if (retailVisualOffsets[p.id]) {
-
-    L.polyline(
-      [
-        displayPoint,
-        [p.lat,p.lon]
-      ],
-      {
-        color:"#7b3fc6",
-
-        weight:1.2,
-
-        opacity:.65,
-
-        dashArray:"3 3"
-      }
-    )
-    .addTo(
-      layers.majorRetail
-    );
-
-  }
-
 });
 
 
@@ -1427,13 +1114,9 @@ activeCorridors.forEach(corridor => {
     corridor.coordinates,
     {
       color:"#6b7280",
-
       weight:4,
-
       opacity:.45,
-
       lineCap:"round",
-
       lineJoin:"round"
     }
   )
@@ -1467,6 +1150,7 @@ activeCorridors.forEach(corridor => {
 
 /* =====================================================
    ACTIVE-LIFESTYLE NODES
+   TRUE LOCATIONS / ABOVE CANDIDATES
    ===================================================== */
 
 activePoints.forEach(p => {
@@ -1475,8 +1159,7 @@ activePoints.forEach(p => {
     [p.lat,p.lon],
     {
       icon:makeActiveIcon(),
-
-      zIndexOffset:350
+      zIndexOffset:550
     }
   )
   .bindPopup(
@@ -1543,7 +1226,6 @@ L.control.layers(
   },
   {
     collapsed:true,
-
     position:"topright"
   }
 ).addTo(map);
@@ -1556,9 +1238,7 @@ L.control.layers(
 L.control.scale(
   {
     imperial:true,
-
     metric:false,
-
     position:"bottomleft"
   }
 ).addTo(map);
@@ -1692,15 +1372,10 @@ map.fitBounds(
   finalBounds,
   {
     paddingTopLeft:[20,20],
-
     paddingBottomRight:[20,20]
   }
 );
 
-
-/* =====================================================
-   CONTROL EVENT HANDLING
-   ===================================================== */
 
 L.DomEvent.disableClickPropagation(
   document.getElementById("title")
