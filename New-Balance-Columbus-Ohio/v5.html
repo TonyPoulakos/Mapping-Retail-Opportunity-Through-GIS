@@ -1,1 +1,1899 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
 
+<title>New Balance Columbus V5</title>
+
+<link
+  rel="stylesheet"
+  href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+/>
+
+<script
+  src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js">
+</script>
+
+<style>
+
+html,
+body {
+  height:100%;
+  margin:0;
+  padding:0;
+
+  font-family:
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    Arial,
+    sans-serif;
+
+  background:#f4f5f7;
+}
+
+#map {
+  position:fixed;
+  inset:0;
+  width:100%;
+  height:100%;
+}
+
+
+/* =====================================================
+   TITLE PANEL
+   ===================================================== */
+
+#title {
+  position:absolute;
+
+  top:max(14px, env(safe-area-inset-top));
+  left:14px;
+
+  z-index:1000;
+
+  width:min(390px, calc(100vw - 28px));
+
+  box-sizing:border-box;
+
+  background:rgba(255,255,255,.97);
+
+  border:1px solid rgba(15,23,42,.08);
+
+  border-radius:12px;
+
+  padding:12px 14px;
+
+  box-shadow:
+    0 4px 18px rgba(15,23,42,.16);
+}
+
+#title .eyebrow {
+  font-size:10px;
+  line-height:1.2;
+
+  font-weight:800;
+
+  letter-spacing:.08em;
+
+  color:#64748b;
+
+  text-transform:uppercase;
+
+  margin-bottom:4px;
+}
+
+#title h1 {
+  margin:0 0 5px;
+
+  font-size:18px;
+  line-height:1.15;
+
+  color:#172b4d;
+}
+
+#title p {
+  margin:0;
+
+  font-size:11.5px;
+  line-height:1.35;
+
+  color:#586474;
+}
+
+
+/* =====================================================
+   CANDIDATE MARKERS
+   A RED / B BLUE / C GREEN
+   ===================================================== */
+
+.candidate-marker {
+  width:30px;
+  height:30px;
+
+  border-radius:50%;
+
+  border:3px solid white;
+
+  box-sizing:border-box;
+
+  box-shadow:
+    0 2px 7px rgba(0,0,0,.42);
+
+  color:white;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  font-size:13px;
+  font-weight:900;
+}
+
+.a {
+  background:#d73027;
+}
+
+.b {
+  background:#245bbf;
+}
+
+.c {
+  background:#18864b;
+}
+
+
+/* =====================================================
+   NEW BALANCE OWNED RETAIL
+   ===================================================== */
+
+.nb-marker {
+  width:29px;
+  height:29px;
+
+  box-sizing:border-box;
+
+  background:#ffffff;
+
+  border:2px solid #111827;
+
+  border-radius:3px;
+
+  box-shadow:
+    0 1px 6px rgba(0,0,0,.34);
+
+  color:#111827;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  font-size:10px;
+  font-weight:900;
+
+  letter-spacing:-.3px;
+}
+
+
+/* =====================================================
+   SPECIALTY RUNNING / NB DISTRIBUTION
+   ===================================================== */
+
+.crc-marker-wrap {
+  position:relative;
+
+  width:30px;
+  height:28px;
+}
+
+.crc-triangle {
+  position:absolute;
+
+  left:1px;
+  top:1px;
+
+  width:0;
+  height:0;
+
+  border-left:14px solid transparent;
+  border-right:14px solid transparent;
+  border-bottom:25px solid #f28c28;
+
+  filter:
+    drop-shadow(0 1px 2px rgba(0,0,0,.38));
+}
+
+.crc-letter {
+  position:absolute;
+
+  left:0;
+  top:10px;
+
+  width:30px;
+
+  text-align:center;
+
+  color:white;
+
+  font-size:10px;
+  font-weight:900;
+
+  z-index:2;
+}
+
+
+/* =====================================================
+   MAJOR ATHLETIC RETAIL NODE
+   ===================================================== */
+
+.major-retail-marker {
+  width:23px;
+  height:23px;
+
+  box-sizing:border-box;
+
+  border-radius:50%;
+
+  background:#7b3fc6;
+
+  border:2px solid white;
+
+  box-shadow:
+    0 1px 6px rgba(0,0,0,.38);
+
+  color:white;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  font-size:10px;
+  font-weight:900;
+}
+
+
+/* =====================================================
+   ACTIVE-LIFESTYLE NODE
+   ===================================================== */
+
+.active-marker-wrap {
+  position:relative;
+
+  width:26px;
+  height:24px;
+}
+
+.active-triangle {
+  position:absolute;
+
+  left:1px;
+  top:1px;
+
+  width:0;
+  height:0;
+
+  border-left:12px solid transparent;
+  border-right:12px solid transparent;
+  border-bottom:22px solid #6b7280;
+
+  filter:
+    drop-shadow(0 1px 2px rgba(0,0,0,.30));
+}
+
+.active-letter {
+  position:absolute;
+
+  left:0;
+  top:8px;
+
+  width:26px;
+
+  text-align:center;
+
+  color:white;
+
+  font-size:8px;
+  font-weight:900;
+
+  z-index:2;
+}
+
+
+/* =====================================================
+   SCORE BADGES
+   ===================================================== */
+
+.score-badge {
+  min-width:54px;
+  height:27px;
+
+  box-sizing:border-box;
+
+  padding:0 8px;
+
+  border-radius:14px;
+
+  border:2px solid white;
+
+  box-shadow:
+    0 2px 8px rgba(0,0,0,.30);
+
+  color:white;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  font-size:11px;
+  font-weight:900;
+
+  white-space:nowrap;
+}
+
+.score-a {
+  background:#d73027;
+}
+
+.score-b {
+  background:#245bbf;
+}
+
+.score-c {
+  background:#18864b;
+}
+
+
+/* =====================================================
+   PERMANENT LABELS
+   ===================================================== */
+
+.site-label {
+  background:rgba(255,255,255,.94) !important;
+
+  border:1px solid rgba(15,23,42,.16) !important;
+
+  border-radius:6px !important;
+
+  box-shadow:
+    0 1px 5px rgba(15,23,42,.14);
+
+  color:#172b4d !important;
+
+  font-size:10.5px !important;
+
+  font-weight:700 !important;
+
+  padding:3px 6px !important;
+}
+
+.site-label:before {
+  display:none !important;
+}
+
+.site-label-a {
+  border-left:4px solid #d73027 !important;
+}
+
+.site-label-b {
+  border-left:4px solid #245bbf !important;
+}
+
+.site-label-c {
+  border-left:4px solid #18864b !important;
+}
+
+
+/* =====================================================
+   LEGEND
+   ===================================================== */
+
+.legend {
+  background:rgba(255,255,255,.97);
+
+  padding:9px 11px;
+
+  border-radius:10px;
+
+  border:1px solid rgba(15,23,42,.08);
+
+  box-shadow:
+    0 2px 11px rgba(15,23,42,.15);
+
+  font-size:10.5px;
+  line-height:1.45;
+
+  max-width:235px;
+}
+
+.legend-title {
+  font-size:10px;
+
+  font-weight:900;
+
+  letter-spacing:.06em;
+
+  color:#334155;
+
+  margin-bottom:4px;
+
+  text-transform:uppercase;
+}
+
+.legend-section {
+  font-weight:800;
+
+  color:#172b4d;
+
+  margin-top:6px;
+  margin-bottom:2px;
+}
+
+.legend-row {
+  white-space:nowrap;
+}
+
+.dot {
+  display:inline-block;
+
+  width:10px;
+  height:10px;
+
+  border-radius:50%;
+
+  margin-right:6px;
+}
+
+.nb-key {
+  display:inline-flex;
+
+  width:15px;
+  height:15px;
+
+  box-sizing:border-box;
+
+  background:white;
+
+  border:1.5px solid #111827;
+
+  border-radius:2px;
+
+  margin-right:6px;
+
+  align-items:center;
+  justify-content:center;
+
+  font-size:6px;
+  font-weight:900;
+
+  color:#111827;
+
+  vertical-align:-3px;
+}
+
+.triangle-key {
+  display:inline-block;
+
+  width:0;
+  height:0;
+
+  border-left:7px solid transparent;
+  border-right:7px solid transparent;
+  border-bottom:13px solid;
+
+  margin-right:7px;
+
+  vertical-align:-2px;
+}
+
+.triangle-orange {
+  border-bottom-color:#f28c28;
+}
+
+.triangle-gray {
+  border-bottom-color:#6b7280;
+}
+
+.gray-line {
+  display:inline-block;
+
+  width:20px;
+
+  border-top:4px solid #6b7280;
+
+  opacity:.72;
+
+  margin-right:6px;
+
+  vertical-align:3px;
+}
+
+.ring-key {
+  display:inline-block;
+
+  width:18px;
+  height:9px;
+
+  border:2px dashed #64748b;
+
+  border-radius:50%;
+
+  margin-right:6px;
+
+  vertical-align:-2px;
+}
+
+
+/* =====================================================
+   LAYER CONTROL
+   ===================================================== */
+
+.leaflet-control-layers {
+  margin-top:118px !important;
+
+  border-radius:10px !important;
+
+  border:1px solid rgba(15,23,42,.08) !important;
+
+  box-shadow:
+    0 2px 10px rgba(15,23,42,.14) !important;
+}
+
+
+/* =====================================================
+   POPUPS
+   ===================================================== */
+
+.popup-title {
+  font-weight:800;
+  font-size:14px;
+
+  margin-bottom:4px;
+}
+
+.popup-category {
+  color:#64748b;
+
+  font-size:10px;
+  font-weight:700;
+
+  text-transform:uppercase;
+
+  letter-spacing:.04em;
+
+  margin-bottom:5px;
+}
+
+.popup-score {
+  margin:3px 0 6px;
+
+  font-size:19px;
+  font-weight:900;
+
+  color:#172b4d;
+}
+
+.popup-role {
+  margin-top:7px;
+
+  font-size:12px;
+  line-height:1.4;
+}
+
+.popup-note {
+  margin-top:7px;
+
+  font-size:11px;
+  line-height:1.35;
+
+  color:#64748b;
+}
+
+
+/* =====================================================
+   MOBILE
+   ===================================================== */
+
+@media (max-width:699px) {
+
+  #title {
+    width:calc(100vw - 28px);
+  }
+
+  .legend {
+    max-width:210px;
+    font-size:10px;
+  }
+
+}
+
+
+/* =====================================================
+   PRINT / SCREENSHOT SUPPORT
+   ===================================================== */
+
+@media print {
+
+  .leaflet-control-zoom,
+  .leaflet-control-layers {
+    display:none !important;
+  }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<div id="map"></div>
+
+<div id="title">
+
+  <div class="eyebrow">
+    Mapping Retail Opportunity Through GIS
+  </div>
+
+  <h1>
+    New Balance Columbus | Brand-Market Fit
+  </h1>
+
+  <p>
+    Three candidate strategies viewed alongside New Balance retail,
+    specialty-running distribution, active-lifestyle geography,
+    and the broader athletic-retail network.
+  </p>
+
+</div>
+
+<script>
+
+
+/* =====================================================
+   MASTER GEOGRAPHIC CONTROL
+   ===================================================== */
+
+const points = [
+
+  {
+    id:"A",
+    name:"Dublin / Bridge Park",
+    lat:40.10424,
+    lon:-83.11018,
+    type:"candidate",
+    score:87,
+    headline:"Balanced Growth Opportunity",
+    strategy:
+      "Dublin offers the strongest overall balance of market quality, active-lifestyle alignment, mixed-use placemaking, and network expansion potential.",
+    role:
+      "Expand the owned retail network into a high-value mixed-use market with strong lifestyle and experiential alignment."
+  },
+
+  {
+    id:"B",
+    name:"Short North / High Street",
+    lat:39.977984,
+    lon:-83.004006,
+    type:"candidate",
+    score:86,
+    headline:"Running & Urban Brand Connection",
+    strategy:
+      "Short North provides the strongest direct connection to Columbus's urban running and lifestyle culture.",
+    role:
+      "Build deeper brand relevance through an urban location closely connected to running, community, culture, and lifestyle."
+  },
+
+  {
+    id:"C",
+    name:"Easton Town Center",
+    lat:40.0510,
+    lon:-82.9150,
+    type:"candidate",
+    score:84,
+    headline:"Regional Retail Visibility",
+    strategy:
+      "Easton offers the strongest conventional regional retail platform of the three candidates.",
+    role:
+      "Capture regional destination traffic and maximize visibility within an established athletic and lifestyle retail cluster."
+  },
+
+  {
+    id:"NB-SUNBURY",
+    name:"New Balance Factory Store - Sunbury",
+    lat:40.2690,
+    lon:-82.9270,
+    type:"new_balance",
+    description:
+      "Existing New Balance-owned factory store serving the Columbus market from the north."
+  },
+
+  {
+    id:"CRC-DUBLIN",
+    name:"Columbus Running Company - Dublin",
+    lat:40.1020,
+    lon:-83.1620,
+    type:"crc",
+    description:
+      "Specialty running retailer with New Balance distribution and community running activity."
+  },
+
+  {
+    id:"CRC-SHORTNORTH",
+    name:"Columbus Running Company - Short North",
+    lat:39.977984,
+    lon:-83.004006,
+    type:"crc",
+    description:
+      "Specialty running retailer with New Balance distribution and recurring community running activity."
+  },
+
+  {
+    id:"CRC-WESTERVILLE",
+    name:"Columbus Running Company - Westerville",
+    lat:40.1278,
+    lon:-82.9290,
+    type:"crc",
+    description:
+      "Specialty running retailer and New Balance distribution point."
+  },
+
+  {
+    id:"CRC-DELAWARE",
+    name:"Columbus Running Company - Delaware",
+    lat:40.2998,
+    lon:-83.0670,
+    type:"crc",
+    description:
+      "Specialty running retailer and New Balance distribution point."
+  },
+
+  {
+    id:"CRC-GROVECITY",
+    name:"Columbus Running Company - Grove City",
+    lat:39.8810,
+    lon:-83.0930,
+    type:"crc",
+    description:
+      "Specialty running retailer and New Balance distribution point."
+  },
+
+  {
+    id:"CRC-PICKERINGTON",
+    name:"Columbus Running Company - Pickerington",
+    lat:39.9050,
+    lon:-82.7530,
+    type:"crc",
+    description:
+      "Specialty running retailer and New Balance distribution point."
+  },
+
+  {
+    id:"EASTON-NODE",
+    name:"Easton Athletic Retail Cluster",
+    lat:40.0510,
+    lon:-82.9150,
+    type:"major_retail",
+    description:
+      "Major regional athletic and lifestyle retail cluster with substantial complementary and competitive athletic retail.",
+    role:
+      "Provides strong retail visibility and market draw, while also representing substantial existing multibrand athletic distribution."
+  },
+
+  {
+    id:"POLARIS",
+    name:"Polaris Athletic Retail Cluster",
+    lat:40.1455,
+    lon:-82.9810,
+    type:"major_retail",
+    description:
+      "Major regional retail node with substantial athletic retail presence north of Columbus.",
+    role:
+      "Provides important context for the existing athletic-retail ecosystem north of the candidate areas."
+  }
+
+];
+
+
+/* =====================================================
+   ACTIVE-LIFESTYLE POINTS
+   ===================================================== */
+
+const activePoints = [
+
+  {
+    id:"AL-DUBLIN",
+    name:"Dublin Link / Bridge Park",
+    lat:40.0997,
+    lon:-83.1143,
+    description:
+      "Major pedestrian connection across the Scioto River linking Historic Dublin and Bridge Park.",
+    role:
+      "Supports the active-lifestyle character of Candidate A and connects Bridge Park directly into a walkable riverfront environment."
+  },
+
+  {
+    id:"AL-OLENTANGY",
+    name:"Olentangy Trail - Short North Access",
+    lat:39.9835,
+    lon:-83.0194,
+    description:
+      "Key north-south recreational and running corridor serving central Columbus.",
+    role:
+      "CRC's Short North running routes use both the north and south Olentangy Trail, reinforcing Candidate B's connection to established running infrastructure."
+  },
+
+  {
+    id:"AL-BRIDGEPARK-RUN",
+    name:"Bridge Park Community Running Activity",
+    lat:40.1032,
+    lon:-83.1130,
+    description:
+      "Bridge Park is an emerging community-running destination, including CRC-supported social running activity.",
+    role:
+      "Adds direct evidence of running-community activity within Candidate A's immediate mixed-use environment."
+  },
+
+  {
+    id:"AL-SHORTNORTH-RUN",
+    name:"Short North Running Community",
+    lat:39.9810,
+    lon:-83.0065,
+    description:
+      "Recurring community runs and seasonal workouts operate in and around the Short North.",
+    role:
+      "Reinforces Candidate B as a location embedded in an established urban running and active-lifestyle community."
+  }
+
+];
+
+
+/* =====================================================
+   GENERALIZED ACTIVE CORRIDORS
+   ===================================================== */
+
+const activeCorridors = [
+
+  {
+    name:"Olentangy Running Corridor",
+
+    coordinates:[
+      [40.1160,-83.0330],
+      [40.0960,-83.0320],
+      [40.0750,-83.0290],
+      [40.0540,-83.0260],
+      [40.0350,-83.0240],
+      [40.0170,-83.0220],
+      [39.9980,-83.0200],
+      [39.9835,-83.0194],
+      [39.9680,-83.0165],
+      [39.9520,-83.0125]
+    ],
+
+    description:
+      "Generalized representation of the Olentangy recreational corridor through central Columbus."
+  },
+
+  {
+    name:"Dublin Scioto / Bridge Park Active Corridor",
+
+    coordinates:[
+      [40.1130,-83.1175],
+      [40.1080,-83.1165],
+      [40.1030,-83.1150],
+      [40.0997,-83.1143],
+      [40.0950,-83.1135],
+      [40.0900,-83.1125]
+    ],
+
+    description:
+      "Generalized active-lifestyle corridor centered on the Dublin Link, Scioto riverfront, and Bridge Park environment."
+  }
+
+];
+
+
+/* =====================================================
+   MAP
+   ===================================================== */
+
+const map = L.map(
+  "map",
+  {
+    zoomControl:true,
+    preferCanvas:true
+  }
+);
+
+
+/* =====================================================
+   BASEMAP
+   ===================================================== */
+
+L.tileLayer(
+  "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+  {
+    maxZoom:19,
+    attribution:
+      '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+  }
+).addTo(map);
+
+
+/* =====================================================
+   LAYERS
+   ===================================================== */
+
+const layers = {
+
+  candidateRings:
+    L.layerGroup().addTo(map),
+
+  brandFit:
+    L.layerGroup().addTo(map),
+
+  candidates:
+    L.layerGroup().addTo(map),
+
+  nb:
+    L.layerGroup().addTo(map),
+
+  crc:
+    L.layerGroup().addTo(map),
+
+  majorRetail:
+    L.layerGroup().addTo(map),
+
+  active:
+    L.layerGroup().addTo(map)
+
+};
+
+
+/* =====================================================
+   COLORS
+   ===================================================== */
+
+const candidateColors = {
+
+  A:"#d73027",
+
+  B:"#245bbf",
+
+  C:"#18864b"
+
+};
+
+
+/* =====================================================
+   ICONS
+   ===================================================== */
+
+function makeCandidateIcon(id) {
+
+  return L.divIcon({
+
+    className:"",
+
+    html:
+      `<div class="candidate-marker ${id.toLowerCase()}">
+        ${id}
+      </div>`,
+
+    iconSize:[30,30],
+
+    iconAnchor:[15,15],
+
+    popupAnchor:[0,-16]
+
+  });
+
+}
+
+
+function makeNBIcon() {
+
+  return L.divIcon({
+
+    className:"",
+
+    html:
+      `<div class="nb-marker">NB</div>`,
+
+    iconSize:[29,29],
+
+    iconAnchor:[14.5,14.5],
+
+    popupAnchor:[0,-16]
+
+  });
+
+}
+
+
+function makeCRCIcon() {
+
+  return L.divIcon({
+
+    className:"",
+
+    html:
+      `<div class="crc-marker-wrap">
+        <div class="crc-triangle"></div>
+        <div class="crc-letter">R</div>
+      </div>`,
+
+    iconSize:[30,28],
+
+    iconAnchor:[15,14],
+
+    popupAnchor:[0,-15]
+
+  });
+
+}
+
+
+function makeMajorRetailIcon() {
+
+  return L.divIcon({
+
+    className:"",
+
+    html:
+      `<div class="major-retail-marker">M</div>`,
+
+    iconSize:[23,23],
+
+    iconAnchor:[11.5,11.5],
+
+    popupAnchor:[0,-13]
+
+  });
+
+}
+
+
+function makeActiveIcon() {
+
+  return L.divIcon({
+
+    className:"",
+
+    html:
+      `<div class="active-marker-wrap">
+        <div class="active-triangle"></div>
+        <div class="active-letter">R</div>
+      </div>`,
+
+    iconSize:[26,24],
+
+    iconAnchor:[13,12],
+
+    popupAnchor:[0,-13]
+
+  });
+
+}
+
+
+function makeScoreIcon(p) {
+
+  return L.divIcon({
+
+    className:"",
+
+    html:
+      `<div class="score-badge score-${p.id.toLowerCase()}">
+        ${p.id} | ${p.score}
+      </div>`,
+
+    iconSize:[58,27],
+
+    iconAnchor:[29,13.5],
+
+    popupAnchor:[0,-16]
+
+  });
+
+}
+
+
+/* =====================================================
+   POPUPS
+   ===================================================== */
+
+function candidatePopup(p) {
+
+  return `
+
+    <div class="popup-title">
+      ${p.id} | ${p.name}
+    </div>
+
+    <div class="popup-category">
+      Candidate Area
+    </div>
+
+    <div class="popup-score">
+      Brand-Market Fit: ${p.score}
+    </div>
+
+    <b>
+      ${p.headline}
+    </b>
+
+    <div class="popup-role">
+      ${p.strategy}
+    </div>
+
+    <div class="popup-role">
+      <b>Strategic role:</b><br>
+      ${p.role}
+    </div>
+
+    <div class="popup-note">
+      Candidate areas are compared using consistent
+      3-mile study areas within an independent
+      Brand-Market Fit framework.
+    </div>
+
+  `;
+
+}
+
+
+function generalPopup(p) {
+
+  if (p.type === "new_balance") {
+
+    return `
+
+      <div class="popup-title">
+        ${p.name}
+      </div>
+
+      <div class="popup-category">
+        New Balance Owned Retail
+      </div>
+
+      ${p.description}
+
+      <div class="popup-note">
+        Owned retail is analytically distinct from
+        specialty or multibrand distribution.
+      </div>
+
+    `;
+
+  }
+
+
+  if (p.type === "crc") {
+
+    return `
+
+      <div class="popup-title">
+        ${p.name}
+      </div>
+
+      <div class="popup-category">
+        Specialty Running / New Balance Distribution
+      </div>
+
+      ${p.description}
+
+      <div class="popup-note">
+        Specialty running locations provide both
+        distribution context and evidence of the
+        local running ecosystem.
+      </div>
+
+    `;
+
+  }
+
+
+  if (p.type === "major_retail") {
+
+    return `
+
+      <div class="popup-title">
+        ${p.name}
+      </div>
+
+      <div class="popup-category">
+        Major Athletic Retail Node
+      </div>
+
+      ${p.description}
+
+      <div class="popup-role">
+        <b>Strategic relevance:</b><br>
+        ${p.role}
+      </div>
+
+    `;
+
+  }
+
+}
+
+
+/* =====================================================
+   CANDIDATE RINGS
+   ===================================================== */
+
+points
+.filter(p => p.type === "candidate")
+.forEach(p => {
+
+  L.circle(
+    [p.lat,p.lon],
+    {
+      radius:4828.032,
+
+      color:candidateColors[p.id],
+
+      weight:2,
+
+      dashArray:"7 6",
+
+      opacity:.75,
+
+      fillColor:candidateColors[p.id],
+
+      fillOpacity:.025
+    }
+  )
+  .bindTooltip(
+    `${p.id} | 3-mile evaluation area`
+  )
+  .addTo(
+    layers.candidateRings
+  );
+
+});
+
+
+/* =====================================================
+   BRAND-MARKET FIT HALOS
+   ===================================================== */
+
+points
+.filter(p => p.type === "candidate")
+.forEach(p => {
+
+  L.circle(
+    [p.lat,p.lon],
+    {
+      radius:6350,
+
+      color:candidateColors[p.id],
+
+      weight:1,
+
+      opacity:.35,
+
+      fillColor:candidateColors[p.id],
+
+      fillOpacity:.035
+    }
+  )
+  .bindPopup(
+    candidatePopup(p),
+    {
+      maxWidth:320
+    }
+  )
+  .bindTooltip(
+    `${p.name} | Brand-Market Fit ${p.score}`
+  )
+  .addTo(
+    layers.brandFit
+  );
+
+});
+
+
+/* =====================================================
+   SCORE BADGES
+   ===================================================== */
+
+const scoreOffsets = {
+
+  A:[40.1208,-83.0990],
+
+  B:[39.9948,-82.9905],
+
+  C:[40.0675,-82.8985]
+
+};
+
+
+points
+.filter(p => p.type === "candidate")
+.forEach(p => {
+
+  L.marker(
+    scoreOffsets[p.id],
+    {
+      icon:makeScoreIcon(p),
+
+      zIndexOffset:600,
+
+      interactive:true
+    }
+  )
+  .bindPopup(
+    candidatePopup(p),
+    {
+      maxWidth:320
+    }
+  )
+  .addTo(
+    layers.brandFit
+  );
+
+});
+
+
+/* =====================================================
+   CANDIDATE MARKERS
+   ===================================================== */
+
+points
+.filter(p => p.type === "candidate")
+.forEach(p => {
+
+  const marker =
+    L.marker(
+      [p.lat,p.lon],
+      {
+        icon:makeCandidateIcon(p.id),
+
+        zIndexOffset:900
+      }
+    )
+    .bindPopup(
+      candidatePopup(p),
+      {
+        maxWidth:320
+      }
+    )
+    .addTo(
+      layers.candidates
+    );
+
+
+  const directions = {
+
+    A:{
+      direction:"right",
+      offset:[14,-1]
+    },
+
+    B:{
+      direction:"right",
+      offset:[14,0]
+    },
+
+    C:{
+      direction:"right",
+      offset:[14,0]
+    }
+
+  };
+
+
+  marker.bindTooltip(
+    p.name,
+    {
+      permanent:true,
+
+      direction:
+        directions[p.id].direction,
+
+      offset:
+        directions[p.id].offset,
+
+      className:
+        `site-label site-label-${p.id.toLowerCase()}`,
+
+      opacity:1
+    }
+  );
+
+});
+
+
+/* =====================================================
+   NEW BALANCE OWNED STORE
+   ===================================================== */
+
+const nb =
+  points.find(
+    p => p.id === "NB-SUNBURY"
+  );
+
+
+L.marker(
+  [nb.lat,nb.lon],
+  {
+    icon:makeNBIcon(),
+
+    zIndexOffset:450
+  }
+)
+.bindPopup(
+  generalPopup(nb),
+  {
+    maxWidth:300
+  }
+)
+.bindTooltip(
+  "New Balance Factory Store - Sunbury",
+  {
+    direction:"right",
+    offset:[12,0]
+  }
+)
+.addTo(
+  layers.nb
+);
+
+
+/* =====================================================
+   CRC MARKERS
+   WITH VISUAL OFFSET FOR SHORT NORTH OVERLAP
+   ===================================================== */
+
+const crcVisualOffsets = {
+
+  "CRC-SHORTNORTH":
+    [39.9758,-83.0070]
+
+};
+
+
+points
+.filter(p => p.type === "crc")
+.forEach(p => {
+
+  const displayPoint =
+    crcVisualOffsets[p.id]
+      ? crcVisualOffsets[p.id]
+      : [p.lat,p.lon];
+
+
+  const marker =
+    L.marker(
+      displayPoint,
+      {
+        icon:makeCRCIcon(),
+
+        zIndexOffset:500
+      }
+    )
+    .bindPopup(
+      generalPopup(p),
+      {
+        maxWidth:300
+      }
+    )
+    .bindTooltip(
+      p.name,
+      {
+        direction:"top",
+        offset:[0,-8]
+      }
+    )
+    .addTo(
+      layers.crc
+    );
+
+
+  if (crcVisualOffsets[p.id]) {
+
+    L.polyline(
+      [
+        displayPoint,
+        [p.lat,p.lon]
+      ],
+      {
+        color:"#f28c28",
+        weight:1.3,
+        opacity:.75,
+        dashArray:"3 3"
+      }
+    )
+    .addTo(
+      layers.crc
+    );
+
+  }
+
+});
+
+
+/* =====================================================
+   MAJOR RETAIL NODES
+   WITH VISUAL OFFSET FOR EASTON OVERLAP
+   ===================================================== */
+
+const retailVisualOffsets = {
+
+  "EASTON-NODE":
+    [40.0482,-82.9118]
+
+};
+
+
+points
+.filter(p => p.type === "major_retail")
+.forEach(p => {
+
+  const displayPoint =
+    retailVisualOffsets[p.id]
+      ? retailVisualOffsets[p.id]
+      : [p.lat,p.lon];
+
+
+  L.marker(
+    displayPoint,
+    {
+      icon:makeMajorRetailIcon(),
+
+      zIndexOffset:475
+    }
+  )
+  .bindPopup(
+    generalPopup(p),
+    {
+      maxWidth:300
+    }
+  )
+  .bindTooltip(
+    p.name,
+    {
+      direction:"top",
+      offset:[0,-7]
+    }
+  )
+  .addTo(
+    layers.majorRetail
+  );
+
+
+  if (retailVisualOffsets[p.id]) {
+
+    L.polyline(
+      [
+        displayPoint,
+        [p.lat,p.lon]
+      ],
+      {
+        color:"#7b3fc6",
+        weight:1.3,
+        opacity:.75,
+        dashArray:"3 3"
+      }
+    )
+    .addTo(
+      layers.majorRetail
+    );
+
+  }
+
+});
+
+
+/* =====================================================
+   ACTIVE CORRIDORS
+   ===================================================== */
+
+activeCorridors.forEach(corridor => {
+
+  L.polyline(
+    corridor.coordinates,
+    {
+      color:"#6b7280",
+
+      weight:4,
+
+      opacity:.48,
+
+      lineCap:"round",
+
+      lineJoin:"round"
+    }
+  )
+  .bindPopup(
+    `
+      <div class="popup-title">
+        ${corridor.name}
+      </div>
+
+      <div class="popup-category">
+        Running / Active-Lifestyle Corridor
+      </div>
+
+      ${corridor.description}
+
+      <div class="popup-note">
+        Corridor geometry is generalized for
+        metropolitan-scale analytical context.
+      </div>
+    `
+  )
+  .bindTooltip(
+    corridor.name
+  )
+  .addTo(
+    layers.active
+  );
+
+});
+
+
+/* =====================================================
+   ACTIVE-LIFESTYLE NODES
+   ===================================================== */
+
+activePoints.forEach(p => {
+
+  L.marker(
+    [p.lat,p.lon],
+    {
+      icon:makeActiveIcon(),
+
+      zIndexOffset:350
+    }
+  )
+  .bindPopup(
+    `
+      <div class="popup-title">
+        ${p.name}
+      </div>
+
+      <div class="popup-category">
+        Running / Active-Lifestyle Geography
+      </div>
+
+      ${p.description}
+
+      <div class="popup-role">
+        <b>Strategic relevance:</b><br>
+        ${p.role}
+      </div>
+    `,
+    {
+      maxWidth:310
+    }
+  )
+  .bindTooltip(
+    p.name,
+    {
+      direction:"top",
+      offset:[0,-7]
+    }
+  )
+  .addTo(
+    layers.active
+  );
+
+});
+
+
+/* =====================================================
+   LAYER CONTROL
+   ===================================================== */
+
+L.control.layers(
+  null,
+  {
+
+    "Candidate Areas":
+      layers.candidates,
+
+    "3-Mile Evaluation Areas":
+      layers.candidateRings,
+
+    "Brand-Market Fit Analysis":
+      layers.brandFit,
+
+    "New Balance Owned Retail":
+      layers.nb,
+
+    "Specialty Running / NB Distribution":
+      layers.crc,
+
+    "Major Athletic Retail Nodes":
+      layers.majorRetail,
+
+    "Running & Active-Lifestyle Geography":
+      layers.active
+
+  },
+  {
+    collapsed:true,
+
+    position:"topright"
+  }
+).addTo(map);
+
+
+/* =====================================================
+   SCALE
+   ===================================================== */
+
+L.control.scale(
+  {
+    imperial:true,
+
+    metric:false,
+
+    position:"bottomleft"
+  }
+).addTo(map);
+
+
+/* =====================================================
+   LEGEND
+   ===================================================== */
+
+const legend =
+  L.control(
+    {
+      position:"bottomright"
+    }
+  );
+
+
+legend.onAdd =
+function() {
+
+  const d =
+    L.DomUtil.create(
+      "div",
+      "legend"
+    );
+
+
+  d.innerHTML = `
+
+    <div class="legend-title">
+      Map Key
+    </div>
+
+
+    <div class="legend-section">
+      Candidates
+    </div>
+
+    <span class="legend-row">
+      <span class="dot" style="background:#d73027"></span>
+      A Dublin / Bridge Park
+    </span>
+
+    <br>
+
+    <span class="legend-row">
+      <span class="dot" style="background:#245bbf"></span>
+      B Short North / High Street
+    </span>
+
+    <br>
+
+    <span class="legend-row">
+      <span class="dot" style="background:#18864b"></span>
+      C Easton Town Center
+    </span>
+
+    <br>
+
+    <span class="legend-row">
+      <span class="ring-key"></span>
+      3-mile evaluation area
+    </span>
+
+
+    <div class="legend-section">
+      Retail Network
+    </div>
+
+    <span class="legend-row">
+      <span class="nb-key">NB</span>
+      New Balance owned retail
+    </span>
+
+    <br>
+
+    <span class="legend-row">
+      <span class="triangle-key triangle-orange"></span>
+      R Specialty running / NB distribution
+    </span>
+
+    <br>
+
+    <span class="legend-row">
+      <span class="dot" style="background:#7b3fc6"></span>
+      M Major athletic retail node
+    </span>
+
+
+    <div class="legend-section">
+      Active-Lifestyle Geography
+    </div>
+
+    <span class="legend-row">
+      <span class="triangle-key triangle-gray"></span>
+      Running / active-lifestyle node
+    </span>
+
+    <br>
+
+    <span class="legend-row">
+      <span class="gray-line"></span>
+      Running / recreational corridor
+    </span>
+
+  `;
+
+
+  return d;
+
+};
+
+
+legend.addTo(map);
+
+
+/* =====================================================
+   FINAL SCREENSHOT-READY EXTENT
+   ===================================================== */
+
+/*
+   This extent intentionally keeps:
+   - Dublin / Bridge Park
+   - Short North
+   - Easton
+   - Polaris
+   - Sunbury NB
+   - the broader CRC ecosystem
+
+   while reducing excess map whitespace.
+*/
+
+const finalBounds =
+L.latLngBounds(
+  [
+    [39.865,-83.185],
+    [40.315,-82.735]
+  ]
+);
+
+
+map.fitBounds(
+  finalBounds,
+  {
+    paddingTopLeft:[20,20],
+
+    paddingBottomRight:[20,20]
+  }
+);
+
+
+/* =====================================================
+   KEEP CONTROLS FROM INTERFERING WITH MAP EVENTS
+   ===================================================== */
+
+L.DomEvent.disableClickPropagation(
+  document.getElementById("title")
+);
+
+</script>
+
+</body>
+</html>
