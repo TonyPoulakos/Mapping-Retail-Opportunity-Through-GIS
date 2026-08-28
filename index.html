@@ -229,7 +229,8 @@
     .projects-heading p {
       color: var(--muted);
       margin-top: 10px;
-      max-width: 760px;
+      max-width: none;
+      white-space: nowrap;
     }
 
     .projects {
@@ -249,9 +250,7 @@
       min-height: 100%;
     }
 
-    /*
-       REAL INFOGRAPHIC THUMBNAILS
-    */
+    /* REAL INFOGRAPHIC THUMBNAILS */
 
     .project-visual {
       height: 300px;
@@ -283,10 +282,7 @@
       display: block;
     }
 
-    /*
-       NEW BALANCE TEMPORARY VISUAL
-       Replaced with its actual infographic later.
-    */
+    /* NEW BALANCE TEMPORARY VISUAL */
 
     .new-balance-preview {
       height: 300px;
@@ -471,7 +467,7 @@
       background: var(--soft);
     }
 
-    /* ABOUT */
+    /* ABOUT / AUTHOR */
 
     .about {
       margin-top: 78px;
@@ -519,6 +515,10 @@
       .question:nth-child(1),
       .question:nth-child(2) {
         border-bottom: 1px solid var(--line);
+      }
+
+      .projects-heading p {
+        white-space: normal;
       }
     }
 
@@ -690,8 +690,7 @@
         </h2>
 
         <p>
-          Static case studies and interactive GIS analyses examining different dimensions
-          of retail expansion and location strategy.
+          Static case studies and interactive GIS analyses examining different dimensions of retail expansion and location strategy.
         </p>
 
       </div>
@@ -954,20 +953,6 @@
 
             <div class="actions">
 
-              <!--
-              When the New Balance infographic is finished,
-              upload its PDF and thumbnail, then activate:
-
-              <a
-                class="button button-secondary"
-                href="New-Balance-Columbus-Ohio/New_Balance_Columbus_Ohio.pdf"
-                target="_blank"
-                rel="noopener"
-              >
-                View Infographic
-              </a>
-              -->
-
               <a
                 class="button button-primary"
                 href="New-Balance-Columbus-Ohio/"
@@ -1006,16 +991,16 @@
 
         <p>
           Mapping Retail Opportunity Through GIS is an independent analytical series
-          created by Tony Poulakos to explore how GIS, spatial analytics, and location
-          intelligence can support retail location strategy, market expansion, network
-          planning, and portfolio decision-making.
+          created to explore how GIS, spatial analytics, and location intelligence can
+          support retail location strategy, market expansion, network planning, and
+          portfolio decision-making.
         </p>
 
         <div class="disclaimer">
-          These analyses are independent and illustrative and are created for informational
-          and professional portfolio purposes only. They do not represent the internal
-          analyses, recommendations, expansion plans, or strategic decisions of the
-          companies featured.
+          These are independent, illustrative analyses that have been created for
+          informational and professional portfolio purposes only. They do not represent
+          the internal analyses, recommendations, expansion plans, or strategic decisions
+          of the companies featured.
         </div>
 
       </div>
