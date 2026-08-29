@@ -1137,7 +1137,6 @@ and (orientation:landscape) {
 
 <div id="rightControls">
 
-
   <button
     id="homeButton"
     class="map-control-button"
@@ -1252,7 +1251,6 @@ and (orientation:landscape) {
   id="layerPanel"
   aria-hidden="true"
 >
-
 
   <div class="layer-panel-section">
 
@@ -1528,8 +1526,10 @@ const points = [
   {
     id:"EASTON-NODE",
     name:"Easton Athletic Retail Cluster",
+
     lat:40.0526,
     lon:-82.9168,
+
     type:"major_retail",
 
     description:
@@ -2433,13 +2433,45 @@ function() {
 legend.addTo(map);
 
 
+/* =====================================================
+   HOME EXTENT
+   ===================================================== */
+
 function goHome() {
+
+  /*
+     Fit the same analytical extent first.
+  */
+
+  map.once(
+    "moveend",
+    function() {
+
+      /*
+         Small composition adjustment:
+         moves the mapped network slightly
+         left and upward on the screen so
+         the Map Key overlaps less of the
+         candidate geography.
+      */
+
+      map.panBy(
+        [18,24],
+        {
+          animate:false
+        }
+      );
+
+    }
+  );
+
 
   map.fitBounds(
     finalBounds,
     {
       paddingTopLeft:[20,20],
-      paddingBottomRight:[20,20]
+      paddingBottomRight:[20,20],
+      animate:false
     }
   );
 
