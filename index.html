@@ -448,6 +448,12 @@
       font-size: 0.76rem;
     }
 
+    .development-badge {
+      background: #f4eee7;
+      color: #7b5b3d;
+      border: 1px solid #dfd0c0;
+    }
+
     .card-body {
       padding: 24px 28px 28px;
       display: flex;
@@ -494,6 +500,16 @@
 
     .button-secondary:hover {
       background: var(--soft);
+    }
+
+    .coming-soon-button {
+      cursor: default;
+      opacity: 0.7;
+      user-select: none;
+    }
+
+    .coming-soon-button:hover {
+      background: white;
     }
 
     /* ABOUT / AUTHOR */
@@ -993,8 +1009,8 @@
               <span class="tag">Brand-Market Fit</span>
             </div>
 
-            <div class="interactive-badge">
-              Interactive GIS Analysis
+            <div class="interactive-badge development-badge">
+              In Development
             </div>
 
           </div>
@@ -1010,12 +1026,12 @@
 
             <div class="actions">
 
-              <a
-                class="button button-primary"
-                href="New-Balance-Columbus-Ohio/"
+              <span
+                class="button button-secondary coming-soon-button"
+                aria-disabled="true"
               >
-                Explore Interactive Map
-              </a>
+                Interactive Map Coming Soon
+              </span>
 
             </div>
 
