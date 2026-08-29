@@ -580,14 +580,15 @@ body {
 
 /* =====================================================
    SPECIALTY RUNNING
+   ENLARGED GRAY TRIANGLE
    ===================================================== */
 
 .crc-marker-wrap {
 
   position:relative;
 
-  width:16px;
-  height:14px;
+  width:18px;
+  height:16px;
 
 }
 
@@ -603,18 +604,18 @@ body {
   height:0;
 
   border-left:
-    7px solid transparent;
+    8px solid transparent;
 
   border-right:
-    7px solid transparent;
+    8px solid transparent;
 
   border-bottom:
-    12px solid #6b7280;
+    14px solid #6b7280;
 
   filter:
     drop-shadow(
       0 1px 1px
-      rgba(0,0,0,.25)
+      rgba(0,0,0,.28)
     );
 
 }
@@ -622,12 +623,13 @@ body {
 
 /* =====================================================
    MAJOR ATHLETIC RETAIL
+   ENLARGED PURPLE DIAMOND
    ===================================================== */
 
 .major-retail-marker {
 
-  width:13px;
-  height:13px;
+  width:15px;
+  height:15px;
 
   box-sizing:border-box;
 
@@ -640,19 +642,20 @@ body {
 
   box-shadow:
     0 1px 3px
-    rgba(0,0,0,.28);
+    rgba(0,0,0,.30);
 
 }
 
 
 /* =====================================================
    ACTIVE-LIFESTYLE NODE
+   ENLARGED AQUAMARINE HEXAGON
    ===================================================== */
 
 .active-hexagon {
 
-  width:15px;
-  height:13px;
+  width:17px;
+  height:15px;
 
   background:#2b9fb3;
 
@@ -669,7 +672,7 @@ body {
   filter:
     drop-shadow(
       0 1px 1px
-      rgba(0,0,0,.25)
+      rgba(0,0,0,.28)
     );
 
 }
@@ -680,6 +683,8 @@ body {
    ===================================================== */
 
 .legend {
+
+  position:relative;
 
   background:
     rgba(255,255,255,.97);
@@ -702,6 +707,25 @@ body {
 
   max-width:250px;
 
+  box-sizing:border-box;
+
+  transition:
+    width .18s ease,
+    padding .18s ease;
+
+}
+
+
+.legend-header {
+
+  display:flex;
+
+  align-items:center;
+
+  justify-content:space-between;
+
+  gap:8px;
+
 }
 
 
@@ -715,9 +739,95 @@ body {
 
   color:#334155;
 
-  margin-bottom:5px;
-
   text-transform:uppercase;
+
+  margin:0;
+
+}
+
+
+.legend-toggle {
+
+  width:24px;
+  height:24px;
+
+  padding:0;
+
+  border:0;
+
+  border-radius:5px;
+
+  background:
+    rgba(241,245,249,.88);
+
+  color:#475569;
+
+  display:flex;
+
+  align-items:center;
+  justify-content:center;
+
+  cursor:pointer;
+
+  flex:0 0 auto;
+
+  touch-action:manipulation;
+
+}
+
+
+.legend-toggle:hover {
+
+  background:#e8edf2;
+
+}
+
+
+.legend-toggle svg {
+
+  width:13px;
+  height:13px;
+
+  transition:
+    transform .18s ease;
+
+}
+
+
+.legend-content {
+
+  display:block;
+
+}
+
+
+.legend.collapsed {
+
+  width:96px;
+
+  min-width:96px;
+
+  max-width:96px;
+
+  padding:
+    6px 7px;
+
+}
+
+
+.legend.collapsed
+.legend-content {
+
+  display:none;
+
+}
+
+
+.legend.collapsed
+.legend-toggle svg {
+
+  transform:
+    rotate(180deg);
 
 }
 
@@ -737,7 +847,7 @@ body {
 
 /*
    Every legend item uses the same
-   symbol column.
+   fixed symbol column.
 */
 
 .legend-row {
@@ -809,12 +919,12 @@ body {
 }
 
 
-/* Diamond */
+/* Enlarged legend diamond */
 
 .legend-diamond {
 
-  width:8px;
-  height:8px;
+  width:10px;
+  height:10px;
 
   background:#7b3fc6;
 
@@ -824,7 +934,7 @@ body {
 }
 
 
-/* Triangle */
+/* Enlarged legend triangle */
 
 .legend-triangle {
 
@@ -832,23 +942,23 @@ body {
   height:0;
 
   border-left:
-    5px solid transparent;
+    6px solid transparent;
 
   border-right:
-    5px solid transparent;
+    6px solid transparent;
 
   border-bottom:
-    9px solid #6b7280;
+    10px solid #6b7280;
 
 }
 
 
-/* Hexagon */
+/* Enlarged legend hexagon */
 
 .legend-hexagon {
 
-  width:11px;
-  height:10px;
+  width:13px;
+  height:11px;
 
   background:#2b9fb3;
 
@@ -980,11 +1090,6 @@ body {
 
 }
 
-
-/*
-   MapLibre adds its own attribution.
-   Keep it compact.
-*/
 
 .maplibregl-ctrl-bottom-right {
 
@@ -1165,7 +1270,37 @@ body {
 
     font-size:8px;
 
-    margin-bottom:3px;
+  }
+
+
+  .legend-toggle {
+
+    width:20px;
+    height:20px;
+
+    border-radius:4px;
+
+  }
+
+
+  .legend-toggle svg {
+
+    width:11px;
+    height:11px;
+
+  }
+
+
+  .legend.collapsed {
+
+    width:86px;
+
+    min-width:86px;
+
+    max-width:86px;
+
+    padding:
+      5px 6px;
 
   }
 
@@ -1182,16 +1317,16 @@ body {
   .legend-row {
 
     grid-template-columns:
-      21px 1fr;
+      22px 1fr;
 
-    min-height:14px;
+    min-height:15px;
 
   }
 
 
   .legend-symbol {
 
-    width:21px;
+    width:22px;
 
   }
 
@@ -1216,27 +1351,27 @@ body {
 
   .legend-diamond {
 
-    width:7px;
-    height:7px;
+    width:9px;
+    height:9px;
 
   }
 
 
   .legend-triangle {
 
-    border-left-width:4px;
+    border-left-width:5px;
 
-    border-right-width:4px;
+    border-right-width:5px;
 
-    border-bottom-width:7px;
+    border-bottom-width:9px;
 
   }
 
 
   .legend-hexagon {
 
-    width:9px;
-    height:8px;
+    width:11px;
+    height:9px;
 
   }
 
@@ -1269,7 +1404,8 @@ body {
   .leaflet-control-zoom,
   #rightControls,
   #layerPanel,
-  #titleToggle {
+  #titleToggle,
+  .legend-toggle {
 
     display:none !important;
 
@@ -2084,12 +2220,6 @@ L.map(
    BASEMAPS
    ===================================================== */
 
-
-/*
-   DEFAULT BASEMAP:
-   OpenFreeMap Positron
-*/
-
 const positronLayer =
 L.maplibreGL({
 
@@ -2098,11 +2228,6 @@ L.maplibreGL({
 
 });
 
-
-/*
-   ALTERNATIVE BASEMAP:
-   Standard OpenStreetMap
-*/
 
 const osmLayer =
 L.tileLayer(
@@ -2120,10 +2245,6 @@ L.tileLayer(
 
 );
 
-
-/*
-   Positron is shown initially.
-*/
 
 positronLayer.addTo(map);
 
@@ -2244,13 +2365,13 @@ function makeCRCIcon() {
       </div>`,
 
     iconSize:
-      [16,14],
+      [18,16],
 
     iconAnchor:
-      [8,7],
+      [9,8],
 
     popupAnchor:
-      [0,-9]
+      [0,-10]
 
   });
 
@@ -2270,13 +2391,13 @@ function makeMajorRetailIcon() {
       </div>`,
 
     iconSize:
-      [14,14],
+      [15,15],
 
     iconAnchor:
-      [7,7],
+      [7.5,7.5],
 
     popupAnchor:
-      [0,-9]
+      [0,-10]
 
   });
 
@@ -2296,13 +2417,13 @@ function makeActiveIcon() {
       </div>`,
 
     iconSize:
-      [15,13],
+      [17,15],
 
     iconAnchor:
-      [7.5,6.5],
+      [8.5,7.5],
 
     popupAnchor:
-      [0,-9]
+      [0,-10]
 
   });
 
@@ -2652,7 +2773,7 @@ points
 
         direction:"top",
 
-        offset:[0,-7]
+        offset:[0,-8]
 
       }
 
@@ -2723,7 +2844,7 @@ points
 
         direction:"top",
 
-        offset:[0,-6]
+        offset:[0,-7]
 
       }
 
@@ -2903,7 +3024,7 @@ activePoints
 
         direction:"top",
 
-        offset:[0,-6]
+        offset:[0,-7]
 
       }
 
@@ -3047,192 +3168,282 @@ function() {
 
   d.innerHTML = `
 
+    <div class="legend-header">
 
-    <div class="legend-title">
+      <div class="legend-title">
+        Map Key
+      </div>
 
-      Map Key
+      <button
+        type="button"
+        class="legend-toggle"
+        aria-label="Collapse map key"
+        title="Collapse map key"
+      >
+
+        <svg
+          viewBox="0 0 24 24"
+          aria-hidden="true"
+        >
+
+          <path
+            d="M6 15L12 9L18 15"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2.3"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+
+        </svg>
+
+      </button>
 
     </div>
 
 
-    <div class="legend-section">
-
-      Candidates
-
-    </div>
+    <div class="legend-content">
 
 
-    <div class="legend-row">
+      <div class="legend-section">
 
-      <span class="legend-symbol">
+        Candidates
 
-        <span
-          class="legend-dot"
-          style="background:#d73027">
+      </div>
+
+
+      <div class="legend-row">
+
+        <span class="legend-symbol">
+
+          <span
+            class="legend-dot"
+            style="background:#d73027">
+          </span>
+
         </span>
 
-      </span>
-
-      <span>
-        A Dublin / Bridge Park
-      </span>
-
-    </div>
-
-
-    <div class="legend-row">
-
-      <span class="legend-symbol">
-
-        <span
-          class="legend-dot"
-          style="background:#245bbf">
+        <span>
+          A Dublin / Bridge Park
         </span>
 
-      </span>
-
-      <span>
-        B Short North / High Street
-      </span>
-
-    </div>
+      </div>
 
 
-    <div class="legend-row">
+      <div class="legend-row">
 
-      <span class="legend-symbol">
+        <span class="legend-symbol">
 
-        <span
-          class="legend-dot"
-          style="background:#18864b">
+          <span
+            class="legend-dot"
+            style="background:#245bbf">
+          </span>
+
         </span>
 
-      </span>
-
-      <span>
-        C Easton Town Center
-      </span>
-
-    </div>
-
-
-    <div class="legend-row">
-
-      <span class="legend-symbol">
-
-        <span
-          class="legend-ring">
+        <span>
+          B Short North / High Street
         </span>
 
-      </span>
-
-      <span>
-        3-mile evaluation area
-      </span>
-
-    </div>
+      </div>
 
 
-    <div class="legend-section">
+      <div class="legend-row">
 
-      Retail Network
+        <span class="legend-symbol">
 
-    </div>
+          <span
+            class="legend-dot"
+            style="background:#18864b">
+          </span>
 
-
-    <div class="legend-row">
-
-      <span class="legend-symbol">
-
-        <span
-          class="legend-nb">
-          NB
         </span>
 
-      </span>
-
-      <span>
-        New Balance owned retail
-      </span>
-
-    </div>
-
-
-    <div class="legend-row">
-
-      <span class="legend-symbol">
-
-        <span
-          class="legend-diamond">
+        <span>
+          C Easton Town Center
         </span>
 
-      </span>
-
-      <span>
-        Major athletic retail node
-      </span>
-
-    </div>
+      </div>
 
 
-    <div class="legend-row">
+      <div class="legend-row">
 
-      <span class="legend-symbol">
+        <span class="legend-symbol">
 
-        <span
-          class="legend-triangle">
+          <span
+            class="legend-ring">
+          </span>
+
         </span>
 
-      </span>
-
-      <span>
-        Specialty running / NB distribution
-      </span>
-
-    </div>
-
-
-    <div class="legend-section">
-
-      Active-Lifestyle Geography
-
-    </div>
-
-
-    <div class="legend-row">
-
-      <span class="legend-symbol">
-
-        <span
-          class="legend-hexagon">
+        <span>
+          3-mile evaluation area
         </span>
 
-      </span>
-
-      <span>
-        Running / active-lifestyle node
-      </span>
-
-    </div>
+      </div>
 
 
-    <div class="legend-row">
+      <div class="legend-section">
 
-      <span class="legend-symbol">
+        Retail Network
 
-        <span
-          class="legend-line">
+      </div>
+
+
+      <div class="legend-row">
+
+        <span class="legend-symbol">
+
+          <span
+            class="legend-nb">
+            NB
+          </span>
+
         </span>
 
-      </span>
+        <span>
+          New Balance owned retail
+        </span>
 
-      <span>
-        Running / recreational corridor
-      </span>
+      </div>
+
+
+      <div class="legend-row">
+
+        <span class="legend-symbol">
+
+          <span
+            class="legend-diamond">
+          </span>
+
+        </span>
+
+        <span>
+          Major athletic retail node
+        </span>
+
+      </div>
+
+
+      <div class="legend-row">
+
+        <span class="legend-symbol">
+
+          <span
+            class="legend-triangle">
+          </span>
+
+        </span>
+
+        <span>
+          Specialty running / NB distribution
+        </span>
+
+      </div>
+
+
+      <div class="legend-section">
+
+        Active-Lifestyle Geography
+
+      </div>
+
+
+      <div class="legend-row">
+
+        <span class="legend-symbol">
+
+          <span
+            class="legend-hexagon">
+          </span>
+
+        </span>
+
+        <span>
+          Running / active-lifestyle node
+        </span>
+
+      </div>
+
+
+      <div class="legend-row">
+
+        <span class="legend-symbol">
+
+          <span
+            class="legend-line">
+          </span>
+
+        </span>
+
+        <span>
+          Running / recreational corridor
+        </span>
+
+      </div>
+
 
     </div>
 
   `;
+
+
+  L.DomEvent.disableClickPropagation(d);
+
+  L.DomEvent.disableScrollPropagation(d);
+
+
+  const toggle =
+  d.querySelector(
+    ".legend-toggle"
+  );
+
+
+  toggle.addEventListener(
+
+    "click",
+
+    function(event) {
+
+      event.preventDefault();
+
+      event.stopPropagation();
+
+
+      const isCollapsed =
+      d.classList.toggle(
+        "collapsed"
+      );
+
+
+      toggle.setAttribute(
+
+        "aria-label",
+
+        isCollapsed
+          ?
+          "Expand map key"
+          :
+          "Collapse map key"
+
+      );
+
+
+      toggle.setAttribute(
+
+        "title",
+
+        isCollapsed
+          ?
+          "Expand map key"
+          :
+          "Collapse map key"
+
+      );
+
+    }
+
+  );
 
 
   return d;
@@ -3327,14 +3538,6 @@ function updateLayerPanelPosition() {
   title.getBoundingClientRect();
 
 
-  /*
-     Position the panel below
-     the ACTUAL title bottom.
-
-     This works whether the title
-     is expanded or collapsed.
-  */
-
   const desiredTop =
   Math.ceil(
     titleRect.bottom + 10
@@ -3389,11 +3592,6 @@ titleToggle.addEventListener(
 
     );
 
-
-    /*
-       Wait until layout updates,
-       then reposition layers.
-    */
 
     requestAnimationFrame(
 
@@ -3521,11 +3719,6 @@ layersButton.addEventListener(
 );
 
 
-/*
-   Keep panel open when touching
-   controls inside it.
-*/
-
 layerPanel.addEventListener(
 
   "click",
@@ -3538,11 +3731,6 @@ layerPanel.addEventListener(
 
 );
 
-
-/*
-   Tapping elsewhere on the map
-   closes the panel.
-*/
 
 document.addEventListener(
 
@@ -3628,33 +3816,6 @@ document
 
             positronLayer
               .addTo(map);
-
-            /*
-               Keep analytical
-               layers visually above
-               the basemap.
-            */
-
-            Object.values(
-              layers
-            )
-            .forEach(
-
-              layer => {
-
-                if (
-                  map.hasLayer(
-                    layer
-                  )
-                ) {
-
-                  layer.bringToFront?.();
-
-                }
-
-              }
-
-            );
 
           }
 
@@ -3854,11 +4015,6 @@ window.addEventListener(
 
 );
 
-
-/*
-   Establish initial hidden panel
-   position immediately.
-*/
 
 updateLayerPanelPosition();
 
