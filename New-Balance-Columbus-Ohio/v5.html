@@ -238,7 +238,7 @@ body {
 
 /* =====================================================
    ACTIVE-LIFESTYLE NODE
-   SOLID TEAL TRIANGLE
+   AQUAMARINE TRIANGLE
    ===================================================== */
 
 .active-marker-wrap {
@@ -261,7 +261,7 @@ body {
 
   border-left:7px solid transparent;
   border-right:7px solid transparent;
-  border-bottom:12px solid #287f82;
+  border-bottom:12px solid #2b9fb3;
 
   filter:
     drop-shadow(0 1px 1px rgba(0,0,0,.22));
@@ -389,16 +389,16 @@ body {
   border-bottom-color:#6b7280;
 }
 
-.triangle-teal {
-  border-bottom-color:#287f82;
+.triangle-aqua {
+  border-bottom-color:#2b9fb3;
 }
 
-.teal-line {
+.aqua-line {
   display:inline-block;
 
   width:20px;
 
-  border-top:3px solid #287f82;
+  border-top:3px solid #2b9fb3;
 
   margin-right:6px;
 
@@ -494,12 +494,119 @@ body {
 @media (max-width:699px) {
 
   #title {
-    width:calc(100vw - 28px);
+    top:10px;
+    left:58px;
+
+    width:calc(100vw - 128px);
+
+    padding:8px 10px;
+
+    border-radius:9px;
   }
 
+  #title .eyebrow {
+    font-size:7.5px;
+    line-height:1.1;
+
+    letter-spacing:.07em;
+
+    margin-bottom:2px;
+  }
+
+  #title h1 {
+    margin:0 0 3px;
+
+    font-size:13px;
+    line-height:1.12;
+  }
+
+  #title p {
+    font-size:8.5px;
+    line-height:1.22;
+  }
+
+
   .legend {
-    max-width:210px;
-    font-size:10px;
+    padding:6px 8px;
+
+    border-radius:8px;
+
+    font-size:8.5px;
+    line-height:1.28;
+
+    max-width:185px;
+  }
+
+  .legend-title {
+    font-size:8px;
+
+    margin-bottom:2px;
+  }
+
+  .legend-section {
+    margin-top:4px;
+    margin-bottom:1px;
+  }
+
+
+  .dot {
+    width:8px;
+    height:8px;
+
+    margin-right:5px;
+  }
+
+
+  .nb-key {
+    width:12px;
+    height:12px;
+
+    margin-right:5px;
+
+    font-size:5px;
+
+    vertical-align:-2px;
+  }
+
+
+  .major-key {
+    width:8px;
+    height:8px;
+
+    margin-right:6px;
+  }
+
+
+  .triangle-key {
+    border-left-width:4px;
+    border-right-width:4px;
+    border-bottom-width:7px;
+
+    margin-right:7px;
+  }
+
+
+  .ring-key {
+    width:14px;
+    height:7px;
+
+    border-width:1.5px;
+
+    margin-right:5px;
+  }
+
+
+  .aqua-line {
+    width:16px;
+
+    border-top-width:2.5px;
+
+    margin-right:5px;
+  }
+
+
+  .leaflet-control-layers {
+    margin-top:58px !important;
   }
 
 }
@@ -1152,7 +1259,6 @@ L.marker(
 
 /* =====================================================
    SPECIALTY RUNNING / NB DISTRIBUTION
-   TRUE LOCATIONS
    ===================================================== */
 
 points
@@ -1194,7 +1300,6 @@ points
 
 /* =====================================================
    MAJOR ATHLETIC RETAIL NODES
-   TRUE LOCATIONS
    ===================================================== */
 
 points
@@ -1236,7 +1341,7 @@ points
 
 /* =====================================================
    ACTIVE CORRIDORS
-   SOLID TEAL
+   AQUAMARINE
    ===================================================== */
 
 activeCorridors.forEach(
@@ -1245,7 +1350,7 @@ activeCorridors.forEach(
     L.polyline(
       corridor.coordinates,
       {
-        color:"#287f82",
+        color:"#2b9fb3",
 
         weight:3,
 
@@ -1289,7 +1394,6 @@ activeCorridors.forEach(
 
 /* =====================================================
    ACTIVE-LIFESTYLE NODES
-   TRUE LOCATIONS
    ===================================================== */
 
 activePoints.forEach(
@@ -1533,14 +1637,14 @@ function() {
     </div>
 
     <span class="legend-row">
-      <span class="triangle-key triangle-teal"></span>
+      <span class="triangle-key triangle-aqua"></span>
       Running / active-lifestyle node
     </span>
 
     <br>
 
     <span class="legend-row">
-      <span class="teal-line"></span>
+      <span class="aqua-line"></span>
       Running / recreational corridor
     </span>
 
