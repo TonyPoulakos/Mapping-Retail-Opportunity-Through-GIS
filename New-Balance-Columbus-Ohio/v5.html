@@ -1,11 +1,26 @@
 <!doctype html>
 <html lang="en">
+
 <head>
+
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="apple-mobile-web-app-capable" content="yes">
+
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1, viewport-fit=cover"
+>
+
+<meta
+  name="apple-mobile-web-app-capable"
+  content="yes"
+>
 
 <title>New Balance Columbus V5</title>
+
+
+<!-- =====================================================
+     LEAFLET
+     ===================================================== -->
 
 <link
   rel="stylesheet"
@@ -16,13 +31,46 @@
   src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js">
 </script>
 
+
+<!-- =====================================================
+     MAPLIBRE
+     ===================================================== -->
+
+<link
+  rel="stylesheet"
+  href="https://unpkg.com/maplibre-gl@5/dist/maplibre-gl.css"
+/>
+
+<script
+  src="https://unpkg.com/maplibre-gl@5/dist/maplibre-gl.js">
+</script>
+
+
+<!-- =====================================================
+     MAPLIBRE + LEAFLET BRIDGE
+     ===================================================== -->
+
+<script
+  src="https://unpkg.com/@maplibre/maplibre-gl-leaflet/leaflet-maplibre-gl.js">
+</script>
+
+
 <style>
+
+
+/* =====================================================
+   PAGE
+   ===================================================== */
 
 html,
 body {
+
   height:100%;
+
   margin:0;
   padding:0;
+
+  overflow:hidden;
 
   font-family:
     -apple-system,
@@ -33,13 +81,19 @@ body {
     sans-serif;
 
   background:#f4f5f7;
+
 }
 
+
 #map {
+
   position:fixed;
+
   inset:0;
+
   width:100%;
   height:100%;
+
 }
 
 
@@ -48,31 +102,47 @@ body {
    ===================================================== */
 
 #title {
+
   position:absolute;
 
   top:max(14px, env(safe-area-inset-top));
+
   left:14px;
 
-  z-index:1000;
+  z-index:1100;
 
-  width:min(390px, calc(100vw - 28px));
+  width:min(
+    390px,
+    calc(100vw - 28px)
+  );
 
   box-sizing:border-box;
 
-  background:rgba(255,255,255,.97);
+  background:
+    rgba(255,255,255,.97);
 
-  border:1px solid rgba(15,23,42,.08);
+  border:
+    1px solid rgba(15,23,42,.08);
 
   border-radius:12px;
 
-  padding:12px 14px;
+  padding:12px 42px 12px 14px;
 
   box-shadow:
-    0 4px 18px rgba(15,23,42,.16);
+    0 4px 18px
+    rgba(15,23,42,.16);
+
+  transition:
+    padding .18s ease,
+    width .18s ease;
+
 }
 
+
 #title .eyebrow {
+
   font-size:10px;
+
   line-height:1.2;
 
   font-weight:800;
@@ -84,24 +154,331 @@ body {
   text-transform:uppercase;
 
   margin-bottom:4px;
+
 }
 
+
 #title h1 {
-  margin:0 0 5px;
+
+  margin:
+    0 0 5px;
 
   font-size:18px;
+
   line-height:1.15;
 
   color:#172b4d;
+
 }
 
-#title p {
+
+#title .subtitle {
+
   margin:0;
 
   font-size:11.5px;
+
   line-height:1.35;
 
   color:#586474;
+
+}
+
+
+/* =====================================================
+   TITLE COLLAPSE BUTTON
+   ===================================================== */
+
+#titleToggle {
+
+  position:absolute;
+
+  top:8px;
+  right:8px;
+
+  width:28px;
+  height:28px;
+
+  padding:0;
+
+  border:0;
+
+  border-radius:6px;
+
+  background:
+    rgba(241,245,249,.88);
+
+  color:#475569;
+
+  display:flex;
+
+  align-items:center;
+  justify-content:center;
+
+  cursor:pointer;
+
+  touch-action:manipulation;
+
+}
+
+
+#titleToggle:hover {
+
+  background:#e8edf2;
+
+}
+
+
+#titleToggle svg {
+
+  width:16px;
+  height:16px;
+
+  transition:
+    transform .18s ease;
+
+}
+
+
+#title.collapsed {
+
+  padding-top:10px;
+  padding-bottom:10px;
+
+}
+
+
+#title.collapsed .eyebrow,
+#title.collapsed .subtitle {
+
+  display:none;
+
+}
+
+
+#title.collapsed h1 {
+
+  margin:0;
+
+}
+
+
+#title.collapsed
+#titleToggle svg {
+
+  transform:
+    rotate(180deg);
+
+}
+
+
+/* =====================================================
+   RIGHT-SIDE MAP CONTROLS
+   ===================================================== */
+
+#rightControls {
+
+  position:absolute;
+
+  top:max(
+    14px,
+    env(safe-area-inset-top)
+  );
+
+  right:14px;
+
+  z-index:1200;
+
+  display:flex;
+
+  flex-direction:column;
+
+  align-items:flex-end;
+
+  gap:8px;
+
+}
+
+
+.map-control-button {
+
+  width:42px;
+  height:42px;
+
+  padding:0;
+
+  box-sizing:border-box;
+
+  border:
+    1px solid rgba(0,0,0,.18);
+
+  border-radius:8px;
+
+  background:#ffffff;
+
+  box-shadow:
+    0 1px 5px
+    rgba(0,0,0,.22);
+
+  display:flex;
+
+  align-items:center;
+  justify-content:center;
+
+  cursor:pointer;
+
+  touch-action:manipulation;
+
+  -webkit-tap-highlight-color:
+    transparent;
+
+}
+
+
+.map-control-button:hover {
+
+  background:#f4f6f8;
+
+}
+
+
+.map-control-button svg {
+
+  width:22px;
+  height:22px;
+
+  display:block;
+
+}
+
+
+/* =====================================================
+   CUSTOM LAYER PANEL
+   ===================================================== */
+
+#layerPanel {
+
+  position:absolute;
+
+  right:14px;
+
+  z-index:1190;
+
+  display:none;
+
+  width:min(
+    286px,
+    calc(100vw - 28px)
+  );
+
+  box-sizing:border-box;
+
+  background:
+    rgba(255,255,255,.98);
+
+  border:
+    1px solid rgba(15,23,42,.10);
+
+  border-radius:10px;
+
+  box-shadow:
+    0 4px 16px
+    rgba(15,23,42,.20);
+
+  padding:10px 12px;
+
+  font-size:11px;
+
+  line-height:1.3;
+
+}
+
+
+#layerPanel.open {
+
+  display:block;
+
+}
+
+
+.layer-panel-title {
+
+  font-size:9px;
+
+  font-weight:900;
+
+  letter-spacing:.07em;
+
+  color:#475569;
+
+  text-transform:uppercase;
+
+  margin-bottom:5px;
+
+}
+
+
+.layer-panel-section {
+
+  margin-top:8px;
+
+  padding-top:7px;
+
+  border-top:
+    1px solid #e5e7eb;
+
+}
+
+
+.layer-panel-section:first-child {
+
+  margin-top:0;
+
+  padding-top:0;
+
+  border-top:0;
+
+}
+
+
+.layer-option {
+
+  display:grid;
+
+  grid-template-columns:
+    20px 1fr;
+
+  align-items:center;
+
+  min-height:27px;
+
+  gap:3px;
+
+  color:#334155;
+
+  cursor:pointer;
+
+  user-select:none;
+
+}
+
+
+.layer-option input {
+
+  margin:0;
+
+  width:14px;
+  height:14px;
+
+  accent-color:#475569;
+
+}
+
+
+.layer-option span {
+
+  display:block;
+
 }
 
 
@@ -110,40 +487,56 @@ body {
    ===================================================== */
 
 .candidate-marker {
+
   width:40px;
   height:40px;
 
   border-radius:50%;
 
-  border:3px solid rgba(255,255,255,.98);
+  border:
+    3px solid
+    rgba(255,255,255,.98);
 
   box-sizing:border-box;
 
   box-shadow:
-    0 2px 8px rgba(0,0,0,.34);
+    0 2px 8px
+    rgba(0,0,0,.34);
 
   color:white;
 
   display:flex;
+
   align-items:center;
   justify-content:center;
 
   font-size:17px;
+
   font-weight:900;
 
   opacity:.90;
+
 }
+
 
 .a {
+
   background:#d73027;
+
 }
+
 
 .b {
+
   background:#245bbf;
+
 }
 
+
 .c {
+
   background:#18864b;
+
 }
 
 
@@ -152,6 +545,7 @@ body {
    ===================================================== */
 
 .nb-marker {
+
   width:28px;
   height:28px;
 
@@ -159,39 +553,47 @@ body {
 
   background:#ffffff;
 
-  border:2px solid #111827;
+  border:
+    2px solid #111827;
 
   border-radius:3px;
 
   box-shadow:
-    0 1px 5px rgba(0,0,0,.28);
+    0 1px 5px
+    rgba(0,0,0,.28);
 
   color:#111827;
 
   display:flex;
+
   align-items:center;
   justify-content:center;
 
   font-size:10px;
+
   font-weight:900;
 
   letter-spacing:-.3px;
+
 }
 
 
 /* =====================================================
-   SPECIALTY RUNNING / NB DISTRIBUTION
-   GRAY TRIANGLE
+   SPECIALTY RUNNING
    ===================================================== */
 
 .crc-marker-wrap {
+
   position:relative;
 
   width:16px;
   height:14px;
+
 }
 
+
 .crc-triangle {
+
   position:absolute;
 
   left:1px;
@@ -200,21 +602,30 @@ body {
   width:0;
   height:0;
 
-  border-left:7px solid transparent;
-  border-right:7px solid transparent;
-  border-bottom:12px solid #6b7280;
+  border-left:
+    7px solid transparent;
+
+  border-right:
+    7px solid transparent;
+
+  border-bottom:
+    12px solid #6b7280;
 
   filter:
-    drop-shadow(0 1px 1px rgba(0,0,0,.25));
+    drop-shadow(
+      0 1px 1px
+      rgba(0,0,0,.25)
+    );
+
 }
 
 
 /* =====================================================
-   MAJOR ATHLETIC RETAIL NODE
-   PURPLE DIAMOND
+   MAJOR ATHLETIC RETAIL
    ===================================================== */
 
 .major-retail-marker {
+
   width:13px;
   height:13px;
 
@@ -222,21 +633,24 @@ body {
 
   background:#7b3fc6;
 
-  transform:rotate(45deg);
+  transform:
+    rotate(45deg);
 
   border-radius:1px;
 
   box-shadow:
-    0 1px 3px rgba(0,0,0,.28);
+    0 1px 3px
+    rgba(0,0,0,.28);
+
 }
 
 
 /* =====================================================
    ACTIVE-LIFESTYLE NODE
-   AQUAMARINE HEXAGON
    ===================================================== */
 
 .active-hexagon {
+
   width:15px;
   height:13px;
 
@@ -253,45 +667,11 @@ body {
     );
 
   filter:
-    drop-shadow(0 1px 1px rgba(0,0,0,.25));
-}
+    drop-shadow(
+      0 1px 1px
+      rgba(0,0,0,.25)
+    );
 
-
-/* =====================================================
-   HOME EXTENT CONTROL
-   ===================================================== */
-
-.leaflet-control-home {
-  width:42px;
-  height:42px;
-
-  background:#ffffff;
-
-  border:1px solid rgba(0,0,0,.18);
-
-  border-radius:8px;
-
-  box-shadow:
-    0 1px 5px rgba(0,0,0,.25);
-
-  display:flex;
-  align-items:center;
-  justify-content:center;
-
-  cursor:pointer;
-
-  box-sizing:border-box;
-}
-
-.leaflet-control-home:hover {
-  background:#f4f6f8;
-}
-
-.home-icon {
-  width:22px;
-  height:22px;
-
-  display:block;
 }
 
 
@@ -300,24 +680,33 @@ body {
    ===================================================== */
 
 .legend {
-  background:rgba(255,255,255,.97);
+
+  background:
+    rgba(255,255,255,.97);
 
   padding:9px 11px;
 
   border-radius:10px;
 
-  border:1px solid rgba(15,23,42,.08);
+  border:
+    1px solid
+    rgba(15,23,42,.08);
 
   box-shadow:
-    0 2px 11px rgba(15,23,42,.15);
+    0 2px 11px
+    rgba(15,23,42,.15);
 
   font-size:10.5px;
-  line-height:1.45;
 
-  max-width:235px;
+  line-height:1.35;
+
+  max-width:250px;
+
 }
 
+
 .legend-title {
+
   font-size:10px;
 
   font-weight:900;
@@ -326,101 +715,137 @@ body {
 
   color:#334155;
 
-  margin-bottom:4px;
+  margin-bottom:5px;
 
   text-transform:uppercase;
+
 }
 
+
 .legend-section {
+
   font-weight:800;
 
   color:#172b4d;
 
-  margin-top:6px;
-  margin-bottom:2px;
+  margin-top:7px;
+
+  margin-bottom:3px;
+
 }
+
+
+/*
+   Every legend item uses the same
+   symbol column.
+*/
 
 .legend-row {
-  white-space:nowrap;
+
+  display:grid;
+
+  grid-template-columns:
+    24px 1fr;
+
+  align-items:center;
+
+  min-height:17px;
+
 }
 
-.dot {
-  display:inline-block;
 
-  width:10px;
-  height:10px;
+.legend-symbol {
+
+  width:24px;
+
+  display:flex;
+
+  align-items:center;
+
+  justify-content:center;
+
+}
+
+
+/* Candidate circle */
+
+.legend-dot {
+
+  width:9px;
+  height:9px;
 
   border-radius:50%;
 
-  margin-right:6px;
 }
 
-.nb-key {
-  display:inline-flex;
 
-  width:15px;
-  height:15px;
+/* NB */
+
+.legend-nb {
+
+  width:14px;
+  height:14px;
 
   box-sizing:border-box;
 
   background:white;
 
-  border:1.5px solid #111827;
+  border:
+    1.5px solid #111827;
 
   border-radius:2px;
 
-  margin-right:6px;
+  display:flex;
 
   align-items:center;
   justify-content:center;
 
-  font-size:6px;
+  font-size:5.5px;
+
   font-weight:900;
 
   color:#111827;
 
-  vertical-align:-3px;
 }
 
-.major-key {
-  display:inline-block;
 
-  width:9px;
-  height:9px;
+/* Diamond */
+
+.legend-diamond {
+
+  width:8px;
+  height:8px;
 
   background:#7b3fc6;
 
-  transform:rotate(45deg);
+  transform:
+    rotate(45deg);
 
-  border-radius:1px;
-
-  margin-left:2px;
-  margin-right:9px;
-
-  vertical-align:0;
 }
 
-.triangle-key {
-  display:inline-block;
+
+/* Triangle */
+
+.legend-triangle {
 
   width:0;
   height:0;
 
-  border-left:5px solid transparent;
-  border-right:5px solid transparent;
-  border-bottom:9px solid;
+  border-left:
+    5px solid transparent;
 
-  margin-right:9px;
+  border-right:
+    5px solid transparent;
 
-  vertical-align:-1px;
+  border-bottom:
+    9px solid #6b7280;
+
 }
 
-.triangle-gray {
-  border-bottom-color:#6b7280;
-}
 
-.hex-key {
-  display:inline-block;
+/* Hexagon */
+
+.legend-hexagon {
 
   width:11px;
   height:10px;
@@ -437,54 +862,35 @@ body {
       0% 50%
     );
 
-  margin-right:8px;
-
-  vertical-align:-1px;
 }
 
-.aqua-line {
-  display:inline-block;
 
-  width:20px;
+/* Evaluation ring */
 
-  border-top:3px solid #2b9fb3;
+.legend-ring {
 
-  margin-right:6px;
+  width:16px;
+  height:8px;
 
-  vertical-align:3px;
-}
+  box-sizing:border-box;
 
-.ring-key {
-  display:inline-block;
-
-  width:18px;
-  height:9px;
-
-  border:2px dashed #64748b;
+  border:
+    1.5px dashed #64748b;
 
   border-radius:50%;
 
-  margin-right:6px;
-
-  vertical-align:-2px;
 }
 
 
-/* =====================================================
-   LAYER CONTROL
-   ===================================================== */
+/* Corridor */
 
-.leaflet-control-layers {
-  border-radius:10px !important;
+.legend-line {
 
-  border:1px solid rgba(15,23,42,.08) !important;
+  width:17px;
 
-  box-shadow:
-    0 2px 10px rgba(15,23,42,.14) !important;
-}
+  border-top:
+    2.5px solid #2b9fb3;
 
-.leaflet-control-layers-expanded {
-  padding:8px 10px !important;
 }
 
 
@@ -493,16 +899,22 @@ body {
    ===================================================== */
 
 .popup-title {
+
   font-weight:800;
+
   font-size:14px;
 
   margin-bottom:4px;
+
 }
 
+
 .popup-category {
+
   color:#64748b;
 
   font-size:10px;
+
   font-weight:700;
 
   text-transform:uppercase;
@@ -510,31 +922,74 @@ body {
   letter-spacing:.04em;
 
   margin-bottom:5px;
+
 }
 
+
 .popup-score {
-  margin:3px 0 6px;
+
+  margin:
+    3px 0 6px;
 
   font-size:19px;
+
   font-weight:900;
 
   color:#172b4d;
+
 }
 
+
 .popup-role {
+
   margin-top:7px;
 
   font-size:12px;
+
   line-height:1.4;
+
 }
 
+
 .popup-note {
+
   margin-top:7px;
 
   font-size:11px;
+
   line-height:1.35;
 
   color:#64748b;
+
+}
+
+
+/* =====================================================
+   MAPLIBRE / LEAFLET
+   ===================================================== */
+
+.maplibregl-map {
+
+  font-family:
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    Arial,
+    sans-serif;
+
+}
+
+
+/*
+   MapLibre adds its own attribution.
+   Keep it compact.
+*/
+
+.maplibregl-ctrl-bottom-right {
+
+  bottom:18px;
+
 }
 
 
@@ -542,178 +997,264 @@ body {
    MOBILE
    ===================================================== */
 
-@media (max-width:699px) {
+@media
+(max-width:699px) {
+
 
   /* ---------- TITLE ---------- */
 
   #title {
+
     top:10px;
+
     left:58px;
 
-    width:calc(100vw - 128px);
+    width:
+      calc(100vw - 128px);
 
-    padding:8px 10px;
+    padding:
+      8px 31px 8px 10px;
 
     border-radius:9px;
+
   }
 
+
   #title .eyebrow {
+
     font-size:7.5px;
+
     line-height:1.1;
 
     letter-spacing:.07em;
 
     margin-bottom:2px;
+
   }
+
 
   #title h1 {
-    margin:0 0 3px;
+
+    margin:
+      0 0 3px;
 
     font-size:13px;
+
     line-height:1.12;
+
   }
 
-  #title p {
+
+  #title .subtitle {
+
     font-size:8.5px;
+
     line-height:1.22;
+
+  }
+
+
+  #titleToggle {
+
+    top:5px;
+
+    right:5px;
+
+    width:23px;
+    height:23px;
+
+    border-radius:5px;
+
+  }
+
+
+  #titleToggle svg {
+
+    width:13px;
+    height:13px;
+
+  }
+
+
+  #title.collapsed {
+
+    padding:
+      8px 31px 8px 10px;
+
+  }
+
+
+  /* ---------- RIGHT CONTROLS ---------- */
+
+  #rightControls {
+
+    top:10px;
+
+    right:10px;
+
+    gap:7px;
+
+  }
+
+
+  .map-control-button {
+
+    width:42px;
+    height:42px;
+
+  }
+
+
+  /* ---------- LAYERS PANEL ---------- */
+
+  #layerPanel {
+
+    right:10px;
+
+    width:
+      min(
+        275px,
+        calc(100vw - 20px)
+      );
+
+    padding:
+      8px 10px;
+
+    border-radius:9px;
+
+    font-size:10px;
+
+  }
+
+
+  .layer-option {
+
+    min-height:25px;
+
+  }
+
+
+  .layer-panel-section {
+
+    margin-top:6px;
+
+    padding-top:6px;
+
   }
 
 
   /* ---------- LEGEND ---------- */
 
   .legend {
-    padding:6px 8px;
+
+    padding:
+      6px 8px;
 
     border-radius:8px;
 
     font-size:8.5px;
-    line-height:1.28;
 
-    max-width:185px;
+    line-height:1.25;
+
+    max-width:190px;
+
   }
+
 
   .legend-title {
+
     font-size:8px;
-    margin-bottom:2px;
+
+    margin-bottom:3px;
+
   }
+
 
   .legend-section {
-    margin-top:4px;
-    margin-bottom:1px;
+
+    margin-top:5px;
+
+    margin-bottom:2px;
+
   }
 
-  .dot {
+
+  .legend-row {
+
+    grid-template-columns:
+      21px 1fr;
+
+    min-height:14px;
+
+  }
+
+
+  .legend-symbol {
+
+    width:21px;
+
+  }
+
+
+  .legend-dot {
+
     width:8px;
     height:8px;
 
-    margin-right:5px;
   }
 
-  .nb-key {
+
+  .legend-nb {
+
     width:12px;
     height:12px;
 
-    margin-right:5px;
+    font-size:4.8px;
 
-    font-size:5px;
-
-    vertical-align:-2px;
   }
 
-  .major-key {
+
+  .legend-diamond {
+
     width:7px;
     height:7px;
 
-    margin-left:1px;
-    margin-right:8px;
   }
 
-  .triangle-key {
+
+  .legend-triangle {
+
     border-left-width:4px;
+
     border-right-width:4px;
+
     border-bottom-width:7px;
 
-    margin-right:7px;
   }
 
-  .hex-key {
+
+  .legend-hexagon {
+
     width:9px;
     height:8px;
 
-    margin-right:6px;
   }
 
-  .ring-key {
+
+  .legend-ring {
+
     width:14px;
     height:7px;
 
-    border-width:1.5px;
-
-    margin-right:5px;
-  }
-
-  .aqua-line {
-    width:16px;
-
-    border-top-width:2.5px;
-
-    margin-right:5px;
   }
 
 
-  /* ===================================================
-     MOBILE RIGHT-SIDE CONTROL STACK
+  .legend-line {
 
-     Home = first control
-     Layers = directly beneath
+    width:15px;
 
-     Neither control moves when opened.
-     =================================================== */
+    border-top-width:2px;
 
-  .leaflet-top.leaflet-right {
-    top:10px;
-    right:10px;
-  }
-
-  .leaflet-top.leaflet-right
-  .leaflet-control {
-    margin-right:0;
-  }
-
-  .leaflet-control-home {
-    width:42px;
-    height:42px;
-
-    margin-top:0 !important;
-    margin-bottom:8px !important;
-  }
-
-  .leaflet-control-layers {
-    margin-top:0 !important;
-  }
-
-
-  /*
-    Expanded layer panel stays anchored to the
-    same fixed control position rather than jumping.
-  */
-
-  .leaflet-control-layers-expanded {
-    max-width:calc(100vw - 85px);
-
-    box-sizing:border-box;
-
-    font-size:10px;
-
-    line-height:1.20;
-
-    padding:7px 9px !important;
-  }
-
-  .leaflet-control-layers-expanded label {
-    margin:0 0 2px 0;
-
-    white-space:nowrap;
   }
 
 }
@@ -726,37 +1267,356 @@ body {
 @media print {
 
   .leaflet-control-zoom,
-  .leaflet-control-layers,
-  .leaflet-control-home {
+  #rightControls,
+  #layerPanel,
+  #titleToggle {
+
     display:none !important;
+
   }
 
 }
 
 </style>
+
 </head>
+
 
 <body>
 
+
+<!-- =====================================================
+     MAP
+     ===================================================== -->
+
 <div id="map"></div>
 
+
+<!-- =====================================================
+     TITLE
+     ===================================================== -->
+
 <div id="title">
+
+  <button
+    id="titleToggle"
+    type="button"
+    aria-label="Collapse map title"
+    title="Collapse map title"
+  >
+
+    <svg
+      viewBox="0 0 24 24"
+      aria-hidden="true"
+    >
+
+      <path
+        d="M6 15L12 9L18 15"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2.3"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+
+    </svg>
+
+  </button>
+
 
   <div class="eyebrow">
     Mapping Retail Opportunity Through GIS
   </div>
 
+
   <h1>
     New Balance Columbus | Brand-Market Fit
   </h1>
 
-  <p>
-    Three candidate strategies viewed alongside New Balance retail,
-    specialty-running distribution, active-lifestyle geography,
-    and the broader athletic-retail network.
+
+  <p class="subtitle">
+
+    Three candidate strategies viewed alongside
+    New Balance retail, specialty-running distribution,
+    active-lifestyle geography, and the broader
+    athletic-retail network.
+
   </p>
 
 </div>
+
+
+<!-- =====================================================
+     RIGHT CONTROLS
+     ===================================================== -->
+
+<div id="rightControls">
+
+
+  <!-- HOME -->
+
+  <button
+    id="homeButton"
+    class="map-control-button"
+    type="button"
+    aria-label="Return to default map extent"
+    title="Return to default map extent"
+  >
+
+    <svg
+      viewBox="0 0 24 24"
+      aria-hidden="true"
+    >
+
+      <path
+        d="
+          M3 11.2
+          L12 3.8
+          L21 11.2
+        "
+        fill="none"
+        stroke="#334155"
+        stroke-width="2.2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+
+      <path
+        d="
+          M5.5 10.5
+          V20
+          H10
+          V14
+          H14
+          V20
+          H18.5
+          V10.5
+        "
+        fill="none"
+        stroke="#334155"
+        stroke-width="2.2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+
+    </svg>
+
+  </button>
+
+
+  <!-- LAYERS -->
+
+  <button
+    id="layersButton"
+    class="map-control-button"
+    type="button"
+    aria-label="Open map layers"
+    title="Map layers"
+    aria-expanded="false"
+  >
+
+    <svg
+      viewBox="0 0 24 24"
+      aria-hidden="true"
+    >
+
+      <path
+        d="
+          M12 3
+          L21 8
+          L12 13
+          L3 8
+          Z
+        "
+        fill="none"
+        stroke="#334155"
+        stroke-width="1.9"
+        stroke-linejoin="round"
+      />
+
+      <path
+        d="
+          M4.5 12
+          L12 16
+          L19.5 12
+        "
+        fill="none"
+        stroke="#334155"
+        stroke-width="1.9"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+
+      <path
+        d="
+          M4.5 16
+          L12 20
+          L19.5 16
+        "
+        fill="none"
+        stroke="#334155"
+        stroke-width="1.9"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+
+    </svg>
+
+  </button>
+
+</div>
+
+
+<!-- =====================================================
+     CUSTOM LAYERS PANEL
+     ===================================================== -->
+
+<div
+  id="layerPanel"
+  aria-hidden="true"
+>
+
+
+  <div class="layer-panel-section">
+
+    <div class="layer-panel-title">
+      Basemap
+    </div>
+
+
+    <label class="layer-option">
+
+      <input
+        type="radio"
+        name="basemap"
+        value="positron"
+        checked
+      >
+
+      <span>
+        OpenFreeMap Positron
+      </span>
+
+    </label>
+
+
+    <label class="layer-option">
+
+      <input
+        type="radio"
+        name="basemap"
+        value="osm"
+      >
+
+      <span>
+        OpenStreetMap
+      </span>
+
+    </label>
+
+  </div>
+
+
+  <div class="layer-panel-section">
+
+    <div class="layer-panel-title">
+      Map Layers
+    </div>
+
+
+    <label class="layer-option">
+
+      <input
+        type="checkbox"
+        data-layer="candidates"
+        checked
+      >
+
+      <span>
+        Candidate Areas
+      </span>
+
+    </label>
+
+
+    <label class="layer-option">
+
+      <input
+        type="checkbox"
+        data-layer="candidateRings"
+        checked
+      >
+
+      <span>
+        3-Mile Evaluation Areas
+      </span>
+
+    </label>
+
+
+    <label class="layer-option">
+
+      <input
+        type="checkbox"
+        data-layer="nb"
+        checked
+      >
+
+      <span>
+        New Balance Owned Retail
+      </span>
+
+    </label>
+
+
+    <label class="layer-option">
+
+      <input
+        type="checkbox"
+        data-layer="majorRetail"
+        checked
+      >
+
+      <span>
+        Major Athletic Retail Nodes
+      </span>
+
+    </label>
+
+
+    <label class="layer-option">
+
+      <input
+        type="checkbox"
+        data-layer="crc"
+        checked
+      >
+
+      <span>
+        Specialty Running / NB Distribution
+      </span>
+
+    </label>
+
+
+    <label class="layer-option">
+
+      <input
+        type="checkbox"
+        data-layer="active"
+        checked
+      >
+
+      <span>
+        Running & Active-Lifestyle Geography
+      </span>
+
+    </label>
+
+  </div>
+
+</div>
+
 
 <script>
 
@@ -768,139 +1628,257 @@ body {
 const points = [
 
   {
+
     id:"A",
+
     name:"Dublin / Bridge Park",
+
     lat:40.10424,
+
     lon:-83.11018,
+
     type:"candidate",
+
     score:87,
-    headline:"Balanced Growth Opportunity",
+
+    headline:
+      "Balanced Growth Opportunity",
+
     strategy:
       "Dublin offers the strongest overall balance of market quality, active-lifestyle alignment, mixed-use placemaking, and network expansion potential.",
+
     role:
       "Expand the owned retail network into a high-value mixed-use market with strong lifestyle and experiential alignment."
+
   },
 
+
   {
+
     id:"B",
+
     name:"Short North / High Street",
+
     lat:39.977984,
+
     lon:-83.004006,
+
     type:"candidate",
+
     score:86,
-    headline:"Running & Urban Brand Connection",
+
+    headline:
+      "Running & Urban Brand Connection",
+
     strategy:
       "Short North provides the strongest direct connection to Columbus's urban running and lifestyle culture.",
+
     role:
       "Build deeper brand relevance through an urban location closely connected to running, community, culture, and lifestyle."
+
   },
 
+
   {
+
     id:"C",
+
     name:"Easton Town Center",
+
     lat:40.0510,
+
     lon:-82.9150,
+
     type:"candidate",
+
     score:84,
-    headline:"Regional Retail Visibility",
+
+    headline:
+      "Regional Retail Visibility",
+
     strategy:
       "Easton offers the strongest conventional regional retail platform of the three candidates.",
+
     role:
       "Capture regional destination traffic and maximize visibility within an established athletic and lifestyle retail cluster."
+
   },
 
+
   {
+
     id:"NB-SUNBURY",
-    name:"New Balance Factory Store - Sunbury",
+
+    name:
+      "New Balance Factory Store - Sunbury",
+
     lat:40.2690,
+
     lon:-82.9270,
+
     type:"new_balance",
+
     description:
       "Existing New Balance-owned factory store serving the Columbus market from the north."
+
   },
 
+
   {
+
     id:"CRC-DUBLIN",
-    name:"Columbus Running Company - Dublin",
+
+    name:
+      "Columbus Running Company - Dublin",
+
     lat:40.1020,
+
     lon:-83.1620,
+
     type:"crc",
+
     description:
       "Specialty running retailer with New Balance distribution and community running activity."
+
   },
 
+
   {
+
     id:"CRC-SHORTNORTH",
-    name:"Columbus Running Company - Short North",
+
+    name:
+      "Columbus Running Company - Short North",
+
     lat:39.977984,
+
     lon:-83.004006,
+
     type:"crc",
+
     description:
       "Specialty running retailer with New Balance distribution and recurring community running activity."
+
   },
 
+
   {
+
     id:"CRC-WESTERVILLE",
-    name:"Columbus Running Company - Westerville",
+
+    name:
+      "Columbus Running Company - Westerville",
+
     lat:40.1278,
+
     lon:-82.9290,
+
     type:"crc",
+
     description:
       "Specialty running retailer and New Balance distribution point."
+
   },
 
+
   {
+
     id:"CRC-DELAWARE",
-    name:"Columbus Running Company - Delaware",
+
+    name:
+      "Columbus Running Company - Delaware",
+
     lat:40.2998,
+
     lon:-83.0670,
+
     type:"crc",
+
     description:
       "Specialty running retailer and New Balance distribution point."
+
   },
 
+
   {
+
     id:"CRC-GROVECITY",
-    name:"Columbus Running Company - Grove City",
+
+    name:
+      "Columbus Running Company - Grove City",
+
     lat:39.8810,
+
     lon:-83.0930,
+
     type:"crc",
+
     description:
       "Specialty running retailer and New Balance distribution point."
+
   },
 
+
   {
+
     id:"CRC-PICKERINGTON",
-    name:"Columbus Running Company - Pickerington",
+
+    name:
+      "Columbus Running Company - Pickerington",
+
     lat:39.9050,
+
     lon:-82.7530,
+
     type:"crc",
+
     description:
       "Specialty running retailer and New Balance distribution point."
+
   },
 
+
   {
+
     id:"EASTON-NODE",
-    name:"Easton Athletic Retail Cluster",
+
+    name:
+      "Easton Athletic Retail Cluster",
+
     lat:40.0510,
+
     lon:-82.9150,
+
     type:"major_retail",
+
     description:
       "Major regional athletic and lifestyle retail cluster with substantial complementary and competitive athletic retail.",
+
     role:
       "Provides strong retail visibility and market draw, while also representing substantial existing multibrand athletic distribution."
+
   },
 
+
   {
+
     id:"POLARIS",
-    name:"Polaris Athletic Retail Cluster",
+
+    name:
+      "Polaris Athletic Retail Cluster",
+
     lat:40.1455,
+
     lon:-82.9810,
+
     type:"major_retail",
+
     description:
       "Major regional retail node with substantial athletic retail presence north of Columbus.",
+
     role:
       "Provides important context for the existing athletic-retail ecosystem north of the candidate areas."
+
   }
 
 ];
@@ -913,47 +1891,82 @@ const points = [
 const activePoints = [
 
   {
+
     id:"AL-DUBLIN",
-    name:"Dublin Link / Bridge Park",
+
+    name:
+      "Dublin Link / Bridge Park",
+
     lat:40.0997,
+
     lon:-83.1143,
+
     description:
       "Major pedestrian connection across the Scioto River linking Historic Dublin and Bridge Park.",
+
     role:
       "Supports the active-lifestyle character of Candidate A and connects Bridge Park directly into a walkable riverfront environment."
+
   },
 
+
   {
+
     id:"AL-OLENTANGY",
-    name:"Olentangy Trail - Short North Access",
+
+    name:
+      "Olentangy Trail - Short North Access",
+
     lat:39.9835,
+
     lon:-83.0194,
+
     description:
       "Key north-south recreational and running corridor serving central Columbus.",
+
     role:
       "CRC's Short North running routes use both the north and south Olentangy Trail, reinforcing Candidate B's connection to established running infrastructure."
+
   },
 
+
   {
+
     id:"AL-BRIDGEPARK-RUN",
-    name:"Bridge Park Community Running Activity",
+
+    name:
+      "Bridge Park Community Running Activity",
+
     lat:40.1032,
+
     lon:-83.1130,
+
     description:
       "Bridge Park is an emerging community-running destination, including CRC-supported social running activity.",
+
     role:
       "Adds direct evidence of running-community activity within Candidate A's immediate mixed-use environment."
+
   },
 
+
   {
+
     id:"AL-SHORTNORTH-RUN",
-    name:"Short North Running Community",
+
+    name:
+      "Short North Running Community",
+
     lat:39.9810,
+
     lon:-83.0065,
+
     description:
       "Recurring community runs and seasonal workouts operate in and around the Short North.",
+
     role:
       "Reinforces Candidate B as a location embedded in an established urban running and active-lifestyle community."
+
   }
 
 ];
@@ -966,39 +1979,64 @@ const activePoints = [
 const activeCorridors = [
 
   {
-    name:"Olentangy Running Corridor",
+
+    name:
+      "Olentangy Running Corridor",
 
     coordinates:[
+
       [40.1160,-83.0330],
+
       [40.0960,-83.0320],
+
       [40.0750,-83.0290],
+
       [40.0540,-83.0260],
+
       [40.0350,-83.0240],
+
       [40.0170,-83.0220],
+
       [39.9980,-83.0200],
+
       [39.9835,-83.0194],
+
       [39.9680,-83.0165],
+
       [39.9520,-83.0125]
+
     ],
 
     description:
       "Generalized representation of the Olentangy recreational corridor through central Columbus."
+
   },
 
+
   {
-    name:"Dublin Scioto / Bridge Park Active Corridor",
+
+    name:
+      "Dublin Scioto / Bridge Park Active Corridor",
 
     coordinates:[
+
       [40.1130,-83.1175],
+
       [40.1080,-83.1165],
+
       [40.1030,-83.1150],
+
       [40.0997,-83.1143],
+
       [40.0950,-83.1135],
+
       [40.0900,-83.1125]
+
     ],
 
     description:
       "Generalized active-lifestyle corridor centered on the Dublin Link, Scioto riverfront, and Bridge Park environment."
+
   }
 
 ];
@@ -1010,10 +2048,15 @@ const activeCorridors = [
 
 const finalBounds =
 L.latLngBounds(
+
   [
+
     [39.865,-83.185],
+
     [40.315,-82.735]
+
   ]
+
 );
 
 
@@ -1021,143 +2064,72 @@ L.latLngBounds(
    MAP
    ===================================================== */
 
-const map = L.map(
+const map =
+L.map(
+
   "map",
+
   {
+
     zoomControl:true,
+
     preferCanvas:true
+
   }
+
 );
 
 
 /* =====================================================
-   BASEMAP
+   BASEMAPS
    ===================================================== */
 
-L.tileLayer(
-  "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
-  {
-    maxZoom:19,
 
-    attribution:
-      '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-  }
-).addTo(map);
+/*
+   DEFAULT BASEMAP:
+   OpenFreeMap Positron
+*/
 
+const positronLayer =
+L.maplibreGL({
 
-/* =====================================================
-   HOME EXTENT CONTROL
-   ===================================================== */
-
-const HomeControl =
-L.Control.extend({
-
-  options:{
-    position:"topright"
-  },
-
-  onAdd:function(map) {
-
-    const button =
-      L.DomUtil.create(
-        "button",
-        "leaflet-control-home"
-      );
-
-
-    button.type = "button";
-
-    button.title =
-      "Return to default map extent";
-
-    button.setAttribute(
-      "aria-label",
-      "Return to default map extent"
-    );
-
-
-    button.innerHTML = `
-
-      <svg
-        class="home-icon"
-        viewBox="0 0 24 24"
-        aria-hidden="true"
-      >
-
-        <path
-          d="
-            M3 11.2
-            12 3.8
-            21 11.2
-          "
-          fill="none"
-          stroke="#334155"
-          stroke-width="2.2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-        />
-
-        <path
-          d="
-            M5.5 10.5
-            V20
-            H10
-            V14
-            H14
-            V20
-            H18.5
-            V10.5
-          "
-          fill="none"
-          stroke="#334155"
-          stroke-width="2.2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-        />
-
-      </svg>
-
-    `;
-
-
-    L.DomEvent.disableClickPropagation(button);
-
-    L.DomEvent.disableScrollPropagation(button);
-
-
-    L.DomEvent.on(
-      button,
-      "click",
-      function(e) {
-
-        L.DomEvent.preventDefault(e);
-
-        map.fitBounds(
-          finalBounds,
-          {
-            paddingTopLeft:[20,20],
-            paddingBottomRight:[20,20]
-          }
-        );
-
-      }
-    );
-
-
-    return button;
-
-  }
+  style:
+    "https://tiles.openfreemap.org/styles/positron"
 
 });
 
 
-map.addControl(
-  new HomeControl()
+/*
+   ALTERNATIVE BASEMAP:
+   Standard OpenStreetMap
+*/
+
+const osmLayer =
+L.tileLayer(
+
+  "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+
+  {
+
+    maxZoom:19,
+
+    attribution:
+      '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+
+  }
+
 );
 
 
+/*
+   Positron is shown initially.
+*/
+
+positronLayer.addTo(map);
+
+
 /* =====================================================
-   LAYERS
+   ANALYTICAL LAYERS
    ===================================================== */
 
 const layers = {
@@ -1199,7 +2171,7 @@ const candidateColors = {
 
 
 /* =====================================================
-   ICONS
+   ICON FUNCTIONS
    ===================================================== */
 
 function makeCandidateIcon(id) {
@@ -1209,15 +2181,21 @@ function makeCandidateIcon(id) {
     className:"",
 
     html:
-      `<div class="candidate-marker ${id.toLowerCase()}">
+
+      `<div
+        class="candidate-marker ${id.toLowerCase()}"
+      >
         ${id}
       </div>`,
 
-    iconSize:[40,40],
+    iconSize:
+      [40,40],
 
-    iconAnchor:[20,20],
+    iconAnchor:
+      [20,20],
 
-    popupAnchor:[0,-21]
+    popupAnchor:
+      [0,-21]
 
   });
 
@@ -1231,13 +2209,18 @@ function makeNBIcon() {
     className:"",
 
     html:
-      `<div class="nb-marker">NB</div>`,
+      `<div class="nb-marker">
+        NB
+      </div>`,
 
-    iconSize:[28,28],
+    iconSize:
+      [28,28],
 
-    iconAnchor:[14,14],
+    iconAnchor:
+      [14,14],
 
-    popupAnchor:[0,-15]
+    popupAnchor:
+      [0,-15]
 
   });
 
@@ -1251,15 +2234,23 @@ function makeCRCIcon() {
     className:"",
 
     html:
+
       `<div class="crc-marker-wrap">
-        <div class="crc-triangle"></div>
+
+        <div
+          class="crc-triangle">
+        </div>
+
       </div>`,
 
-    iconSize:[16,14],
+    iconSize:
+      [16,14],
 
-    iconAnchor:[8,7],
+    iconAnchor:
+      [8,7],
 
-    popupAnchor:[0,-9]
+    popupAnchor:
+      [0,-9]
 
   });
 
@@ -1273,13 +2264,19 @@ function makeMajorRetailIcon() {
     className:"",
 
     html:
-      `<div class="major-retail-marker"></div>`,
 
-    iconSize:[14,14],
+      `<div
+        class="major-retail-marker">
+      </div>`,
 
-    iconAnchor:[7,7],
+    iconSize:
+      [14,14],
 
-    popupAnchor:[0,-9]
+    iconAnchor:
+      [7,7],
+
+    popupAnchor:
+      [0,-9]
 
   });
 
@@ -1293,13 +2290,19 @@ function makeActiveIcon() {
     className:"",
 
     html:
-      `<div class="active-hexagon"></div>`,
 
-    iconSize:[15,13],
+      `<div
+        class="active-hexagon">
+      </div>`,
 
-    iconAnchor:[7.5,6.5],
+    iconSize:
+      [15,13],
 
-    popupAnchor:[0,-9]
+    iconAnchor:
+      [7.5,6.5],
+
+    popupAnchor:
+      [0,-9]
 
   });
 
@@ -1315,28 +2318,50 @@ function candidatePopup(p) {
   return `
 
     <div class="popup-title">
+
       ${p.id} | ${p.name}
+
     </div>
+
 
     <div class="popup-category">
+
       Candidate Area
+
     </div>
+
 
     <div class="popup-score">
+
       Brand-Market Fit: ${p.score}
+
     </div>
+
 
     <b>
+
       ${p.headline}
+
     </b>
 
-    <div class="popup-role">
-      ${p.strategy}
-    </div>
 
     <div class="popup-role">
-      <b>Strategic role:</b><br>
+
+      ${p.strategy}
+
+    </div>
+
+
+    <div class="popup-role">
+
+      <b>
+        Strategic role:
+      </b>
+
+      <br>
+
       ${p.role}
+
     </div>
 
   `;
@@ -1346,17 +2371,27 @@ function candidatePopup(p) {
 
 function generalPopup(p) {
 
-  if (p.type === "new_balance") {
+
+  if (
+    p.type ===
+    "new_balance"
+  ) {
 
     return `
 
       <div class="popup-title">
+
         ${p.name}
+
       </div>
 
+
       <div class="popup-category">
+
         New Balance Owned Retail
+
       </div>
+
 
       ${p.description}
 
@@ -1365,17 +2400,27 @@ function generalPopup(p) {
   }
 
 
-  if (p.type === "crc") {
+  if (
+    p.type ===
+    "crc"
+  ) {
 
     return `
 
       <div class="popup-title">
+
         ${p.name}
+
       </div>
 
+
       <div class="popup-category">
-        Specialty Running / New Balance Distribution
+
+        Specialty Running /
+        New Balance Distribution
+
       </div>
+
 
       ${p.description}
 
@@ -1384,23 +2429,40 @@ function generalPopup(p) {
   }
 
 
-  if (p.type === "major_retail") {
+  if (
+    p.type ===
+    "major_retail"
+  ) {
 
     return `
 
       <div class="popup-title">
+
         ${p.name}
+
       </div>
 
+
       <div class="popup-category">
+
         Major Athletic Retail Node
+
       </div>
 
+
       ${p.description}
+
 
       <div class="popup-role">
-        <b>Strategic relevance:</b><br>
+
+        <b>
+          Strategic relevance:
+        </b>
+
+        <br>
+
         ${p.role}
+
       </div>
 
     `;
@@ -1415,38 +2477,61 @@ function generalPopup(p) {
    ===================================================== */
 
 points
+
 .filter(
-  p => p.type === "candidate"
+
+  p =>
+    p.type ===
+    "candidate"
+
 )
+
 .forEach(
+
   p => {
 
     L.circle(
-      [p.lat,p.lon],
-      {
-        radius:4828.032,
 
-        color:candidateColors[p.id],
+      [p.lat,p.lon],
+
+      {
+
+        radius:
+          4828.032,
+
+        color:
+          candidateColors[p.id],
 
         weight:2,
 
-        dashArray:"7 6",
+        dashArray:
+          "7 6",
 
         opacity:.85,
 
-        fillColor:candidateColors[p.id],
+        fillColor:
+          candidateColors[p.id],
 
         fillOpacity:.025
+
       }
+
     )
+
     .bindTooltip(
+
       `${p.id} | 3-mile evaluation area`
+
     )
+
     .addTo(
+
       layers.candidateRings
+
     );
 
   }
+
 );
 
 
@@ -1455,35 +2540,61 @@ points
    ===================================================== */
 
 const nb =
-  points.find(
-    p => p.id === "NB-SUNBURY"
-  );
+points.find(
+
+  p =>
+    p.id ===
+    "NB-SUNBURY"
+
+);
 
 
 L.marker(
-  [nb.lat,nb.lon],
-  {
-    icon:makeNBIcon(),
 
-    zIndexOffset:500
+  [nb.lat,nb.lon],
+
+  {
+
+    icon:
+      makeNBIcon(),
+
+    zIndexOffset:
+      500
+
   }
+
 )
+
 .bindPopup(
+
   generalPopup(nb),
+
   {
+
     maxWidth:300
+
   }
+
 )
+
 .bindTooltip(
+
   "New Balance Factory Store - Sunbury",
+
   {
+
     direction:"right",
 
     offset:[12,0]
+
   }
+
 )
+
 .addTo(
+
   layers.nb
+
 );
 
 
@@ -1492,39 +2603,69 @@ L.marker(
    ===================================================== */
 
 points
+
 .filter(
-  p => p.type === "crc"
+
+  p =>
+    p.type ===
+    "crc"
+
 )
+
 .forEach(
+
   p => {
 
     L.marker(
-      [p.lat,p.lon],
-      {
-        icon:makeCRCIcon(),
 
-        zIndexOffset:520
+      [p.lat,p.lon],
+
+      {
+
+        icon:
+          makeCRCIcon(),
+
+        zIndexOffset:
+          520
+
       }
+
     )
+
     .bindPopup(
+
       generalPopup(p),
+
       {
+
         maxWidth:300
+
       }
+
     )
+
     .bindTooltip(
+
       p.name,
+
       {
+
         direction:"top",
 
         offset:[0,-7]
+
       }
+
     )
+
     .addTo(
+
       layers.crc
+
     );
 
   }
+
 );
 
 
@@ -1533,39 +2674,69 @@ points
    ===================================================== */
 
 points
+
 .filter(
-  p => p.type === "major_retail"
+
+  p =>
+    p.type ===
+    "major_retail"
+
 )
+
 .forEach(
+
   p => {
 
     L.marker(
-      [p.lat,p.lon],
-      {
-        icon:makeMajorRetailIcon(),
 
-        zIndexOffset:540
+      [p.lat,p.lon],
+
+      {
+
+        icon:
+          makeMajorRetailIcon(),
+
+        zIndexOffset:
+          540
+
       }
+
     )
+
     .bindPopup(
+
       generalPopup(p),
+
       {
+
         maxWidth:300
+
       }
+
     )
+
     .bindTooltip(
+
       p.name,
+
       {
+
         direction:"top",
 
         offset:[0,-6]
+
       }
+
     )
+
     .addTo(
+
       layers.majorRetail
+
     );
 
   }
+
 );
 
 
@@ -1573,51 +2744,84 @@ points
    ACTIVE CORRIDORS
    ===================================================== */
 
-activeCorridors.forEach(
+activeCorridors
+
+.forEach(
+
   corridor => {
 
     L.polyline(
+
       corridor.coordinates,
+
       {
-        color:"#2b9fb3",
+
+        color:
+          "#2b9fb3",
 
         weight:3,
 
         opacity:1,
 
-        lineCap:"round",
+        lineCap:
+          "round",
 
-        lineJoin:"round"
+        lineJoin:
+          "round"
+
       }
+
     )
+
     .bindPopup(
+
       `
 
         <div class="popup-title">
+
           ${corridor.name}
+
         </div>
 
+
         <div class="popup-category">
-          Running / Active-Lifestyle Corridor
+
+          Running /
+          Active-Lifestyle Corridor
+
         </div>
+
 
         ${corridor.description}
 
+
         <div class="popup-note">
-          Corridor geometry is generalized for
-          metropolitan-scale analytical context.
+
+          Corridor geometry is
+          generalized for
+          metropolitan-scale
+          analytical context.
+
         </div>
 
       `
+
     )
+
     .bindTooltip(
+
       corridor.name
+
     )
+
     .addTo(
+
       layers.active
+
     );
 
   }
+
 );
 
 
@@ -1625,132 +2829,169 @@ activeCorridors.forEach(
    ACTIVE-LIFESTYLE NODES
    ===================================================== */
 
-activePoints.forEach(
+activePoints
+
+.forEach(
+
   p => {
 
     L.marker(
-      [p.lat,p.lon],
-      {
-        icon:makeActiveIcon(),
 
-        zIndexOffset:560
+      [p.lat,p.lon],
+
+      {
+
+        icon:
+          makeActiveIcon(),
+
+        zIndexOffset:
+          560
+
       }
+
     )
+
     .bindPopup(
+
       `
 
         <div class="popup-title">
+
           ${p.name}
+
         </div>
 
+
         <div class="popup-category">
-          Running / Active-Lifestyle Geography
+
+          Running /
+          Active-Lifestyle Geography
+
         </div>
+
 
         ${p.description}
 
+
         <div class="popup-role">
-          <b>Strategic relevance:</b><br>
+
+          <b>
+            Strategic relevance:
+          </b>
+
+          <br>
+
           ${p.role}
+
         </div>
 
       `,
+
       {
+
         maxWidth:310
+
       }
+
     )
+
     .bindTooltip(
+
       p.name,
+
       {
+
         direction:"top",
 
         offset:[0,-6]
+
       }
+
     )
+
     .addTo(
+
       layers.active
+
     );
 
   }
+
 );
 
 
 /* =====================================================
    CANDIDATE MARKERS
-   ALWAYS ON TOP
+   ADDED LAST
    ===================================================== */
 
 points
+
 .filter(
-  p => p.type === "candidate"
+
+  p =>
+    p.type ===
+    "candidate"
+
 )
+
 .forEach(
+
   p => {
 
     L.marker(
-      [p.lat,p.lon],
-      {
-        icon:makeCandidateIcon(p.id),
 
-        zIndexOffset:1000
+      [p.lat,p.lon],
+
+      {
+
+        icon:
+          makeCandidateIcon(
+            p.id
+          ),
+
+        zIndexOffset:
+          1000
+
       }
+
     )
+
     .bindPopup(
+
       candidatePopup(p),
+
       {
+
         maxWidth:320
+
       }
+
     )
+
     .bindTooltip(
+
       `${p.id} | ${p.name}`,
+
       {
+
         direction:"top",
 
         offset:[0,-12]
+
       }
+
     )
+
     .addTo(
+
       layers.candidates
+
     );
 
   }
+
 );
-
-
-/* =====================================================
-   LAYER CONTROL
-   ===================================================== */
-
-const layerControl =
-L.control.layers(
-  null,
-  {
-
-    "Candidate Areas":
-      layers.candidates,
-
-    "3-Mile Evaluation Areas":
-      layers.candidateRings,
-
-    "New Balance Owned Retail":
-      layers.nb,
-
-    "Major Athletic Retail Nodes":
-      layers.majorRetail,
-
-    "Specialty Running / NB Distribution":
-      layers.crc,
-
-    "Running & Active-Lifestyle Geography":
-      layers.active
-
-  },
-  {
-    collapsed:true,
-
-    position:"topright"
-  }
-).addTo(map);
 
 
 /* =====================================================
@@ -1758,14 +2999,20 @@ L.control.layers(
    ===================================================== */
 
 L.control.scale(
+
   {
+
     imperial:true,
 
     metric:false,
 
     position:"bottomleft"
+
   }
-).addTo(map);
+
+)
+
+.addTo(map);
 
 
 /* =====================================================
@@ -1773,109 +3020,217 @@ L.control.scale(
    ===================================================== */
 
 const legend =
-  L.control(
-    {
-      position:"bottomright"
-    }
-  );
+L.control(
+
+  {
+
+    position:"bottomright"
+
+  }
+
+);
 
 
 legend.onAdd =
 function() {
 
+
   const d =
-    L.DomUtil.create(
-      "div",
-      "legend"
-    );
+  L.DomUtil.create(
+
+    "div",
+
+    "legend"
+
+  );
 
 
   d.innerHTML = `
 
+
     <div class="legend-title">
+
       Map Key
+
     </div>
 
 
     <div class="legend-section">
+
       Candidates
+
     </div>
 
-    <span class="legend-row">
-      <span
-        class="dot"
-        style="background:#d73027;">
+
+    <div class="legend-row">
+
+      <span class="legend-symbol">
+
+        <span
+          class="legend-dot"
+          style="background:#d73027">
+        </span>
+
       </span>
-      A Dublin / Bridge Park
-    </span>
 
-    <br>
-
-    <span class="legend-row">
-      <span
-        class="dot"
-        style="background:#245bbf;">
+      <span>
+        A Dublin / Bridge Park
       </span>
-      B Short North / High Street
-    </span>
 
-    <br>
+    </div>
 
-    <span class="legend-row">
-      <span
-        class="dot"
-        style="background:#18864b;">
+
+    <div class="legend-row">
+
+      <span class="legend-symbol">
+
+        <span
+          class="legend-dot"
+          style="background:#245bbf">
+        </span>
+
       </span>
-      C Easton Town Center
-    </span>
 
-    <br>
+      <span>
+        B Short North / High Street
+      </span>
 
-    <span class="legend-row">
-      <span class="ring-key"></span>
-      3-mile evaluation area
-    </span>
+    </div>
+
+
+    <div class="legend-row">
+
+      <span class="legend-symbol">
+
+        <span
+          class="legend-dot"
+          style="background:#18864b">
+        </span>
+
+      </span>
+
+      <span>
+        C Easton Town Center
+      </span>
+
+    </div>
+
+
+    <div class="legend-row">
+
+      <span class="legend-symbol">
+
+        <span
+          class="legend-ring">
+        </span>
+
+      </span>
+
+      <span>
+        3-mile evaluation area
+      </span>
+
+    </div>
 
 
     <div class="legend-section">
+
       Retail Network
+
     </div>
 
-    <span class="legend-row">
-      <span class="nb-key">NB</span>
-      New Balance owned retail
-    </span>
 
-    <br>
+    <div class="legend-row">
 
-    <span class="legend-row">
-      <span class="major-key"></span>
-      Major athletic retail node
-    </span>
+      <span class="legend-symbol">
 
-    <br>
+        <span
+          class="legend-nb">
+          NB
+        </span>
 
-    <span class="legend-row">
-      <span class="triangle-key triangle-gray"></span>
-      Specialty running / NB distribution
-    </span>
+      </span>
+
+      <span>
+        New Balance owned retail
+      </span>
+
+    </div>
+
+
+    <div class="legend-row">
+
+      <span class="legend-symbol">
+
+        <span
+          class="legend-diamond">
+        </span>
+
+      </span>
+
+      <span>
+        Major athletic retail node
+      </span>
+
+    </div>
+
+
+    <div class="legend-row">
+
+      <span class="legend-symbol">
+
+        <span
+          class="legend-triangle">
+        </span>
+
+      </span>
+
+      <span>
+        Specialty running / NB distribution
+      </span>
+
+    </div>
 
 
     <div class="legend-section">
+
       Active-Lifestyle Geography
+
     </div>
 
-    <span class="legend-row">
-      <span class="hex-key"></span>
-      Running / active-lifestyle node
-    </span>
 
-    <br>
+    <div class="legend-row">
 
-    <span class="legend-row">
-      <span class="aqua-line"></span>
-      Running / recreational corridor
-    </span>
+      <span class="legend-symbol">
+
+        <span
+          class="legend-hexagon">
+        </span>
+
+      </span>
+
+      <span>
+        Running / active-lifestyle node
+      </span>
+
+    </div>
+
+
+    <div class="legend-row">
+
+      <span class="legend-symbol">
+
+        <span
+          class="legend-line">
+        </span>
+
+      </span>
+
+      <span>
+        Running / recreational corridor
+      </span>
+
+    </div>
 
   `;
 
@@ -1892,25 +3247,624 @@ legend.addTo(map);
    INITIAL MAP EXTENT
    ===================================================== */
 
-map.fitBounds(
-  finalBounds,
-  {
-    paddingTopLeft:[20,20],
+function goHome() {
 
-    paddingBottomRight:[20,20]
+  map.fitBounds(
+
+    finalBounds,
+
+    {
+
+      paddingTopLeft:
+        [20,20],
+
+      paddingBottomRight:
+        [20,20]
+
+    }
+
+  );
+
+}
+
+
+goHome();
+
+
+/* =====================================================
+   HOME BUTTON
+   ===================================================== */
+
+const homeButton =
+document.getElementById(
+  "homeButton"
+);
+
+
+homeButton.addEventListener(
+
+  "click",
+
+  function(event) {
+
+    event.preventDefault();
+
+    event.stopPropagation();
+
+    goHome();
+
   }
+
 );
 
 
 /* =====================================================
-   TITLE EVENT HANDLING
+   TITLE COLLAPSE / EXPAND
    ===================================================== */
 
-L.DomEvent.disableClickPropagation(
-  document.getElementById("title")
+const title =
+document.getElementById(
+  "title"
 );
+
+
+const titleToggle =
+document.getElementById(
+  "titleToggle"
+);
+
+
+function updateLayerPanelPosition() {
+
+
+  const panel =
+  document.getElementById(
+    "layerPanel"
+  );
+
+
+  const titleRect =
+  title.getBoundingClientRect();
+
+
+  /*
+     Position the panel below
+     the ACTUAL title bottom.
+
+     This works whether the title
+     is expanded or collapsed.
+  */
+
+  const desiredTop =
+  Math.ceil(
+    titleRect.bottom + 10
+  );
+
+
+  panel.style.top =
+    `${desiredTop}px`;
+
+}
+
+
+titleToggle.addEventListener(
+
+  "click",
+
+  function(event) {
+
+    event.preventDefault();
+
+    event.stopPropagation();
+
+
+    const isCollapsed =
+    title.classList.toggle(
+      "collapsed"
+    );
+
+
+    titleToggle.setAttribute(
+
+      "aria-label",
+
+      isCollapsed
+        ?
+        "Expand map title"
+        :
+        "Collapse map title"
+
+    );
+
+
+    titleToggle.setAttribute(
+
+      "title",
+
+      isCollapsed
+        ?
+        "Expand map title"
+        :
+        "Collapse map title"
+
+    );
+
+
+    /*
+       Wait until layout updates,
+       then reposition layers.
+    */
+
+    requestAnimationFrame(
+
+      () => {
+
+        updateLayerPanelPosition();
+
+      }
+
+    );
+
+  }
+
+);
+
+
+/* =====================================================
+   CUSTOM LAYERS PANEL
+   ===================================================== */
+
+const layersButton =
+document.getElementById(
+  "layersButton"
+);
+
+
+const layerPanel =
+document.getElementById(
+  "layerPanel"
+);
+
+
+function closeLayerPanel() {
+
+  layerPanel
+    .classList
+    .remove(
+      "open"
+    );
+
+
+  layerPanel.setAttribute(
+
+    "aria-hidden",
+
+    "true"
+
+  );
+
+
+  layersButton.setAttribute(
+
+    "aria-expanded",
+
+    "false"
+
+  );
+
+}
+
+
+function openLayerPanel() {
+
+  updateLayerPanelPosition();
+
+
+  layerPanel
+    .classList
+    .add(
+      "open"
+    );
+
+
+  layerPanel.setAttribute(
+
+    "aria-hidden",
+
+    "false"
+
+  );
+
+
+  layersButton.setAttribute(
+
+    "aria-expanded",
+
+    "true"
+
+  );
+
+}
+
+
+layersButton.addEventListener(
+
+  "click",
+
+  function(event) {
+
+    event.preventDefault();
+
+    event.stopPropagation();
+
+
+    if (
+      layerPanel
+      .classList
+      .contains(
+        "open"
+      )
+    ) {
+
+      closeLayerPanel();
+
+    }
+
+    else {
+
+      openLayerPanel();
+
+    }
+
+  }
+
+);
+
+
+/*
+   Keep panel open when touching
+   controls inside it.
+*/
+
+layerPanel.addEventListener(
+
+  "click",
+
+  function(event) {
+
+    event.stopPropagation();
+
+  }
+
+);
+
+
+/*
+   Tapping elsewhere on the map
+   closes the panel.
+*/
+
+document.addEventListener(
+
+  "click",
+
+  function(event) {
+
+    if (
+
+      !layerPanel.contains(
+        event.target
+      )
+
+      &&
+
+      !layersButton.contains(
+        event.target
+      )
+
+    ) {
+
+      closeLayerPanel();
+
+    }
+
+  }
+
+);
+
+
+/* =====================================================
+   BASEMAP SWITCHING
+   ===================================================== */
+
+document
+.querySelectorAll(
+  'input[name="basemap"]'
+)
+.forEach(
+
+  input => {
+
+    input.addEventListener(
+
+      "change",
+
+      function() {
+
+
+        if (
+          !this.checked
+        ) {
+
+          return;
+
+        }
+
+
+        if (
+          this.value ===
+          "positron"
+        ) {
+
+
+          if (
+            map.hasLayer(
+              osmLayer
+            )
+          ) {
+
+            map.removeLayer(
+              osmLayer
+            );
+
+          }
+
+
+          if (
+            !map.hasLayer(
+              positronLayer
+            )
+          ) {
+
+            positronLayer
+              .addTo(map);
+
+            /*
+               Keep analytical
+               layers visually above
+               the basemap.
+            */
+
+            Object.values(
+              layers
+            )
+            .forEach(
+
+              layer => {
+
+                if (
+                  map.hasLayer(
+                    layer
+                  )
+                ) {
+
+                  layer.bringToFront?.();
+
+                }
+
+              }
+
+            );
+
+          }
+
+        }
+
+
+        if (
+          this.value ===
+          "osm"
+        ) {
+
+
+          if (
+            map.hasLayer(
+              positronLayer
+            )
+          ) {
+
+            map.removeLayer(
+              positronLayer
+            );
+
+          }
+
+
+          if (
+            !map.hasLayer(
+              osmLayer
+            )
+          ) {
+
+            osmLayer
+              .addTo(map);
+
+            osmLayer
+              .bringToBack();
+
+          }
+
+        }
+
+      }
+
+    );
+
+  }
+
+);
+
+
+/* =====================================================
+   OVERLAY SWITCHING
+   ===================================================== */
+
+document
+.querySelectorAll(
+  'input[data-layer]'
+)
+.forEach(
+
+  input => {
+
+    input.addEventListener(
+
+      "change",
+
+      function() {
+
+
+        const layerName =
+        this.dataset.layer;
+
+
+        const layer =
+        layers[layerName];
+
+
+        if (
+          !layer
+        ) {
+
+          return;
+
+        }
+
+
+        if (
+          this.checked
+        ) {
+
+          if (
+            !map.hasLayer(
+              layer
+            )
+          ) {
+
+            layer.addTo(map);
+
+          }
+
+        }
+
+        else {
+
+          if (
+            map.hasLayer(
+              layer
+            )
+          ) {
+
+            map.removeLayer(
+              layer
+            );
+
+          }
+
+        }
+
+      }
+
+    );
+
+  }
+
+);
+
+
+/* =====================================================
+   UI EVENT PROPAGATION
+   ===================================================== */
+
+[
+  title,
+  document.getElementById(
+    "rightControls"
+  ),
+  layerPanel
+]
+
+.forEach(
+
+  element => {
+
+    L.DomEvent
+      .disableClickPropagation(
+        element
+      );
+
+    L.DomEvent
+      .disableScrollPropagation(
+        element
+      );
+
+  }
+
+);
+
+
+/* =====================================================
+   RESIZE HANDLING
+   ===================================================== */
+
+window.addEventListener(
+
+  "resize",
+
+  function() {
+
+    updateLayerPanelPosition();
+
+  }
+
+);
+
+
+window.addEventListener(
+
+  "orientationchange",
+
+  function() {
+
+    setTimeout(
+
+      function() {
+
+        map.invalidateSize();
+
+        updateLayerPanelPosition();
+
+      },
+
+      200
+
+    );
+
+  }
+
+);
+
+
+/*
+   Establish initial hidden panel
+   position immediately.
+*/
+
+updateLayerPanelPosition();
+
 
 </script>
 
 </body>
+
 </html>
