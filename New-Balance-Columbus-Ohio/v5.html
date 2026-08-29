@@ -18,6 +18,10 @@
 <title>New Balance Columbus V5</title>
 
 
+<!-- =====================================================
+     LEAFLET
+     ===================================================== -->
+
 <link
   rel="stylesheet"
   href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
@@ -27,6 +31,10 @@
   src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js">
 </script>
 
+
+<!-- =====================================================
+     MAPLIBRE
+     ===================================================== -->
 
 <link
   rel="stylesheet"
@@ -38,6 +46,10 @@
 </script>
 
 
+<!-- =====================================================
+     MAPLIBRE + LEAFLET BRIDGE
+     ===================================================== -->
+
 <script
   src="https://unpkg.com/@maplibre/maplibre-gl-leaflet/leaflet-maplibre-gl.js">
 </script>
@@ -45,11 +57,19 @@
 
 <style>
 
+
+/* =====================================================
+   PAGE
+   ===================================================== */
+
 html,
 body {
+
   height:100%;
+
   margin:0;
   padding:0;
+
   overflow:hidden;
 
   font-family:
@@ -61,21 +81,35 @@ body {
     sans-serif;
 
   background:#f4f5f7;
+
 }
 
 
 #map {
+
   position:fixed;
+
   inset:0;
+
   width:100%;
   height:100%;
+
 }
 
 
+/* =====================================================
+   TITLE PANEL
+   ===================================================== */
+
 #title {
+
   position:absolute;
 
-  top:max(14px, env(safe-area-inset-top));
+  top:max(
+    14px,
+    env(safe-area-inset-top)
+  );
+
   left:14px;
 
   z-index:1100;
@@ -87,49 +121,78 @@ body {
 
   box-sizing:border-box;
 
-  background:rgba(255,255,255,.97);
+  background:
+    rgba(255,255,255,.97);
 
-  border:1px solid rgba(15,23,42,.08);
+  border:
+    1px solid rgba(15,23,42,.08);
 
   border-radius:12px;
 
-  padding:12px 42px 12px 14px;
+  padding:
+    12px 42px 12px 14px;
 
   box-shadow:
     0 4px 18px
     rgba(15,23,42,.16);
+
 }
 
 
 #title .eyebrow {
+
   font-size:10px;
+
   line-height:1.2;
+
   font-weight:800;
+
   letter-spacing:.08em;
+
   color:#64748b;
+
   text-transform:uppercase;
+
   margin-bottom:4px;
+
 }
 
 
 #title h1 {
-  margin:0 0 5px;
+
+  margin:
+    0 0 5px;
+
   font-size:18px;
+
   line-height:1.15;
+
   color:#172b4d;
+
 }
 
 
 #title .subtitle {
+
   margin:0;
+
   font-size:11.5px;
+
   line-height:1.35;
+
   color:#586474;
+
 }
 
 
+/* =====================================================
+   TITLE COLLAPSE BUTTON
+   ===================================================== */
+
 #titleToggle {
+
   position:absolute;
+
   top:8px;
   right:8px;
 
@@ -137,56 +200,84 @@ body {
   height:28px;
 
   padding:0;
+
   border:0;
+
   border-radius:6px;
 
-  background:rgba(241,245,249,.90);
+  background:
+    rgba(241,245,249,.90);
+
   color:#475569;
 
   display:flex;
+
   align-items:center;
   justify-content:center;
 
   cursor:pointer;
+
   touch-action:manipulation;
+
 }
 
 
 #titleToggle:hover {
+
   background:#e8edf2;
+
 }
 
 
 #titleToggle svg {
+
   width:16px;
   height:16px;
-  transition:transform .18s ease;
+
+  transition:
+    transform .18s ease;
+
 }
 
 
 #title.collapsed {
+
   padding-top:10px;
   padding-bottom:10px;
+
 }
 
 
 #title.collapsed .eyebrow,
 #title.collapsed .subtitle {
+
   display:none;
+
 }
 
 
 #title.collapsed h1 {
+
   margin:0;
+
 }
 
 
-#title.collapsed #titleToggle svg {
-  transform:rotate(180deg);
+#title.collapsed
+#titleToggle svg {
+
+  transform:
+    rotate(180deg);
+
 }
 
+
+/* =====================================================
+   RIGHT-SIDE CONTROLS
+   ===================================================== */
 
 #rightControls {
+
   position:absolute;
 
   top:max(
@@ -199,20 +290,29 @@ body {
   z-index:1200;
 
   display:flex;
+
   flex-direction:column;
+
   align-items:flex-end;
+
   gap:8px;
+
 }
 
 
 .map-control-button {
+
   width:42px;
   height:42px;
 
   padding:0;
+
   box-sizing:border-box;
 
-  border:1px solid rgba(0,0,0,.18);
+  border:
+    1px solid
+    rgba(0,0,0,.18);
+
   border-radius:8px;
 
   background:#ffffff;
@@ -222,32 +322,49 @@ body {
     rgba(0,0,0,.22);
 
   display:flex;
+
   align-items:center;
   justify-content:center;
 
   cursor:pointer;
 
   touch-action:manipulation;
-  -webkit-tap-highlight-color:transparent;
+
+  -webkit-tap-highlight-color:
+    transparent;
+
 }
 
 
 .map-control-button:hover {
+
   background:#f4f6f8;
+
 }
 
 
 .map-control-button svg {
+
   width:22px;
   height:22px;
+
   display:block;
+
 }
 
 
+/* =====================================================
+   CUSTOM LAYER PANEL
+   ===================================================== */
+
 #layerPanel {
+
   position:absolute;
+
   right:14px;
+
   z-index:1190;
+
   display:none;
 
   width:min(
@@ -257,83 +374,131 @@ body {
 
   box-sizing:border-box;
 
-  background:rgba(255,255,255,.98);
+  background:
+    rgba(255,255,255,.98);
 
-  border:1px solid rgba(15,23,42,.10);
+  border:
+    1px solid
+    rgba(15,23,42,.10);
+
   border-radius:10px;
 
   box-shadow:
     0 4px 16px
     rgba(15,23,42,.20);
 
-  padding:10px 12px;
+  padding:
+    10px 12px;
 
   font-size:11px;
+
   line-height:1.3;
+
 }
 
 
 #layerPanel.open {
+
   display:block;
+
 }
 
 
 .layer-panel-title {
+
   font-size:9px;
+
   font-weight:900;
+
   letter-spacing:.07em;
+
   color:#475569;
+
   text-transform:uppercase;
+
   margin-bottom:5px;
+
 }
 
 
 .layer-panel-section {
+
   margin-top:8px;
+
   padding-top:7px;
-  border-top:1px solid #e5e7eb;
+
+  border-top:
+    1px solid #e5e7eb;
+
 }
 
 
 .layer-panel-section:first-child {
+
   margin-top:0;
+
   padding-top:0;
+
   border-top:0;
+
 }
 
 
 .layer-option {
+
   display:grid;
-  grid-template-columns:20px 1fr;
+
+  grid-template-columns:
+    20px 1fr;
+
   align-items:center;
+
   min-height:27px;
+
   gap:3px;
+
   color:#334155;
+
   cursor:pointer;
+
   user-select:none;
+
 }
 
 
 .layer-option input {
+
   margin:0;
+
   width:14px;
   height:14px;
+
   accent-color:#475569;
+
 }
 
 
 .layer-option span {
+
   display:block;
+
 }
 
 
+/* =====================================================
+   CANDIDATES
+   ===================================================== */
+
 .candidate-marker {
+
   width:40px;
   height:40px;
 
   border-radius:50%;
 
-  border:3px solid rgba(255,255,255,.98);
+  border:
+    3px solid
+    rgba(255,255,255,.98);
 
   box-sizing:border-box;
 
@@ -344,22 +509,46 @@ body {
   color:white;
 
   display:flex;
+
   align-items:center;
   justify-content:center;
 
   font-size:17px;
+
   font-weight:900;
 
   opacity:.90;
+
 }
 
 
-.a { background:#d73027; }
-.b { background:#245bbf; }
-.c { background:#18864b; }
+.a {
 
+  background:#d73027;
+
+}
+
+
+.b {
+
+  background:#245bbf;
+
+}
+
+
+.c {
+
+  background:#18864b;
+
+}
+
+
+/* =====================================================
+   NEW BALANCE
+   ===================================================== */
 
 .nb-marker {
+
   width:28px;
   height:28px;
 
@@ -367,7 +556,9 @@ body {
 
   background:#ffffff;
 
-  border:2px solid #111827;
+  border:
+    2px solid #111827;
+
   border-radius:3px;
 
   box-shadow:
@@ -377,44 +568,67 @@ body {
   color:#111827;
 
   display:flex;
+
   align-items:center;
   justify-content:center;
 
   font-size:10px;
+
   font-weight:900;
 
   letter-spacing:-.3px;
+
 }
 
 
+/* =====================================================
+   SPECIALTY RUNNING
+   ===================================================== */
+
 .crc-marker-wrap {
+
   position:relative;
+
   width:18px;
   height:16px;
+
 }
 
 
 .crc-triangle {
+
   position:absolute;
+
   left:1px;
   top:1px;
 
   width:0;
   height:0;
 
-  border-left:8px solid transparent;
-  border-right:8px solid transparent;
-  border-bottom:14px solid #6b7280;
+  border-left:
+    8px solid transparent;
+
+  border-right:
+    8px solid transparent;
+
+  border-bottom:
+    14px solid #6b7280;
 
   filter:
     drop-shadow(
       0 1px 1px
       rgba(0,0,0,.28)
     );
+
 }
 
 
+/* =====================================================
+   MAJOR ATHLETIC RETAIL
+   ===================================================== */
+
 .major-retail-marker {
+
   width:15px;
   height:15px;
 
@@ -422,17 +636,24 @@ body {
 
   background:#7b3fc6;
 
-  transform:rotate(45deg);
+  transform:
+    rotate(45deg);
 
   border-radius:1px;
 
   box-shadow:
     0 1px 3px
     rgba(0,0,0,.30);
+
 }
 
 
+/* =====================================================
+   ACTIVE-LIFESTYLE NODE
+   ===================================================== */
+
 .active-hexagon {
+
   width:17px;
   height:15px;
 
@@ -453,64 +674,93 @@ body {
       0 1px 1px
       rgba(0,0,0,.28)
     );
+
 }
 
 
+/* =====================================================
+   LEGEND
+   ===================================================== */
+
 .legend {
+
   position:relative;
 
-  background:rgba(255,255,255,.97);
+  background:
+    rgba(255,255,255,.97);
 
-  padding:9px 11px;
+  padding:
+    9px 11px;
 
   border-radius:10px;
 
-  border:1px solid rgba(15,23,42,.08);
+  border:
+    1px solid
+    rgba(15,23,42,.08);
 
   box-shadow:
     0 2px 11px
     rgba(15,23,42,.15);
 
   font-size:10.5px;
+
   line-height:1.35;
 
   max-width:250px;
 
   box-sizing:border-box;
+
 }
 
 
 .legend-header {
+
   display:flex;
+
   align-items:center;
+
   justify-content:space-between;
+
   gap:8px;
+
 }
 
 
 .legend-title {
+
   font-size:10px;
+
   font-weight:900;
+
   letter-spacing:.06em;
+
   color:#334155;
+
   text-transform:uppercase;
+
   margin:0;
+
 }
 
 
 .legend-toggle {
+
   width:24px;
   height:24px;
 
   padding:0;
+
   border:0;
+
   border-radius:5px;
 
-  background:rgba(241,245,249,.90);
+  background:
+    rgba(241,245,249,.90);
 
   color:#475569;
 
   display:flex;
+
   align-items:center;
   justify-content:center;
 
@@ -519,76 +769,117 @@ body {
   flex:0 0 auto;
 
   touch-action:manipulation;
+
 }
 
 
 .legend-toggle:hover {
+
   background:#e8edf2;
+
 }
 
 
 .legend-toggle svg {
+
   width:13px;
   height:13px;
-  transition:transform .18s ease;
+
+  transition:
+    transform .18s ease;
+
 }
 
 
 .legend-content {
+
   display:block;
+
 }
 
 
 .legend.collapsed {
+
   width:96px;
+
   min-width:96px;
+
   max-width:96px;
-  padding:6px 7px;
+
+  padding:
+    6px 7px;
+
 }
 
 
-.legend.collapsed .legend-content {
+.legend.collapsed
+.legend-content {
+
   display:none;
+
 }
 
 
-.legend.collapsed .legend-toggle svg {
-  transform:rotate(180deg);
+.legend.collapsed
+.legend-toggle svg {
+
+  transform:
+    rotate(180deg);
+
 }
 
 
 .legend-section {
+
   font-weight:800;
+
   color:#172b4d;
+
   margin-top:7px;
+
   margin-bottom:3px;
+
 }
 
 
 .legend-row {
+
   display:grid;
-  grid-template-columns:24px 1fr;
+
+  grid-template-columns:
+    24px 1fr;
+
   align-items:center;
+
   min-height:17px;
+
 }
 
 
 .legend-symbol {
+
   width:24px;
+
   display:flex;
+
   align-items:center;
   justify-content:center;
+
 }
 
 
 .legend-dot {
+
   width:9px;
   height:9px;
+
   border-radius:50%;
+
 }
 
 
 .legend-nb {
+
   width:14px;
   height:14px;
 
@@ -596,42 +887,57 @@ body {
 
   background:white;
 
-  border:1.5px solid #111827;
+  border:
+    1.5px solid #111827;
 
   border-radius:2px;
 
   display:flex;
+
   align-items:center;
   justify-content:center;
 
   font-size:5.5px;
+
   font-weight:900;
 
   color:#111827;
+
 }
 
 
 .legend-diamond {
+
   width:10px;
   height:10px;
 
   background:#7b3fc6;
 
-  transform:rotate(45deg);
+  transform:
+    rotate(45deg);
+
 }
 
 
 .legend-triangle {
+
   width:0;
   height:0;
 
-  border-left:6px solid transparent;
-  border-right:6px solid transparent;
-  border-bottom:10px solid #6b7280;
+  border-left:
+    6px solid transparent;
+
+  border-right:
+    6px solid transparent;
+
+  border-bottom:
+    10px solid #6b7280;
+
 }
 
 
 .legend-hexagon {
+
   width:13px;
   height:11px;
 
@@ -646,68 +952,184 @@ body {
       25% 100%,
       0% 50%
     );
+
 }
 
 
 .legend-ring {
+
   width:16px;
   height:8px;
 
   box-sizing:border-box;
 
-  border:1.5px dashed #64748b;
+  border:
+    1.5px dashed #64748b;
 
   border-radius:50%;
+
 }
 
 
 .legend-line {
+
   width:17px;
-  border-top:2.5px solid #2b9fb3;
+
+  border-top:
+    2.5px solid #2b9fb3;
+
 }
 
 
+/* =====================================================
+   NORTH ARROW
+   ===================================================== */
+
+#northArrow {
+
+  position:absolute;
+
+  left:12px;
+
+  bottom:78px;
+
+  z-index:1005;
+
+  width:34px;
+
+  display:flex;
+
+  flex-direction:column;
+
+  align-items:center;
+
+  justify-content:center;
+
+  color:#334155;
+
+  pointer-events:none;
+
+  text-shadow:
+    0 1px 2px
+    rgba(255,255,255,.9);
+
+}
+
+
+#northArrow .north-letter {
+
+  font-size:11px;
+
+  font-weight:900;
+
+  line-height:1;
+
+  margin-bottom:1px;
+
+}
+
+
+#northArrow svg {
+
+  width:24px;
+  height:30px;
+
+  filter:
+    drop-shadow(
+      0 1px 1px
+      rgba(255,255,255,.8)
+    );
+
+}
+
+
+/* =====================================================
+   SCALE / ATTRIBUTION CLEARANCE
+   ===================================================== */
+
+.leaflet-bottom.leaflet-left {
+
+  bottom:30px;
+
+}
+
+
+/* =====================================================
+   POPUPS
+   ===================================================== */
+
 .popup-title {
+
   font-weight:800;
+
   font-size:14px;
+
   margin-bottom:4px;
+
 }
 
 
 .popup-category {
+
   color:#64748b;
+
   font-size:10px;
+
   font-weight:700;
+
   text-transform:uppercase;
+
   letter-spacing:.04em;
+
   margin-bottom:5px;
+
 }
 
 
 .popup-score {
-  margin:3px 0 6px;
+
+  margin:
+    3px 0 6px;
+
   font-size:19px;
+
   font-weight:900;
+
   color:#172b4d;
+
 }
 
 
 .popup-role {
+
   margin-top:7px;
+
   font-size:12px;
+
   line-height:1.4;
+
 }
 
 
 .popup-note {
+
   margin-top:7px;
+
   font-size:11px;
+
   line-height:1.35;
+
   color:#64748b;
+
 }
 
 
+/* =====================================================
+   MAPLIBRE
+   ===================================================== */
+
 .maplibregl-map {
+
   font-family:
     -apple-system,
     BlinkMacSystemFont,
@@ -715,86 +1137,127 @@ body {
     Roboto,
     Arial,
     sans-serif;
+
 }
 
 
 .maplibregl-ctrl-bottom-right {
+
   bottom:18px;
+
 }
 
+
+/* =====================================================
+   GENERAL MOBILE / PORTRAIT
+   ===================================================== */
 
 @media
 (max-width:699px) {
 
+
   #title {
+
     top:10px;
+
     left:58px;
 
-    width:calc(100vw - 128px);
+    width:
+      calc(100vw - 128px);
 
-    padding:8px 31px 8px 10px;
+    padding:
+      8px 31px 8px 10px;
 
     border-radius:9px;
+
   }
 
 
   #title .eyebrow {
+
     font-size:7.5px;
+
     line-height:1.1;
+
     letter-spacing:.07em;
+
     margin-bottom:2px;
+
   }
 
 
   #title h1 {
-    margin:0 0 3px;
+
+    margin:
+      0 0 3px;
+
     font-size:13px;
+
     line-height:1.12;
+
   }
 
 
   #title .subtitle {
+
     font-size:8.5px;
+
     line-height:1.22;
+
   }
 
 
   #titleToggle {
+
     top:5px;
+
     right:5px;
 
     width:23px;
     height:23px;
 
     border-radius:5px;
+
   }
 
 
   #titleToggle svg {
+
     width:13px;
     height:13px;
+
   }
 
 
   #title.collapsed {
-    padding:8px 31px 8px 10px;
+
+    padding:
+      8px 31px 8px 10px;
+
   }
 
 
   #rightControls {
+
     top:10px;
+
     right:10px;
+
     gap:7px;
+
   }
 
 
   .map-control-button {
+
     width:42px;
     height:42px;
+
   }
 
 
   #layerPanel {
+
     right:10px;
 
     width:min(
@@ -802,134 +1265,216 @@ body {
       calc(100vw - 20px)
     );
 
-    padding:8px 10px;
+    padding:
+      8px 10px;
 
     border-radius:9px;
 
     font-size:10px;
+
   }
 
 
   .layer-option {
+
     min-height:25px;
+
   }
 
 
   .layer-panel-section {
+
     margin-top:6px;
+
     padding-top:6px;
+
   }
 
 
   .legend {
-    padding:6px 8px;
+
+    padding:
+      6px 8px;
 
     border-radius:8px;
 
     font-size:8.5px;
+
     line-height:1.25;
 
     max-width:190px;
+
   }
 
 
   .legend-title {
+
     font-size:8px;
+
   }
 
 
   .legend-toggle {
+
     width:20px;
     height:20px;
 
     border-radius:4px;
+
   }
 
 
   .legend-toggle svg {
+
     width:11px;
     height:11px;
+
   }
 
 
   .legend.collapsed {
+
     width:86px;
+
     min-width:86px;
+
     max-width:86px;
 
-    padding:5px 6px;
+    padding:
+      5px 6px;
+
   }
 
 
   .legend-section {
+
     margin-top:5px;
+
     margin-bottom:2px;
+
   }
 
 
   .legend-row {
-    grid-template-columns:22px 1fr;
+
+    grid-template-columns:
+      22px 1fr;
+
     min-height:15px;
+
   }
 
 
   .legend-symbol {
+
     width:22px;
+
   }
 
 
   .legend-dot {
+
     width:8px;
     height:8px;
+
   }
 
 
   .legend-nb {
+
     width:12px;
     height:12px;
+
     font-size:4.8px;
+
   }
 
 
   .legend-diamond {
+
     width:9px;
     height:9px;
+
   }
 
 
   .legend-triangle {
+
     border-left-width:5px;
+
     border-right-width:5px;
+
     border-bottom-width:9px;
+
   }
 
 
   .legend-hexagon {
+
     width:11px;
     height:9px;
+
   }
 
 
   .legend-ring {
+
     width:14px;
     height:7px;
+
   }
 
 
   .legend-line {
+
     width:15px;
+
     border-top-width:2px;
+
+  }
+
+
+  /*
+     Raise scale above long mobile
+     OpenFreeMap attribution.
+  */
+
+  .leaflet-bottom.leaflet-left {
+
+    bottom:38px;
+
+  }
+
+
+  #northArrow {
+
+    left:11px;
+
+    bottom:88px;
+
   }
 
 }
 
 
+/* =====================================================
+   MOBILE LANDSCAPE
+   ===================================================== */
+
 @media
 (max-width:899px)
 and (orientation:landscape) {
 
+
+  /*
+     TITLE
+     Leave room for zoom buttons.
+  */
+
   #title {
+
     top:10px;
+
     left:88px;
 
     width:min(
@@ -937,130 +1482,346 @@ and (orientation:landscape) {
       calc(100vw - 190px)
     );
 
-    padding:8px 31px 8px 10px;
+    padding:
+      7px 31px 7px 10px;
 
     border-radius:9px;
+
   }
 
 
   #title .eyebrow {
-    font-size:7.5px;
-    line-height:1.08;
-    margin-bottom:3px;
+
+    font-size:7px;
+
+    line-height:1.05;
+
+    margin-bottom:2px;
+
   }
 
 
   #title h1 {
-    font-size:13px;
-    line-height:1.1;
-    margin:0 0 4px;
+
+    font-size:12px;
+
+    line-height:1.08;
+
+    margin:
+      0 0 3px;
+
   }
 
 
   #title .subtitle {
-    font-size:8.5px;
-    line-height:1.18;
+
+    font-size:8px;
+
+    line-height:1.14;
+
   }
 
 
   #title.collapsed {
-    padding:8px 31px 8px 10px;
+
+    padding:
+      7px 31px 7px 10px;
+
   }
 
 
   #rightControls {
+
     top:10px;
+
     right:10px;
+
     gap:7px;
+
   }
 
 
+  /*
+     LANDSCAPE LEGEND
+
+     Compress vertically so the top
+     edge stays below the Layers button.
+  */
+
   .legend {
-    max-width:245px;
 
-    padding:5px 7px;
+    max-width:225px;
 
-    font-size:8px;
-    line-height:1.14;
+    padding:
+      4px 6px;
+
+    font-size:7.2px;
+
+    line-height:1.02;
 
     margin-right:0;
-    margin-bottom:3px;
+
+    margin-bottom:1px;
+
   }
 
 
   .legend-header {
-    min-height:18px;
+
+    min-height:15px;
+
   }
 
 
   .legend-title {
-    font-size:8px;
+
+    font-size:7px;
+
   }
 
 
   .legend-toggle {
-    width:19px;
-    height:19px;
+
+    width:17px;
+    height:17px;
+
+    border-radius:3px;
+
   }
 
 
   .legend-toggle svg {
-    width:10px;
-    height:10px;
+
+    width:9px;
+    height:9px;
+
   }
 
 
   .legend-section {
-    margin-top:4px;
-    margin-bottom:1px;
+
+    margin-top:2px;
+
+    margin-bottom:0;
+
   }
 
 
   .legend-row {
-    grid-template-columns:20px 1fr;
-    min-height:12px;
+
+    grid-template-columns:
+      18px 1fr;
+
+    min-height:10px;
+
   }
 
 
   .legend-symbol {
-    width:20px;
+
+    width:18px;
+
+  }
+
+
+  .legend-dot {
+
+    width:7px;
+    height:7px;
+
+  }
+
+
+  .legend-nb {
+
+    width:10px;
+    height:10px;
+
+    font-size:4px;
+
+  }
+
+
+  .legend-diamond {
+
+    width:8px;
+    height:8px;
+
+  }
+
+
+  .legend-triangle {
+
+    border-left-width:4px;
+
+    border-right-width:4px;
+
+    border-bottom-width:7px;
+
+  }
+
+
+  .legend-hexagon {
+
+    width:9px;
+    height:8px;
+
+  }
+
+
+  .legend-ring {
+
+    width:12px;
+    height:6px;
+
+  }
+
+
+  .legend-line {
+
+    width:13px;
+
+    border-top-width:1.7px;
+
   }
 
 
   .legend.collapsed {
-    width:84px;
-    min-width:84px;
-    max-width:84px;
-    padding:4px 6px;
+
+    width:80px;
+
+    min-width:80px;
+
+    max-width:80px;
+
+    padding:
+      3px 5px;
+
   }
 
+
+  /*
+     Keep legend anchored at
+     bottom-right.
+  */
 
   .leaflet-bottom.leaflet-right {
+
     right:0;
+
+    bottom:0;
+
   }
 
 
+  /*
+     LANDSCAPE LAYERS PANEL
+
+     JavaScript moves this to:
+       top 10px
+       right 68px
+
+     This places it left of the
+     Home/Layers control stack.
+
+     Internal scrolling guarantees
+     all options remain reachable.
+  */
+
   #layerPanel {
-    right:10px;
 
-    width:270px;
+    width:260px;
 
-    max-height:calc(100vh - 95px);
+    max-height:
+      calc(100dvh - 20px);
 
     overflow-y:auto;
 
-    padding:7px 9px;
+    overscroll-behavior:contain;
 
-    font-size:9px;
+    -webkit-overflow-scrolling:touch;
+
+    padding:
+      7px 9px;
+
+    font-size:8.5px;
+
+    line-height:1.15;
+
+    border-radius:8px;
+
+  }
+
+
+  .layer-panel-title {
+
+    font-size:7.5px;
+
+    margin-bottom:2px;
+
+  }
+
+
+  .layer-panel-section {
+
+    margin-top:4px;
+
+    padding-top:4px;
+
   }
 
 
   .layer-option {
-    min-height:22px;
+
+    min-height:19px;
+
+    grid-template-columns:
+      17px 1fr;
+
+    gap:2px;
+
+  }
+
+
+  .layer-option input {
+
+    width:12px;
+    height:12px;
+
+  }
+
+
+  /*
+     Landscape scale and north arrow.
+  */
+
+  .leaflet-bottom.leaflet-left {
+
+    bottom:25px;
+
+  }
+
+
+  #northArrow {
+
+    left:11px;
+
+    bottom:70px;
+
+    transform:
+      scale(.88);
+
+    transform-origin:
+      bottom left;
+
   }
 
 }
 
+
+/* =====================================================
+   PRINT
+   ===================================================== */
 
 @media print {
 
@@ -1068,8 +1829,11 @@ and (orientation:landscape) {
   #rightControls,
   #layerPanel,
   #titleToggle,
-  .legend-toggle {
+  .legend-toggle,
+  #northArrow {
+
     display:none !important;
+
   }
 
 }
@@ -1084,6 +1848,46 @@ and (orientation:landscape) {
 
 <div id="map"></div>
 
+
+<!-- =====================================================
+     NORTH ARROW
+     ===================================================== -->
+
+<div
+  id="northArrow"
+  aria-hidden="true"
+>
+
+  <div class="north-letter">
+    N
+  </div>
+
+  <svg
+    viewBox="0 0 24 32"
+  >
+
+    <path
+      d="
+        M12 1
+        L20 17
+        L13.5 14
+        L13.5 31
+        L10.5 31
+        L10.5 14
+        L4 17
+        Z
+      "
+      fill="#334155"
+    />
+
+  </svg>
+
+</div>
+
+
+<!-- =====================================================
+     TITLE
+     ===================================================== -->
 
 <div id="title">
 
@@ -1135,7 +1939,12 @@ and (orientation:landscape) {
 </div>
 
 
+<!-- =====================================================
+     RIGHT CONTROLS
+     ===================================================== -->
+
 <div id="rightControls">
+
 
   <button
     id="homeButton"
@@ -1247,10 +2056,15 @@ and (orientation:landscape) {
 </div>
 
 
+<!-- =====================================================
+     LAYER PANEL
+     ===================================================== -->
+
 <div
   id="layerPanel"
   aria-hidden="true"
 >
+
 
   <div class="layer-panel-section">
 
@@ -1396,138 +2210,235 @@ and (orientation:landscape) {
 <script>
 
 
+/* =====================================================
+   DATA
+   ===================================================== */
+
 const points = [
 
   {
+
     id:"A",
-    name:"Dublin / Bridge Park",
+
+    name:
+      "Dublin / Bridge Park",
+
     lat:40.10424,
+
     lon:-83.11018,
+
     type:"candidate",
+
     score:87,
-    headline:"Balanced Growth Opportunity",
+
+    headline:
+      "Balanced Growth Opportunity",
+
     strategy:
       "Dublin offers the strongest overall balance of market quality, active-lifestyle alignment, mixed-use placemaking, and network expansion potential.",
+
     role:
       "Expand the owned retail network into a high-value mixed-use market with strong lifestyle and experiential alignment."
+
   },
 
 
   {
+
     id:"B",
-    name:"Short North / High Street",
+
+    name:
+      "Short North / High Street",
+
     lat:39.977984,
+
     lon:-83.004006,
+
     type:"candidate",
+
     score:86,
-    headline:"Running & Urban Brand Connection",
+
+    headline:
+      "Running & Urban Brand Connection",
+
     strategy:
       "Short North provides the strongest direct connection to Columbus's urban running and lifestyle culture.",
+
     role:
       "Build deeper brand relevance through an urban location closely connected to running, community, culture, and lifestyle."
+
   },
 
 
   {
+
     id:"C",
-    name:"Easton Town Center",
+
+    name:
+      "Easton Town Center",
+
     lat:40.0510,
+
     lon:-82.9150,
+
     type:"candidate",
+
     score:84,
-    headline:"Regional Retail Visibility",
+
+    headline:
+      "Regional Retail Visibility",
+
     strategy:
       "Easton offers the strongest conventional regional retail platform of the three candidates.",
+
     role:
       "Capture regional destination traffic and maximize visibility within an established athletic and lifestyle retail cluster."
+
   },
 
 
   {
+
     id:"NB-SUNBURY",
-    name:"New Balance Factory Store - Sunbury",
+
+    name:
+      "New Balance Factory Store - Sunbury",
 
     lat:40.2649,
+
     lon:-82.9237,
 
     type:"new_balance",
 
     description:
       "Existing New Balance-owned factory store serving the Columbus market from the north."
+
   },
 
 
   {
+
     id:"CRC-DUBLIN",
-    name:"Columbus Running Company - Dublin",
+
+    name:
+      "Columbus Running Company - Dublin",
+
     lat:40.1020,
+
     lon:-83.1620,
+
     type:"crc",
+
     description:
       "Specialty running retailer with New Balance distribution and community running activity."
+
   },
 
 
   {
+
     id:"CRC-SHORTNORTH",
-    name:"Columbus Running Company - Short North",
+
+    name:
+      "Columbus Running Company - Short North",
+
     lat:39.977984,
+
     lon:-83.004006,
+
     type:"crc",
+
     description:
       "Specialty running retailer with New Balance distribution and recurring community running activity."
+
   },
 
 
   {
+
     id:"CRC-WESTERVILLE",
-    name:"Columbus Running Company - Westerville",
+
+    name:
+      "Columbus Running Company - Westerville",
+
     lat:40.1278,
+
     lon:-82.9290,
+
     type:"crc",
+
     description:
       "Specialty running retailer and New Balance distribution point."
+
   },
 
 
   {
+
     id:"CRC-DELAWARE",
-    name:"Columbus Running Company - Delaware",
+
+    name:
+      "Columbus Running Company - Delaware",
+
     lat:40.2998,
+
     lon:-83.0670,
+
     type:"crc",
+
     description:
       "Specialty running retailer and New Balance distribution point."
+
   },
 
 
   {
+
     id:"CRC-GROVECITY",
-    name:"Columbus Running Company - Grove City",
+
+    name:
+      "Columbus Running Company - Grove City",
+
     lat:39.8810,
+
     lon:-83.0930,
+
     type:"crc",
+
     description:
       "Specialty running retailer and New Balance distribution point."
+
   },
 
 
   {
+
     id:"CRC-PICKERINGTON",
-    name:"Columbus Running Company - Pickerington",
+
+    name:
+      "Columbus Running Company - Pickerington",
+
     lat:39.9050,
+
     lon:-82.7530,
+
     type:"crc",
+
     description:
       "Specialty running retailer and New Balance distribution point."
+
   },
 
 
   {
+
     id:"EASTON-NODE",
-    name:"Easton Athletic Retail Cluster",
+
+    name:
+      "Easton Athletic Retail Cluster",
 
     lat:40.0526,
+
     lon:-82.9168,
 
     type:"major_retail",
@@ -1537,14 +2448,21 @@ const points = [
 
     role:
       "Provides strong retail visibility and market draw, while also representing substantial existing multibrand athletic distribution."
+
   },
 
 
   {
+
     id:"POLARIS",
-    name:"Polaris Athletic Retail Cluster",
+
+    name:
+      "Polaris Athletic Retail Cluster",
+
     lat:40.1455,
+
     lon:-82.9810,
+
     type:"major_retail",
 
     description:
@@ -1552,6 +2470,7 @@ const points = [
 
     role:
       "Provides important context for the existing athletic-retail ecosystem north of the candidate areas."
+
   }
 
 ];
@@ -1560,9 +2479,14 @@ const points = [
 const activePoints = [
 
   {
+
     id:"AL-DUBLIN",
-    name:"Dublin Link / Bridge Park",
+
+    name:
+      "Dublin Link / Bridge Park",
+
     lat:40.0997,
+
     lon:-83.1143,
 
     description:
@@ -1570,13 +2494,19 @@ const activePoints = [
 
     role:
       "Supports the active-lifestyle character of Candidate A and connects Bridge Park directly into a walkable riverfront environment."
+
   },
 
 
   {
+
     id:"AL-OLENTANGY",
-    name:"Olentangy Trail - Short North Access",
+
+    name:
+      "Olentangy Trail - Short North Access",
+
     lat:39.9835,
+
     lon:-83.0194,
 
     description:
@@ -1584,13 +2514,19 @@ const activePoints = [
 
     role:
       "CRC's Short North running routes use both the north and south Olentangy Trail, reinforcing Candidate B's connection to established running infrastructure."
+
   },
 
 
   {
+
     id:"AL-BRIDGEPARK-RUN",
-    name:"Bridge Park Community Running Activity",
+
+    name:
+      "Bridge Park Community Running Activity",
+
     lat:40.1032,
+
     lon:-83.1130,
 
     description:
@@ -1598,13 +2534,19 @@ const activePoints = [
 
     role:
       "Adds direct evidence of running-community activity within Candidate A's immediate mixed-use environment."
+
   },
 
 
   {
+
     id:"AL-SHORTNORTH-RUN",
-    name:"Short North Running Community",
+
+    name:
+      "Short North Running Community",
+
     lat:39.9810,
+
     lon:-83.0065,
 
     description:
@@ -1612,6 +2554,7 @@ const activePoints = [
 
     role:
       "Reinforces Candidate B as a location embedded in an established urban running and active-lifestyle community."
+
   }
 
 ];
@@ -1620,85 +2563,143 @@ const activePoints = [
 const activeCorridors = [
 
   {
-    name:"Olentangy Running Corridor",
+
+    name:
+      "Olentangy Running Corridor",
 
     coordinates:[
+
       [40.1160,-83.0330],
+
       [40.0960,-83.0320],
+
       [40.0750,-83.0290],
+
       [40.0540,-83.0260],
+
       [40.0350,-83.0240],
+
       [40.0170,-83.0220],
+
       [39.9980,-83.0200],
+
       [39.9835,-83.0194],
+
       [39.9680,-83.0165],
+
       [39.9520,-83.0125]
+
     ],
 
     description:
       "Generalized representation of the Olentangy recreational corridor through central Columbus."
+
   },
 
 
   {
-    name:"Dublin Scioto / Bridge Park Active Corridor",
+
+    name:
+      "Dublin Scioto / Bridge Park Active Corridor",
 
     coordinates:[
+
       [40.1130,-83.1175],
+
       [40.1080,-83.1165],
+
       [40.1030,-83.1150],
+
       [40.0997,-83.1143],
+
       [40.0950,-83.1135],
+
       [40.0900,-83.1125]
+
     ],
 
     description:
       "Generalized active-lifestyle corridor centered on the Dublin Link, Scioto riverfront, and Bridge Park environment."
+
   }
 
 ];
 
 
+/* =====================================================
+   DEFAULT EXTENT
+   ===================================================== */
+
 const finalBounds =
 L.latLngBounds(
+
   [
+
     [39.865,-83.185],
+
     [40.315,-82.735]
+
   ]
+
 );
 
+
+/* =====================================================
+   MAP
+   ===================================================== */
 
 const map =
 L.map(
+
   "map",
+
   {
+
     zoomControl:true,
+
     preferCanvas:true
+
   }
+
 );
 
 
+/* =====================================================
+   BASEMAPS
+   ===================================================== */
+
 const positronLayer =
 L.maplibreGL({
+
   style:
     "https://tiles.openfreemap.org/styles/positron"
+
 });
 
 
 const osmLayer =
 L.tileLayer(
+
   "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+
   {
+
     maxZoom:19,
 
     attribution:
       '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+
   }
+
 );
 
 
 positronLayer.addTo(map);
 
+
+/* =====================================================
+   ANALYTICAL LAYERS
+   ===================================================== */
 
 const layers = {
 
@@ -1723,12 +2724,24 @@ const layers = {
 };
 
 
+/* =====================================================
+   COLORS
+   ===================================================== */
+
 const candidateColors = {
+
   A:"#d73027",
+
   B:"#245bbf",
+
   C:"#18864b"
+
 };
 
+
+/* =====================================================
+   ICONS
+   ===================================================== */
 
 function makeCandidateIcon(id) {
 
@@ -1741,11 +2754,14 @@ function makeCandidateIcon(id) {
         ${id}
       </div>`,
 
-    iconSize:[40,40],
+    iconSize:
+      [40,40],
 
-    iconAnchor:[20,20],
+    iconAnchor:
+      [20,20],
 
-    popupAnchor:[0,-21]
+    popupAnchor:
+      [0,-21]
 
   });
 
@@ -1763,11 +2779,14 @@ function makeNBIcon() {
         NB
       </div>`,
 
-    iconSize:[28,28],
+    iconSize:
+      [28,28],
 
-    iconAnchor:[14,14],
+    iconAnchor:
+      [14,14],
 
-    popupAnchor:[0,-15]
+    popupAnchor:
+      [0,-15]
 
   });
 
@@ -1785,11 +2804,14 @@ function makeCRCIcon() {
         <div class="crc-triangle"></div>
       </div>`,
 
-    iconSize:[18,16],
+    iconSize:
+      [18,16],
 
-    iconAnchor:[9,8],
+    iconAnchor:
+      [9,8],
 
-    popupAnchor:[0,-10]
+    popupAnchor:
+      [0,-10]
 
   });
 
@@ -1805,11 +2827,14 @@ function makeMajorRetailIcon() {
     html:
       `<div class="major-retail-marker"></div>`,
 
-    iconSize:[15,15],
+    iconSize:
+      [15,15],
 
-    iconAnchor:[7.5,7.5],
+    iconAnchor:
+      [7.5,7.5],
 
-    popupAnchor:[0,-10]
+    popupAnchor:
+      [0,-10]
 
   });
 
@@ -1825,16 +2850,23 @@ function makeActiveIcon() {
     html:
       `<div class="active-hexagon"></div>`,
 
-    iconSize:[17,15],
+    iconSize:
+      [17,15],
 
-    iconAnchor:[8.5,7.5],
+    iconAnchor:
+      [8.5,7.5],
 
-    popupAnchor:[0,-10]
+    popupAnchor:
+      [0,-10]
 
   });
 
 }
 
+
+/* =====================================================
+   POPUP CONTENT
+   ===================================================== */
 
 function candidatePopup(p) {
 
@@ -1861,8 +2893,15 @@ function candidatePopup(p) {
     </div>
 
     <div class="popup-role">
-      <b>Strategic role:</b><br>
+
+      <b>
+        Strategic role:
+      </b>
+
+      <br>
+
       ${p.role}
+
     </div>
 
   `;
@@ -1872,7 +2911,10 @@ function candidatePopup(p) {
 
 function generalPopup(p) {
 
-  if (p.type === "new_balance") {
+  if (
+    p.type ===
+    "new_balance"
+  ) {
 
     return `
 
@@ -1891,7 +2933,10 @@ function generalPopup(p) {
   }
 
 
-  if (p.type === "crc") {
+  if (
+    p.type ===
+    "crc"
+  ) {
 
     return `
 
@@ -1911,7 +2956,10 @@ function generalPopup(p) {
   }
 
 
-  if (p.type === "major_retail") {
+  if (
+    p.type ===
+    "major_retail"
+  ) {
 
     return `
 
@@ -1926,8 +2974,15 @@ function generalPopup(p) {
       ${p.description}
 
       <div class="popup-role">
-        <b>Strategic relevance:</b><br>
+
+        <b>
+          Strategic relevance:
+        </b>
+
+        <br>
+
         ${p.role}
+
       </div>
 
     `;
@@ -1937,128 +2992,253 @@ function generalPopup(p) {
 }
 
 
+/* =====================================================
+   CANDIDATE RINGS
+   ===================================================== */
+
 points
+
 .filter(
-  p => p.type === "candidate"
+
+  p =>
+    p.type ===
+    "candidate"
+
 )
+
 .forEach(
+
   p => {
 
     L.circle(
+
       [p.lat,p.lon],
+
       {
-        radius:4828.032,
-        color:candidateColors[p.id],
+
+        radius:
+          4828.032,
+
+        color:
+          candidateColors[p.id],
+
         weight:2,
-        dashArray:"7 6",
+
+        dashArray:
+          "7 6",
+
         opacity:.85,
-        fillColor:candidateColors[p.id],
+
+        fillColor:
+          candidateColors[p.id],
+
         fillOpacity:.025
+
       }
+
     )
+
     .addTo(
       layers.candidateRings
     );
 
   }
+
 );
 
 
+/* =====================================================
+   NB OWNED RETAIL
+   ===================================================== */
+
 const nb =
 points.find(
-  p => p.id === "NB-SUNBURY"
+
+  p =>
+    p.id ===
+    "NB-SUNBURY"
+
 );
 
 
 L.marker(
+
   [nb.lat,nb.lon],
+
   {
-    icon:makeNBIcon(),
-    zIndexOffset:500
+
+    icon:
+      makeNBIcon(),
+
+    zIndexOffset:
+      500
+
   }
+
 )
+
 .bindPopup(
+
   generalPopup(nb),
+
   {
+
     maxWidth:300
+
   }
+
 )
+
 .addTo(
   layers.nb
 );
 
 
+/* =====================================================
+   CRC
+   ===================================================== */
+
 points
+
 .filter(
-  p => p.type === "crc"
+
+  p =>
+    p.type ===
+    "crc"
+
 )
+
 .forEach(
+
   p => {
 
     L.marker(
+
       [p.lat,p.lon],
+
       {
-        icon:makeCRCIcon(),
-        zIndexOffset:520
+
+        icon:
+          makeCRCIcon(),
+
+        zIndexOffset:
+          520
+
       }
+
     )
+
     .bindPopup(
+
       generalPopup(p),
+
       {
+
         maxWidth:300
+
       }
+
     )
+
     .addTo(
       layers.crc
     );
 
   }
+
 );
 
 
+/* =====================================================
+   MAJOR RETAIL
+   ===================================================== */
+
 points
+
 .filter(
-  p => p.type === "major_retail"
+
+  p =>
+    p.type ===
+    "major_retail"
+
 )
+
 .forEach(
+
   p => {
 
     L.marker(
+
       [p.lat,p.lon],
+
       {
-        icon:makeMajorRetailIcon(),
-        zIndexOffset:540
+
+        icon:
+          makeMajorRetailIcon(),
+
+        zIndexOffset:
+          540
+
       }
+
     )
+
     .bindPopup(
+
       generalPopup(p),
+
       {
+
         maxWidth:300
+
       }
+
     )
+
     .addTo(
       layers.majorRetail
     );
 
   }
+
 );
 
 
+/* =====================================================
+   ACTIVE CORRIDORS
+   ===================================================== */
+
 activeCorridors
+
 .forEach(
+
   corridor => {
 
     L.polyline(
+
       corridor.coordinates,
+
       {
-        color:"#2b9fb3",
+
+        color:
+          "#2b9fb3",
+
         weight:3,
+
         opacity:1,
-        lineCap:"round",
-        lineJoin:"round"
+
+        lineCap:
+          "round",
+
+        lineJoin:
+          "round"
+
       }
+
     )
+
     .bindPopup(
+
       `
 
         <div class="popup-title">
@@ -2073,35 +3253,55 @@ activeCorridors
         ${corridor.description}
 
         <div class="popup-note">
-          Corridor geometry is generalized for
-          metropolitan-scale analytical context.
+          Corridor geometry is generalized
+          for metropolitan-scale analytical context.
         </div>
 
       `
+
     )
+
     .bindTooltip(
       corridor.name
     )
+
     .addTo(
       layers.active
     );
 
   }
+
 );
 
 
+/* =====================================================
+   ACTIVE NODES
+   ===================================================== */
+
 activePoints
+
 .forEach(
+
   p => {
 
     L.marker(
+
       [p.lat,p.lon],
+
       {
-        icon:makeActiveIcon(),
-        zIndexOffset:560
+
+        icon:
+          makeActiveIcon(),
+
+        zIndexOffset:
+          560
+
       }
+
     )
+
     .bindPopup(
+
       `
 
         <div class="popup-title">
@@ -2116,68 +3316,128 @@ activePoints
         ${p.description}
 
         <div class="popup-role">
-          <b>Strategic relevance:</b><br>
+
+          <b>
+            Strategic relevance:
+          </b>
+
+          <br>
+
           ${p.role}
+
         </div>
 
       `,
+
       {
+
         maxWidth:310
+
       }
+
     )
+
     .addTo(
       layers.active
     );
 
   }
+
 );
 
 
+/* =====================================================
+   CANDIDATES
+   ADDED LAST
+   ===================================================== */
+
 points
+
 .filter(
-  p => p.type === "candidate"
+
+  p =>
+    p.type ===
+    "candidate"
+
 )
+
 .forEach(
+
   p => {
 
     L.marker(
-      [p.lat,p.lon],
-      {
-        icon:
-          makeCandidateIcon(p.id),
 
-        zIndexOffset:1000
-      }
-    )
-    .bindPopup(
-      candidatePopup(p),
+      [p.lat,p.lon],
+
       {
-        maxWidth:320
+
+        icon:
+          makeCandidateIcon(
+            p.id
+          ),
+
+        zIndexOffset:
+          1000
+
       }
+
     )
+
+    .bindPopup(
+
+      candidatePopup(p),
+
+      {
+
+        maxWidth:320
+
+      }
+
+    )
+
     .addTo(
       layers.candidates
     );
 
   }
+
 );
 
 
+/* =====================================================
+   SCALE
+   ===================================================== */
+
 L.control.scale(
+
   {
+
     imperial:true,
+
     metric:false,
+
     position:"bottomleft"
+
   }
+
 )
+
 .addTo(map);
 
 
+/* =====================================================
+   LEGEND
+   ===================================================== */
+
 const legend =
 L.control(
+
   {
+
     position:"bottomright"
+
   }
+
 );
 
 
@@ -2210,6 +3470,7 @@ function() {
           viewBox="0 0 24 24"
           aria-hidden="true"
         >
+
           <path
             d="M6 15L12 9L18 15"
             fill="none"
@@ -2218,6 +3479,7 @@ function() {
             stroke-linecap="round"
             stroke-linejoin="round"
           />
+
         </svg>
 
       </button>
@@ -2226,6 +3488,7 @@ function() {
 
 
     <div class="legend-content">
+
 
       <div class="legend-section">
         Candidates
@@ -2373,13 +3636,18 @@ function() {
 
       </div>
 
+
     </div>
 
   `;
 
 
-  L.DomEvent.disableClickPropagation(d);
-  L.DomEvent.disableScrollPropagation(d);
+  L.DomEvent
+    .disableClickPropagation(d);
+
+
+  L.DomEvent
+    .disableScrollPropagation(d);
 
 
   const toggle =
@@ -2389,10 +3657,13 @@ function() {
 
 
   toggle.addEventListener(
+
     "click",
+
     function(event) {
 
       event.preventDefault();
+
       event.stopPropagation();
 
 
@@ -2403,25 +3674,32 @@ function() {
 
 
       toggle.setAttribute(
+
         "aria-label",
+
         isCollapsed
           ?
           "Expand map key"
           :
           "Collapse map key"
+
       );
 
 
       toggle.setAttribute(
+
         "title",
+
         isCollapsed
           ?
           "Expand map key"
           :
           "Collapse map key"
+
       );
 
     }
+
   );
 
 
@@ -2439,40 +3717,57 @@ legend.addTo(map);
 
 function goHome() {
 
-  /*
-     Fit the same analytical extent first.
-  */
 
   map.once(
+
     "moveend",
+
     function() {
 
+
       /*
-         Small composition adjustment:
-         moves the mapped network slightly
-         left and upward on the screen so
-         the Map Key overlaps less of the
-         candidate geography.
+         Composition offset.
+
+         Keeps the same geographic
+         analytical extent and zoom,
+         but moves the network slightly
+         left/up relative to the fixed
+         legend.
       */
 
       map.panBy(
+
         [18,24],
+
         {
+
           animate:false
+
         }
+
       );
 
     }
+
   );
 
 
   map.fitBounds(
+
     finalBounds,
+
     {
-      paddingTopLeft:[20,20],
-      paddingBottomRight:[20,20],
+
+      paddingTopLeft:
+        [20,20],
+
+      paddingBottomRight:
+        [20,20],
+
       animate:false
+
     }
+
   );
 
 }
@@ -2481,6 +3776,10 @@ function goHome() {
 goHome();
 
 
+/* =====================================================
+   HOME BUTTON
+   ===================================================== */
+
 const homeButton =
 document.getElementById(
   "homeButton"
@@ -2488,17 +3787,25 @@ document.getElementById(
 
 
 homeButton.addEventListener(
+
   "click",
+
   function(event) {
 
     event.preventDefault();
+
     event.stopPropagation();
 
     goHome();
 
   }
+
 );
 
+
+/* =====================================================
+   TITLE TOGGLE
+   ===================================================== */
 
 const title =
 document.getElementById(
@@ -2512,35 +3819,14 @@ document.getElementById(
 );
 
 
-function updateLayerPanelPosition() {
-
-  const panel =
-  document.getElementById(
-    "layerPanel"
-  );
-
-
-  const titleRect =
-  title.getBoundingClientRect();
-
-
-  const desiredTop =
-  Math.ceil(
-    titleRect.bottom + 10
-  );
-
-
-  panel.style.top =
-    `${desiredTop}px`;
-
-}
-
-
 titleToggle.addEventListener(
+
   "click",
+
   function(event) {
 
     event.preventDefault();
+
     event.stopPropagation();
 
 
@@ -2551,34 +3837,49 @@ titleToggle.addEventListener(
 
 
     titleToggle.setAttribute(
+
       "aria-label",
+
       isCollapsed
         ?
         "Expand map title"
         :
         "Collapse map title"
+
     );
 
 
     titleToggle.setAttribute(
+
       "title",
+
       isCollapsed
         ?
         "Expand map title"
         :
         "Collapse map title"
+
     );
 
 
     requestAnimationFrame(
+
       () => {
+
         updateLayerPanelPosition();
+
       }
+
     );
 
   }
+
 );
 
+
+/* =====================================================
+   CUSTOM LAYERS PANEL
+   ===================================================== */
 
 const layersButton =
 document.getElementById(
@@ -2592,22 +3893,93 @@ document.getElementById(
 );
 
 
+function isMobileLandscape() {
+
+  return window.matchMedia(
+
+    "(max-width:899px) and (orientation:landscape)"
+
+  ).matches;
+
+}
+
+
+function updateLayerPanelPosition() {
+
+
+  /*
+     Landscape gets its own fixed
+     position so the entire menu fits
+     inside the short viewport.
+  */
+
+  if (
+    isMobileLandscape()
+  ) {
+
+
+    layerPanel.style.top =
+      "10px";
+
+
+    layerPanel.style.right =
+      "68px";
+
+
+    return;
+
+  }
+
+
+  /*
+     Portrait / desktop:
+     menu appears beneath title.
+  */
+
+  const titleRect =
+  title.getBoundingClientRect();
+
+
+  const desiredTop =
+  Math.ceil(
+    titleRect.bottom + 10
+  );
+
+
+  layerPanel.style.top =
+    `${desiredTop}px`;
+
+
+  layerPanel.style.right =
+    "";
+
+}
+
+
 function closeLayerPanel() {
 
   layerPanel
     .classList
-    .remove("open");
+    .remove(
+      "open"
+    );
 
 
   layerPanel.setAttribute(
+
     "aria-hidden",
+
     "true"
+
   );
 
 
   layersButton.setAttribute(
+
     "aria-expanded",
+
     "false"
+
   );
 
 }
@@ -2620,35 +3992,50 @@ function openLayerPanel() {
 
   layerPanel
     .classList
-    .add("open");
+    .add(
+      "open"
+    );
 
 
   layerPanel.setAttribute(
+
     "aria-hidden",
+
     "false"
+
   );
 
 
   layersButton.setAttribute(
+
     "aria-expanded",
+
     "true"
+
   );
 
 }
 
 
 layersButton.addEventListener(
+
   "click",
+
   function(event) {
 
     event.preventDefault();
+
     event.stopPropagation();
 
 
     if (
+
       layerPanel
       .classList
-      .contains("open")
+      .contains(
+        "open"
+      )
+
     ) {
 
       closeLayerPanel();
@@ -2662,21 +4049,27 @@ layersButton.addEventListener(
     }
 
   }
+
 );
 
 
 layerPanel.addEventListener(
+
   "click",
+
   function(event) {
 
     event.stopPropagation();
 
   }
+
 );
 
 
 document.addEventListener(
+
   "click",
+
   function(event) {
 
     if (
@@ -2698,34 +4091,55 @@ document.addEventListener(
     }
 
   }
+
 );
 
 
+/* =====================================================
+   BASEMAP SWITCHING
+   ===================================================== */
+
 document
+
 .querySelectorAll(
   'input[name="basemap"]'
 )
+
 .forEach(
+
   input => {
 
     input.addEventListener(
+
       "change",
+
       function() {
 
-        if (!this.checked) {
+
+        if (
+          !this.checked
+        ) {
+
           return;
+
         }
 
 
         if (
-          this.value === "positron"
+          this.value ===
+          "positron"
         ) {
 
+
           if (
-            map.hasLayer(osmLayer)
+            map.hasLayer(
+              osmLayer
+            )
           ) {
 
-            map.removeLayer(osmLayer);
+            map.removeLayer(
+              osmLayer
+            );
 
           }
 
@@ -2736,7 +4150,8 @@ document
             )
           ) {
 
-            positronLayer.addTo(map);
+            positronLayer
+              .addTo(map);
 
           }
 
@@ -2744,8 +4159,10 @@ document
 
 
         if (
-          this.value === "osm"
+          this.value ===
+          "osm"
         ) {
+
 
           if (
             map.hasLayer(
@@ -2766,31 +4183,46 @@ document
             )
           ) {
 
-            osmLayer.addTo(map);
+            osmLayer
+              .addTo(map);
 
-            osmLayer.bringToBack();
+
+            osmLayer
+              .bringToBack();
 
           }
 
         }
 
       }
+
     );
 
   }
+
 );
 
 
+/* =====================================================
+   OVERLAY SWITCHING
+   ===================================================== */
+
 document
+
 .querySelectorAll(
   'input[data-layer]'
 )
+
 .forEach(
+
   input => {
 
     input.addEventListener(
+
       "change",
+
       function() {
+
 
         const layerName =
         this.dataset.layer;
@@ -2800,18 +4232,28 @@ document
         layers[layerName];
 
 
-        if (!layer) {
+        if (
+          !layer
+        ) {
+
           return;
+
         }
 
 
-        if (this.checked) {
+        if (
+          this.checked
+        ) {
+
 
           if (
-            !map.hasLayer(layer)
+            !map.hasLayer(
+              layer
+            )
           ) {
 
-            layer.addTo(map);
+            layer
+              .addTo(map);
 
           }
 
@@ -2819,38 +4261,56 @@ document
 
         else {
 
+
           if (
-            map.hasLayer(layer)
+            map.hasLayer(
+              layer
+            )
           ) {
 
-            map.removeLayer(layer);
+            map
+              .removeLayer(
+                layer
+              );
 
           }
 
         }
 
       }
+
     );
 
   }
+
 );
 
 
+/* =====================================================
+   UI PROPAGATION
+   ===================================================== */
+
 [
   title,
+
   document.getElementById(
     "rightControls"
   ),
+
   layerPanel
+
 ]
 
 .forEach(
+
   element => {
+
 
     L.DomEvent
       .disableClickPropagation(
         element
       );
+
 
     L.DomEvent
       .disableScrollPropagation(
@@ -2858,8 +4318,13 @@ document
       );
 
   }
+
 );
 
+
+/* =====================================================
+   RESIZE / ROTATION
+   ===================================================== */
 
 function refreshLayout() {
 
@@ -2871,29 +4336,43 @@ function refreshLayout() {
 
 
 window.addEventListener(
+
   "resize",
+
   function() {
 
     refreshLayout();
 
   }
+
 );
 
 
 window.addEventListener(
+
   "orientationchange",
+
   function() {
 
+    /*
+       Safari needs a moment to finish
+       changing its visible viewport.
+    */
+
     setTimeout(
+
       function() {
 
         refreshLayout();
 
       },
-      250
+
+      300
+
     );
 
   }
+
 );
 
 
