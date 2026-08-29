@@ -107,7 +107,6 @@ body {
 
 /* =====================================================
    CANDIDATE MARKERS
-   PRIMARY MAP SYMBOLS
    ===================================================== */
 
 .candidate-marker {
@@ -184,7 +183,7 @@ body {
 
 /* =====================================================
    SPECIALTY RUNNING / NB DISTRIBUTION
-   SOLID GRAY TRIANGLE
+   GRAY TRIANGLE
    ===================================================== */
 
 .crc-marker-wrap {
@@ -216,21 +215,23 @@ body {
 
 /* =====================================================
    MAJOR ATHLETIC RETAIL NODE
-   SOLID PURPLE SQUARE
+   PURPLE DIAMOND
    ===================================================== */
 
 .major-retail-marker {
-  width:14px;
-  height:14px;
+  width:13px;
+  height:13px;
 
   box-sizing:border-box;
 
   background:#7b3fc6;
 
+  transform:rotate(45deg);
+
   border-radius:1px;
 
   box-shadow:
-    0 1px 3px rgba(0,0,0,.25);
+    0 1px 3px rgba(0,0,0,.28);
 
   opacity:1;
 }
@@ -238,33 +239,29 @@ body {
 
 /* =====================================================
    ACTIVE-LIFESTYLE NODE
-   AQUAMARINE TRIANGLE
+   AQUAMARINE HEXAGON
    ===================================================== */
 
-.active-marker-wrap {
-  position:relative;
+.active-hexagon {
+  width:15px;
+  height:13px;
 
-  width:16px;
-  height:14px;
+  background:#2b9fb3;
+
+  clip-path:
+    polygon(
+      25% 0%,
+      75% 0%,
+      100% 50%,
+      75% 100%,
+      25% 100%,
+      0% 50%
+    );
+
+  box-shadow:
+    0 1px 2px rgba(0,0,0,.25);
 
   opacity:1;
-}
-
-.active-triangle {
-  position:absolute;
-
-  left:1px;
-  top:1px;
-
-  width:0;
-  height:0;
-
-  border-left:7px solid transparent;
-  border-right:7px solid transparent;
-  border-bottom:12px solid #2b9fb3;
-
-  filter:
-    drop-shadow(0 1px 1px rgba(0,0,0,.22));
 }
 
 
@@ -358,16 +355,19 @@ body {
 .major-key {
   display:inline-block;
 
-  width:10px;
-  height:10px;
+  width:9px;
+  height:9px;
 
   background:#7b3fc6;
 
+  transform:rotate(45deg);
+
   border-radius:1px;
 
-  margin-right:8px;
+  margin-left:2px;
+  margin-right:9px;
 
-  vertical-align:-1px;
+  vertical-align:0;
 }
 
 .triangle-key {
@@ -389,8 +389,27 @@ body {
   border-bottom-color:#6b7280;
 }
 
-.triangle-aqua {
-  border-bottom-color:#2b9fb3;
+.hex-key {
+  display:inline-block;
+
+  width:11px;
+  height:10px;
+
+  background:#2b9fb3;
+
+  clip-path:
+    polygon(
+      25% 0%,
+      75% 0%,
+      100% 50%,
+      75% 100%,
+      25% 100%,
+      0% 50%
+    );
+
+  margin-right:8px;
+
+  vertical-align:-1px;
 }
 
 .aqua-line {
@@ -426,8 +445,6 @@ body {
    ===================================================== */
 
 .leaflet-control-layers {
-  margin-top:118px !important;
-
   border-radius:10px !important;
 
   border:1px solid rgba(15,23,42,.08) !important;
@@ -548,14 +565,12 @@ body {
     margin-bottom:1px;
   }
 
-
   .dot {
     width:8px;
     height:8px;
 
     margin-right:5px;
   }
-
 
   .nb-key {
     width:12px;
@@ -568,14 +583,13 @@ body {
     vertical-align:-2px;
   }
 
-
   .major-key {
-    width:8px;
-    height:8px;
+    width:7px;
+    height:7px;
 
-    margin-right:6px;
+    margin-left:1px;
+    margin-right:8px;
   }
-
 
   .triangle-key {
     border-left-width:4px;
@@ -585,6 +599,12 @@ body {
     margin-right:7px;
   }
 
+  .hex-key {
+    width:9px;
+    height:8px;
+
+    margin-right:6px;
+  }
 
   .ring-key {
     width:14px;
@@ -595,7 +615,6 @@ body {
     margin-right:5px;
   }
 
-
   .aqua-line {
     width:16px;
 
@@ -605,8 +624,29 @@ body {
   }
 
 
+  /* Collapsed layer button stays near top-right */
+
   .leaflet-control-layers {
-    margin-top:58px !important;
+    margin-top:10px !important;
+  }
+
+
+  /* Expanded menu drops below title */
+
+  .leaflet-control-layers.leaflet-control-layers-expanded {
+    margin-top:185px !important;
+
+    max-width:calc(100vw - 20px);
+
+    box-sizing:border-box;
+
+    font-size:11px;
+
+    line-height:1.25;
+  }
+
+  .leaflet-control-layers-expanded label {
+    margin-bottom:2px;
   }
 
 }
@@ -1061,13 +1101,11 @@ function makeActiveIcon() {
     className:"",
 
     html:
-      `<div class="active-marker-wrap">
-        <div class="active-triangle"></div>
-      </div>`,
+      `<div class="active-hexagon"></div>`,
 
-    iconSize:[16,14],
+    iconSize:[15,13],
 
-    iconAnchor:[8,7],
+    iconAnchor:[7.5,6.5],
 
     popupAnchor:[0,-9]
 
@@ -1341,7 +1379,6 @@ points
 
 /* =====================================================
    ACTIVE CORRIDORS
-   AQUAMARINE
    ===================================================== */
 
 activeCorridors.forEach(
@@ -1637,7 +1674,7 @@ function() {
     </div>
 
     <span class="legend-row">
-      <span class="triangle-key triangle-aqua"></span>
+      <span class="hex-key"></span>
       Running / active-lifestyle node
     </span>
 
