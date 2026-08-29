@@ -23,6 +23,7 @@ body {
   height:100%;
   margin:0;
   padding:0;
+
   font-family:
     -apple-system,
     BlinkMacSystemFont,
@@ -30,6 +31,7 @@ body {
     Roboto,
     Arial,
     sans-serif;
+
   background:#f4f5f7;
 }
 
@@ -42,47 +44,63 @@ body {
 
 
 /* =====================================================
-   TITLE
+   TITLE PANEL
    ===================================================== */
 
 #title {
   position:absolute;
+
   top:max(14px, env(safe-area-inset-top));
   left:14px;
+
   z-index:1000;
 
   width:min(390px, calc(100vw - 28px));
+
   box-sizing:border-box;
 
   background:rgba(255,255,255,.97);
+
   border:1px solid rgba(15,23,42,.08);
+
   border-radius:12px;
+
   padding:12px 14px;
 
-  box-shadow:0 4px 18px rgba(15,23,42,.16);
+  box-shadow:
+    0 4px 18px rgba(15,23,42,.16);
 }
 
 #title .eyebrow {
   font-size:10px;
   line-height:1.2;
+
   font-weight:800;
+
   letter-spacing:.08em;
+
   color:#64748b;
+
   text-transform:uppercase;
+
   margin-bottom:4px;
 }
 
 #title h1 {
   margin:0 0 5px;
+
   font-size:18px;
   line-height:1.15;
+
   color:#172b4d;
 }
 
 #title p {
   margin:0;
+
   font-size:11.5px;
   line-height:1.35;
+
   color:#586474;
 }
 
@@ -97,6 +115,7 @@ body {
   height:40px;
 
   border-radius:50%;
+
   border:3px solid rgba(255,255,255,.98);
 
   box-sizing:border-box;
@@ -113,7 +132,7 @@ body {
   font-size:17px;
   font-weight:900;
 
-  opacity:.98;
+  opacity:.90;
 }
 
 .a {
@@ -145,7 +164,8 @@ body {
 
   border-radius:3px;
 
-  box-shadow:0 1px 5px rgba(0,0,0,.28);
+  box-shadow:
+    0 1px 5px rgba(0,0,0,.28);
 
   color:#111827;
 
@@ -157,22 +177,28 @@ body {
   font-weight:900;
 
   letter-spacing:-.3px;
+
+  opacity:1;
 }
 
 
 /* =====================================================
-   STANDARD CONTEXT SYMBOLS
+   SPECIALTY RUNNING / NB DISTRIBUTION
+   SOLID GRAY TRIANGLE
    ===================================================== */
 
 .crc-marker-wrap {
   position:relative;
+
   width:16px;
   height:14px;
-  opacity:.78;
+
+  opacity:1;
 }
 
 .crc-triangle {
   position:absolute;
+
   left:1px;
   top:1px;
 
@@ -181,10 +207,17 @@ body {
 
   border-left:7px solid transparent;
   border-right:7px solid transparent;
-  border-bottom:12px solid #f28c28;
+  border-bottom:12px solid #6b7280;
 
-  filter:drop-shadow(0 1px 1px rgba(0,0,0,.25));
+  filter:
+    drop-shadow(0 1px 1px rgba(0,0,0,.25));
 }
+
+
+/* =====================================================
+   MAJOR ATHLETIC RETAIL NODE
+   SOLID PURPLE SQUARE
+   ===================================================== */
 
 .major-retail-marker {
   width:14px;
@@ -196,20 +229,30 @@ body {
 
   border-radius:1px;
 
-  box-shadow:0 1px 3px rgba(0,0,0,.25);
+  box-shadow:
+    0 1px 3px rgba(0,0,0,.25);
 
-  opacity:.78;
+  opacity:1;
 }
+
+
+/* =====================================================
+   ACTIVE-LIFESTYLE NODE
+   SOLID TEAL TRIANGLE
+   ===================================================== */
 
 .active-marker-wrap {
   position:relative;
+
   width:16px;
   height:14px;
-  opacity:.78;
+
+  opacity:1;
 }
 
 .active-triangle {
   position:absolute;
+
   left:1px;
   top:1px;
 
@@ -218,77 +261,10 @@ body {
 
   border-left:7px solid transparent;
   border-right:7px solid transparent;
-  border-bottom:12px solid #6b7280;
+  border-bottom:12px solid #287f82;
 
-  filter:drop-shadow(0 1px 1px rgba(0,0,0,.22));
-}
-
-
-/* =====================================================
-   SATELLITE BADGES
-   USED ONLY FOR CO-LOCATED FEATURES
-   ===================================================== */
-
-.satellite-wrap {
-  position:relative;
-  width:58px;
-  height:58px;
-  pointer-events:none;
-}
-
-.satellite-orange,
-.satellite-purple,
-.satellite-gray {
-  position:absolute;
-  pointer-events:auto;
-}
-
-.satellite-orange {
-  right:2px;
-  bottom:5px;
-
-  width:0;
-  height:0;
-
-  border-left:6px solid transparent;
-  border-right:6px solid transparent;
-  border-bottom:11px solid #f28c28;
-
-  opacity:.90;
-
-  filter:drop-shadow(0 1px 1px rgba(0,0,0,.28));
-}
-
-.satellite-purple {
-  right:1px;
-  bottom:4px;
-
-  width:12px;
-  height:12px;
-
-  background:#7b3fc6;
-
-  border-radius:1px;
-
-  opacity:.90;
-
-  box-shadow:0 1px 2px rgba(0,0,0,.28);
-}
-
-.satellite-gray {
-  left:4px;
-  bottom:3px;
-
-  width:0;
-  height:0;
-
-  border-left:6px solid transparent;
-  border-right:6px solid transparent;
-  border-bottom:11px solid #6b7280;
-
-  opacity:.90;
-
-  filter:drop-shadow(0 1px 1px rgba(0,0,0,.24));
+  filter:
+    drop-shadow(0 1px 1px rgba(0,0,0,.22));
 }
 
 
@@ -305,7 +281,8 @@ body {
 
   border:1px solid rgba(15,23,42,.08);
 
-  box-shadow:0 2px 11px rgba(15,23,42,.15);
+  box-shadow:
+    0 2px 11px rgba(15,23,42,.15);
 
   font-size:10.5px;
   line-height:1.45;
@@ -315,16 +292,23 @@ body {
 
 .legend-title {
   font-size:10px;
+
   font-weight:900;
+
   letter-spacing:.06em;
+
   color:#334155;
+
   margin-bottom:4px;
+
   text-transform:uppercase;
 }
 
 .legend-section {
   font-weight:800;
+
   color:#172b4d;
+
   margin-top:6px;
   margin-bottom:2px;
 }
@@ -335,76 +319,104 @@ body {
 
 .dot {
   display:inline-block;
+
   width:10px;
   height:10px;
+
   border-radius:50%;
+
   margin-right:6px;
 }
 
 .nb-key {
   display:inline-flex;
+
   width:15px;
   height:15px;
+
   box-sizing:border-box;
+
   background:white;
+
   border:1.5px solid #111827;
+
   border-radius:2px;
+
   margin-right:6px;
+
   align-items:center;
   justify-content:center;
+
   font-size:6px;
   font-weight:900;
+
   color:#111827;
+
   vertical-align:-3px;
 }
 
 .major-key {
   display:inline-block;
+
   width:10px;
   height:10px;
+
   background:#7b3fc6;
+
   border-radius:1px;
+
   margin-right:8px;
+
   vertical-align:-1px;
-  opacity:.82;
 }
 
 .triangle-key {
   display:inline-block;
+
   width:0;
   height:0;
+
   border-left:5px solid transparent;
   border-right:5px solid transparent;
   border-bottom:9px solid;
-  margin-right:9px;
-  vertical-align:-1px;
-  opacity:.82;
-}
 
-.triangle-orange {
-  border-bottom-color:#f28c28;
+  margin-right:9px;
+
+  vertical-align:-1px;
 }
 
 .triangle-gray {
   border-bottom-color:#6b7280;
 }
 
-.gray-line {
+.triangle-teal {
+  border-bottom-color:#287f82;
+}
+
+.teal-line {
   display:inline-block;
+
   width:20px;
-  border-top:4px solid #6b7280;
-  opacity:.60;
+
+  border-top:3px solid #287f82;
+
   margin-right:6px;
+
   vertical-align:3px;
 }
 
 .ring-key {
   display:inline-block;
+
   width:18px;
   height:9px;
+
   border:2px dashed #64748b;
+
   border-radius:50%;
+
   margin-right:6px;
+
   vertical-align:-2px;
 }
 
@@ -415,9 +427,13 @@ body {
 
 .leaflet-control-layers {
   margin-top:118px !important;
+
   border-radius:10px !important;
+
   border:1px solid rgba(15,23,42,.08) !important;
-  box-shadow:0 2px 10px rgba(15,23,42,.14) !important;
+
+  box-shadow:
+    0 2px 10px rgba(15,23,42,.14) !important;
 }
 
 
@@ -428,38 +444,52 @@ body {
 .popup-title {
   font-weight:800;
   font-size:14px;
+
   margin-bottom:4px;
 }
 
 .popup-category {
   color:#64748b;
+
   font-size:10px;
   font-weight:700;
+
   text-transform:uppercase;
+
   letter-spacing:.04em;
+
   margin-bottom:5px;
 }
 
 .popup-score {
   margin:3px 0 6px;
+
   font-size:19px;
   font-weight:900;
+
   color:#172b4d;
 }
 
 .popup-role {
   margin-top:7px;
+
   font-size:12px;
   line-height:1.4;
 }
 
 .popup-note {
   margin-top:7px;
+
   font-size:11px;
   line-height:1.35;
+
   color:#64748b;
 }
 
+
+/* =====================================================
+   MOBILE
+   ===================================================== */
 
 @media (max-width:699px) {
 
@@ -474,6 +504,10 @@ body {
 
 }
 
+
+/* =====================================================
+   PRINT
+   ===================================================== */
 
 @media print {
 
@@ -492,6 +526,7 @@ body {
 <div id="map"></div>
 
 <div id="title">
+
   <div class="eyebrow">
     Mapping Retail Opportunity Through GIS
   </div>
@@ -505,6 +540,7 @@ body {
     specialty-running distribution, active-lifestyle geography,
     and the broader athletic-retail network.
   </p>
+
 </div>
 
 <script>
@@ -709,13 +745,14 @@ const activePoints = [
 
 
 /* =====================================================
-   ACTIVE CORRIDORS
+   GENERALIZED ACTIVE CORRIDORS
    ===================================================== */
 
 const activeCorridors = [
 
   {
     name:"Olentangy Running Corridor",
+
     coordinates:[
       [40.1160,-83.0330],
       [40.0960,-83.0320],
@@ -728,12 +765,14 @@ const activeCorridors = [
       [39.9680,-83.0165],
       [39.9520,-83.0125]
     ],
+
     description:
       "Generalized representation of the Olentangy recreational corridor through central Columbus."
   },
 
   {
     name:"Dublin Scioto / Bridge Park Active Corridor",
+
     coordinates:[
       [40.1130,-83.1175],
       [40.1080,-83.1165],
@@ -742,6 +781,7 @@ const activeCorridors = [
       [40.0950,-83.1135],
       [40.0900,-83.1125]
     ],
+
     description:
       "Generalized active-lifestyle corridor centered on the Dublin Link, Scioto riverfront, and Bridge Park environment."
   }
@@ -770,6 +810,7 @@ L.tileLayer(
   "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
   {
     maxZoom:19,
+
     attribution:
       '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
   }
@@ -798,9 +839,6 @@ const layers = {
     L.layerGroup().addTo(map),
 
   active:
-    L.layerGroup().addTo(map),
-
-  collisionBadges:
     L.layerGroup().addTo(map)
 
 };
@@ -811,27 +849,37 @@ const layers = {
    ===================================================== */
 
 const candidateColors = {
+
   A:"#d73027",
+
   B:"#245bbf",
+
   C:"#18864b"
+
 };
 
 
 /* =====================================================
-   ICON FUNCTIONS
+   ICONS
    ===================================================== */
 
 function makeCandidateIcon(id) {
 
   return L.divIcon({
+
     className:"",
+
     html:
       `<div class="candidate-marker ${id.toLowerCase()}">
         ${id}
       </div>`,
+
     iconSize:[40,40],
+
     iconAnchor:[20,20],
+
     popupAnchor:[0,-21]
+
   });
 
 }
@@ -840,12 +888,18 @@ function makeCandidateIcon(id) {
 function makeNBIcon() {
 
   return L.divIcon({
+
     className:"",
+
     html:
       `<div class="nb-marker">NB</div>`,
+
     iconSize:[28,28],
+
     iconAnchor:[14,14],
+
     popupAnchor:[0,-15]
+
   });
 
 }
@@ -854,14 +908,20 @@ function makeNBIcon() {
 function makeCRCIcon() {
 
   return L.divIcon({
+
     className:"",
+
     html:
       `<div class="crc-marker-wrap">
         <div class="crc-triangle"></div>
       </div>`,
+
     iconSize:[16,14],
+
     iconAnchor:[8,7],
+
     popupAnchor:[0,-9]
+
   });
 
 }
@@ -870,12 +930,18 @@ function makeCRCIcon() {
 function makeMajorRetailIcon() {
 
   return L.divIcon({
+
     className:"",
+
     html:
       `<div class="major-retail-marker"></div>`,
+
     iconSize:[14,14],
+
     iconAnchor:[7,7],
+
     popupAnchor:[0,-9]
+
   });
 
 }
@@ -884,50 +950,20 @@ function makeMajorRetailIcon() {
 function makeActiveIcon() {
 
   return L.divIcon({
+
     className:"",
+
     html:
       `<div class="active-marker-wrap">
         <div class="active-triangle"></div>
       </div>`,
+
     iconSize:[16,14],
+
     iconAnchor:[8,7],
+
     popupAnchor:[0,-9]
-  });
 
-}
-
-
-function makeSatelliteIcon(type) {
-
-  let symbol = "";
-
-  if (type === "orange") {
-    symbol =
-      `<div class="satellite-wrap">
-        <div class="satellite-orange"></div>
-      </div>`;
-  }
-
-  if (type === "purple") {
-    symbol =
-      `<div class="satellite-wrap">
-        <div class="satellite-purple"></div>
-      </div>`;
-  }
-
-  if (type === "gray") {
-    symbol =
-      `<div class="satellite-wrap">
-        <div class="satellite-gray"></div>
-      </div>`;
-  }
-
-  return L.divIcon({
-    className:"",
-    html:symbol,
-    iconSize:[58,58],
-    iconAnchor:[29,29],
-    popupAnchor:[0,-24]
   });
 
 }
@@ -940,6 +976,7 @@ function makeSatelliteIcon(type) {
 function candidatePopup(p) {
 
   return `
+
     <div class="popup-title">
       ${p.id} | ${p.name}
     </div>
@@ -952,7 +989,9 @@ function candidatePopup(p) {
       Brand-Market Fit: ${p.score}
     </div>
 
-    <b>${p.headline}</b>
+    <b>
+      ${p.headline}
+    </b>
 
     <div class="popup-role">
       ${p.strategy}
@@ -962,6 +1001,7 @@ function candidatePopup(p) {
       <b>Strategic role:</b><br>
       ${p.role}
     </div>
+
   `;
 
 }
@@ -972,6 +1012,7 @@ function generalPopup(p) {
   if (p.type === "new_balance") {
 
     return `
+
       <div class="popup-title">
         ${p.name}
       </div>
@@ -981,6 +1022,7 @@ function generalPopup(p) {
       </div>
 
       ${p.description}
+
     `;
 
   }
@@ -989,6 +1031,7 @@ function generalPopup(p) {
   if (p.type === "crc") {
 
     return `
+
       <div class="popup-title">
         ${p.name}
       </div>
@@ -998,6 +1041,7 @@ function generalPopup(p) {
       </div>
 
       ${p.description}
+
     `;
 
   }
@@ -1006,6 +1050,7 @@ function generalPopup(p) {
   if (p.type === "major_retail") {
 
     return `
+
       <div class="popup-title">
         ${p.name}
       </div>
@@ -1020,6 +1065,7 @@ function generalPopup(p) {
         <b>Strategic relevance:</b><br>
         ${p.role}
       </div>
+
     `;
 
   }
@@ -1032,65 +1078,39 @@ function generalPopup(p) {
    ===================================================== */
 
 points
-.filter(p => p.type === "candidate")
-.forEach(p => {
+.filter(
+  p => p.type === "candidate"
+)
+.forEach(
+  p => {
 
-  L.circle(
-    [p.lat,p.lon],
-    {
-      radius:4828.032,
-      color:candidateColors[p.id],
-      weight:2,
-      dashArray:"7 6",
-      opacity:.78,
-      fillColor:candidateColors[p.id],
-      fillOpacity:.025
-    }
-  )
-  .bindTooltip(
-    `${p.id} | 3-mile evaluation area`
-  )
-  .addTo(
-    layers.candidateRings
-  );
+    L.circle(
+      [p.lat,p.lon],
+      {
+        radius:4828.032,
 
-});
+        color:candidateColors[p.id],
 
+        weight:2,
 
-/* =====================================================
-   CANDIDATE MARKERS
-   EXACT CENTROIDS
-   ===================================================== */
+        dashArray:"7 6",
 
-points
-.filter(p => p.type === "candidate")
-.forEach(p => {
+        opacity:.85,
 
-  L.marker(
-    [p.lat,p.lon],
-    {
-      icon:makeCandidateIcon(p.id),
-      zIndexOffset:900
-    }
-  )
-  .bindPopup(
-    candidatePopup(p),
-    {
-      maxWidth:320
-    }
-  )
-  .bindTooltip(
-    `${p.id} | ${p.name}`,
-    {
-      direction:"top",
-      offset:[0,-12]
-    }
-  )
-  .addTo(
-    layers.candidates
-  );
+        fillColor:candidateColors[p.id],
 
-});
+        fillOpacity:.025
+      }
+    )
+    .bindTooltip(
+      `${p.id} | 3-mile evaluation area`
+    )
+    .addTo(
+      layers.candidateRings
+    );
+
+  }
+);
 
 
 /* =====================================================
@@ -1107,7 +1127,8 @@ L.marker(
   [nb.lat,nb.lon],
   {
     icon:makeNBIcon(),
-    zIndexOffset:650
+
+    zIndexOffset:500
   }
 )
 .bindPopup(
@@ -1120,6 +1141,7 @@ L.marker(
   "New Balance Factory Store - Sunbury",
   {
     direction:"right",
+
     offset:[12,0]
   }
 )
@@ -1129,250 +1151,237 @@ L.marker(
 
 
 /* =====================================================
-   SPECIALTY RUNNING
-   EXCEPT EXACT B COLLISION
+   SPECIALTY RUNNING / NB DISTRIBUTION
+   TRUE LOCATIONS
    ===================================================== */
 
 points
 .filter(
-  p =>
-    p.type === "crc" &&
-    p.id !== "CRC-SHORTNORTH"
+  p => p.type === "crc"
 )
-.forEach(p => {
+.forEach(
+  p => {
 
-  L.marker(
-    [p.lat,p.lon],
-    {
-      icon:makeCRCIcon(),
-      zIndexOffset:500
-    }
-  )
-  .bindPopup(
-    generalPopup(p),
-    {
-      maxWidth:300
-    }
-  )
-  .bindTooltip(
-    p.name,
-    {
-      direction:"top",
-      offset:[0,-7]
-    }
-  )
-  .addTo(
-    layers.crc
-  );
+    L.marker(
+      [p.lat,p.lon],
+      {
+        icon:makeCRCIcon(),
 
-});
+        zIndexOffset:520
+      }
+    )
+    .bindPopup(
+      generalPopup(p),
+      {
+        maxWidth:300
+      }
+    )
+    .bindTooltip(
+      p.name,
+      {
+        direction:"top",
+
+        offset:[0,-7]
+      }
+    )
+    .addTo(
+      layers.crc
+    );
+
+  }
+);
 
 
 /* =====================================================
-   MAJOR RETAIL
-   EXCEPT EXACT C COLLISION
+   MAJOR ATHLETIC RETAIL NODES
+   TRUE LOCATIONS
    ===================================================== */
 
 points
 .filter(
-  p =>
-    p.type === "major_retail" &&
-    p.id !== "EASTON-NODE"
+  p => p.type === "major_retail"
 )
-.forEach(p => {
+.forEach(
+  p => {
 
-  L.marker(
-    [p.lat,p.lon],
-    {
-      icon:makeMajorRetailIcon(),
-      zIndexOffset:520
-    }
-  )
-  .bindPopup(
-    generalPopup(p),
-    {
-      maxWidth:300
-    }
-  )
-  .bindTooltip(
-    p.name,
-    {
-      direction:"top",
-      offset:[0,-6]
-    }
-  )
-  .addTo(
-    layers.majorRetail
-  );
+    L.marker(
+      [p.lat,p.lon],
+      {
+        icon:makeMajorRetailIcon(),
 
-});
+        zIndexOffset:540
+      }
+    )
+    .bindPopup(
+      generalPopup(p),
+      {
+        maxWidth:300
+      }
+    )
+    .bindTooltip(
+      p.name,
+      {
+        direction:"top",
+
+        offset:[0,-6]
+      }
+    )
+    .addTo(
+      layers.majorRetail
+    );
+
+  }
+);
 
 
 /* =====================================================
    ACTIVE CORRIDORS
+   SOLID TEAL
    ===================================================== */
 
-activeCorridors.forEach(corridor => {
+activeCorridors.forEach(
+  corridor => {
 
-  L.polyline(
-    corridor.coordinates,
-    {
-      color:"#6b7280",
-      weight:4,
-      opacity:.42,
-      lineCap:"round",
-      lineJoin:"round"
-    }
-  )
-  .bindPopup(
-    `
-      <div class="popup-title">
-        ${corridor.name}
-      </div>
+    L.polyline(
+      corridor.coordinates,
+      {
+        color:"#287f82",
 
-      <div class="popup-category">
-        Running / Active-Lifestyle Corridor
-      </div>
+        weight:3,
 
-      ${corridor.description}
+        opacity:1,
 
-      <div class="popup-note">
-        Corridor geometry is generalized for
-        metropolitan-scale analytical context.
-      </div>
-    `
-  )
-  .bindTooltip(
-    corridor.name
-  )
-  .addTo(
-    layers.active
-  );
+        lineCap:"round",
 
-});
+        lineJoin:"round"
+      }
+    )
+    .bindPopup(
+      `
 
+        <div class="popup-title">
+          ${corridor.name}
+        </div>
 
-/* =====================================================
-   ACTIVE NODES
-   ===================================================== */
+        <div class="popup-category">
+          Running / Active-Lifestyle Corridor
+        </div>
 
-activePoints.forEach(p => {
+        ${corridor.description}
 
-  L.marker(
-    [p.lat,p.lon],
-    {
-      icon:makeActiveIcon(),
-      zIndexOffset:480
-    }
-  )
-  .bindPopup(
-    `
-      <div class="popup-title">
-        ${p.name}
-      </div>
+        <div class="popup-note">
+          Corridor geometry is generalized for
+          metropolitan-scale analytical context.
+        </div>
 
-      <div class="popup-category">
-        Running / Active-Lifestyle Geography
-      </div>
+      `
+    )
+    .bindTooltip(
+      corridor.name
+    )
+    .addTo(
+      layers.active
+    );
 
-      ${p.description}
-
-      <div class="popup-role">
-        <b>Strategic relevance:</b><br>
-        ${p.role}
-      </div>
-    `,
-    {
-      maxWidth:310
-    }
-  )
-  .bindTooltip(
-    p.name,
-    {
-      direction:"top",
-      offset:[0,-6]
-    }
-  )
-  .addTo(
-    layers.active
-  );
-
-});
-
-
-/* =====================================================
-   CO-LOCATED SATELLITE BADGES
-   ===================================================== */
-
-const bCandidate =
-  points.find(
-    p => p.id === "B"
-  );
-
-const crcShortNorth =
-  points.find(
-    p => p.id === "CRC-SHORTNORTH"
-  );
-
-
-L.marker(
-  [bCandidate.lat,bCandidate.lon],
-  {
-    icon:makeSatelliteIcon("orange"),
-    zIndexOffset:1000
   }
-)
-.bindPopup(
-  generalPopup(crcShortNorth),
-  {
-    maxWidth:300
-  }
-)
-.bindTooltip(
-  crcShortNorth.name,
-  {
-    direction:"right",
-    offset:[18,7]
-  }
-)
-.addTo(
-  layers.collisionBadges
 );
 
 
-const cCandidate =
-  points.find(
-    p => p.id === "C"
-  );
+/* =====================================================
+   ACTIVE-LIFESTYLE NODES
+   TRUE LOCATIONS
+   ===================================================== */
 
-const eastonNode =
-  points.find(
-    p => p.id === "EASTON-NODE"
-  );
+activePoints.forEach(
+  p => {
+
+    L.marker(
+      [p.lat,p.lon],
+      {
+        icon:makeActiveIcon(),
+
+        zIndexOffset:560
+      }
+    )
+    .bindPopup(
+      `
+
+        <div class="popup-title">
+          ${p.name}
+        </div>
+
+        <div class="popup-category">
+          Running / Active-Lifestyle Geography
+        </div>
+
+        ${p.description}
+
+        <div class="popup-role">
+          <b>Strategic relevance:</b><br>
+          ${p.role}
+        </div>
+
+      `,
+      {
+        maxWidth:310
+      }
+    )
+    .bindTooltip(
+      p.name,
+      {
+        direction:"top",
+
+        offset:[0,-6]
+      }
+    )
+    .addTo(
+      layers.active
+    );
+
+  }
+);
 
 
-L.marker(
-  [cCandidate.lat,cCandidate.lon],
-  {
-    icon:makeSatelliteIcon("purple"),
-    zIndexOffset:1000
-  }
+/* =====================================================
+   CANDIDATE MARKERS
+   TRUE CENTROIDS
+   ALWAYS ON TOP
+   ===================================================== */
+
+points
+.filter(
+  p => p.type === "candidate"
 )
-.bindPopup(
-  generalPopup(eastonNode),
-  {
-    maxWidth:300
+.forEach(
+  p => {
+
+    L.marker(
+      [p.lat,p.lon],
+      {
+        icon:makeCandidateIcon(p.id),
+
+        zIndexOffset:1000
+      }
+    )
+    .bindPopup(
+      candidatePopup(p),
+      {
+        maxWidth:320
+      }
+    )
+    .bindTooltip(
+      `${p.id} | ${p.name}`,
+      {
+        direction:"top",
+
+        offset:[0,-12]
+      }
+    )
+    .addTo(
+      layers.candidates
+    );
+
   }
-)
-.bindTooltip(
-  eastonNode.name,
-  {
-    direction:"right",
-    offset:[18,7]
-  }
-)
-.addTo(
-  layers.collisionBadges
 );
 
 
@@ -1400,14 +1409,12 @@ L.control.layers(
       layers.crc,
 
     "Running & Active-Lifestyle Geography":
-      layers.active,
-
-    "Co-Located Network Features":
-      layers.collisionBadges
+      layers.active
 
   },
   {
     collapsed:true,
+
     position:"topright"
   }
 ).addTo(map);
@@ -1420,7 +1427,9 @@ L.control.layers(
 L.control.scale(
   {
     imperial:true,
+
     metric:false,
+
     position:"bottomleft"
   }
 ).addTo(map);
@@ -1460,21 +1469,30 @@ function() {
     </div>
 
     <span class="legend-row">
-      <span class="dot" style="background:#d73027"></span>
+      <span
+        class="dot"
+        style="background:#d73027;">
+      </span>
       A Dublin / Bridge Park
     </span>
 
     <br>
 
     <span class="legend-row">
-      <span class="dot" style="background:#245bbf"></span>
+      <span
+        class="dot"
+        style="background:#245bbf;">
+      </span>
       B Short North / High Street
     </span>
 
     <br>
 
     <span class="legend-row">
-      <span class="dot" style="background:#18864b"></span>
+      <span
+        class="dot"
+        style="background:#18864b;">
+      </span>
       C Easton Town Center
     </span>
 
@@ -1505,7 +1523,7 @@ function() {
     <br>
 
     <span class="legend-row">
-      <span class="triangle-key triangle-orange"></span>
+      <span class="triangle-key triangle-gray"></span>
       Specialty running / NB distribution
     </span>
 
@@ -1515,14 +1533,14 @@ function() {
     </div>
 
     <span class="legend-row">
-      <span class="triangle-key triangle-gray"></span>
+      <span class="triangle-key triangle-teal"></span>
       Running / active-lifestyle node
     </span>
 
     <br>
 
     <span class="legend-row">
-      <span class="gray-line"></span>
+      <span class="teal-line"></span>
       Running / recreational corridor
     </span>
 
@@ -1554,10 +1572,15 @@ map.fitBounds(
   finalBounds,
   {
     paddingTopLeft:[20,20],
+
     paddingBottomRight:[20,20]
   }
 );
 
+
+/* =====================================================
+   TITLE EVENT HANDLING
+   ===================================================== */
 
 L.DomEvent.disableClickPropagation(
   document.getElementById("title")
