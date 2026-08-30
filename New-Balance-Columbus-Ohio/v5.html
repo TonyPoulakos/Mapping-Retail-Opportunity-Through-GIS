@@ -45,15 +45,15 @@
 
 <style>
 
+/* =====================================================
+   PAGE
+   ===================================================== */
 
 html,
 body {
-
   height:100%;
-
   margin:0;
   padding:0;
-
   overflow:hidden;
 
   font-family:
@@ -65,19 +65,14 @@ body {
     sans-serif;
 
   background:#f4f5f7;
-
 }
 
 
 #map {
-
   position:fixed;
-
   inset:0;
-
   width:100%;
   height:100%;
-
 }
 
 
@@ -86,7 +81,6 @@ body {
    ===================================================== */
 
 #title {
-
   position:absolute;
 
   top:max(
@@ -119,60 +113,38 @@ body {
   box-shadow:
     0 4px 18px
     rgba(15,23,42,.16);
-
 }
 
 
 #title .eyebrow {
-
   font-size:10px;
-
   line-height:1.2;
-
   font-weight:800;
-
   letter-spacing:.08em;
-
   color:#64748b;
-
   text-transform:uppercase;
-
   margin-bottom:4px;
-
 }
 
 
 #title h1 {
-
-  margin:
-    0 0 5px;
-
+  margin:0 0 5px;
   font-size:18px;
-
   line-height:1.15;
-
   color:#172b4d;
-
 }
 
 
 #title .subtitle {
-
   margin:0;
-
   font-size:11.5px;
-
   line-height:1.35;
-
   color:#586474;
-
 }
 
 
 #titleToggle {
-
   position:absolute;
-
   top:8px;
   right:8px;
 
@@ -180,9 +152,7 @@ body {
   height:28px;
 
   padding:0;
-
   border:0;
-
   border-radius:6px;
 
   background:
@@ -191,63 +161,45 @@ body {
   color:#475569;
 
   display:flex;
-
   align-items:center;
   justify-content:center;
 
   cursor:pointer;
-
   touch-action:manipulation;
-
 }
 
 
 #titleToggle:hover {
-
   background:#e8edf2;
-
 }
 
 
 #titleToggle svg {
-
   width:16px;
   height:16px;
-
-  transition:
-    transform .18s ease;
-
+  transition:transform .18s ease;
 }
 
 
 #title.collapsed {
-
   padding-top:10px;
   padding-bottom:10px;
-
 }
 
 
 #title.collapsed .eyebrow,
 #title.collapsed .subtitle {
-
   display:none;
-
 }
 
 
 #title.collapsed h1 {
-
   margin:0;
-
 }
 
 
 #title.collapsed #titleToggle svg {
-
-  transform:
-    rotate(180deg);
-
+  transform:rotate(180deg);
 }
 
 
@@ -256,7 +208,6 @@ body {
    ===================================================== */
 
 #rightControls {
-
   position:absolute;
 
   top:max(
@@ -269,18 +220,14 @@ body {
   z-index:1200;
 
   display:flex;
-
   flex-direction:column;
-
   align-items:flex-end;
 
   gap:8px;
-
 }
 
 
 .map-control-button {
-
   width:42px;
   height:42px;
 
@@ -300,7 +247,6 @@ body {
     rgba(0,0,0,.22);
 
   display:flex;
-
   align-items:center;
   justify-content:center;
 
@@ -310,24 +256,18 @@ body {
 
   -webkit-tap-highlight-color:
     transparent;
-
 }
 
 
 .map-control-button:hover {
-
   background:#f4f6f8;
-
 }
 
 
 .map-control-button svg {
-
   width:22px;
   height:22px;
-
   display:block;
-
 }
 
 
@@ -336,7 +276,6 @@ body {
    ===================================================== */
 
 #layerPanel {
-
   position:absolute;
 
   right:14px;
@@ -368,65 +307,42 @@ body {
     10px 12px;
 
   font-size:11px;
-
   line-height:1.3;
-
 }
 
 
 #layerPanel.open {
-
   display:block;
-
 }
 
 
 .layer-panel-title {
-
   font-size:9px;
-
   font-weight:900;
-
   letter-spacing:.07em;
-
   color:#475569;
-
   text-transform:uppercase;
-
   margin-bottom:5px;
-
 }
 
 
 .layer-panel-section {
-
   margin-top:8px;
-
   padding-top:7px;
-
-  border-top:
-    1px solid #e5e7eb;
-
+  border-top:1px solid #e5e7eb;
 }
 
 
 .layer-panel-section:first-child {
-
   margin-top:0;
-
   padding-top:0;
-
   border-top:0;
-
 }
 
 
 .layer-option {
-
   display:grid;
-
-  grid-template-columns:
-    20px 1fr;
+  grid-template-columns:20px 1fr;
 
   align-items:center;
 
@@ -439,35 +355,27 @@ body {
   cursor:pointer;
 
   user-select:none;
-
 }
 
 
 .layer-option input {
-
   margin:0;
-
   width:14px;
   height:14px;
-
   accent-color:#475569;
-
 }
 
 
 .layer-option span {
-
   display:block;
-
 }
 
 
 /* =====================================================
-   CANDIDATES
+   CANDIDATE MARKERS
    ===================================================== */
 
 .candidate-marker {
-
   width:40px;
   height:40px;
 
@@ -485,37 +393,26 @@ body {
   color:white;
 
   display:flex;
-
   align-items:center;
   justify-content:center;
 
   font-size:17px;
-
   font-weight:900;
 
   opacity:.90;
-
 }
 
 
 .a {
-
   background:#d73027;
-
 }
-
 
 .b {
-
   background:#245bbf;
-
 }
 
-
 .c {
-
   background:#18864b;
-
 }
 
 
@@ -524,7 +421,6 @@ body {
    ===================================================== */
 
 .nb-marker {
-
   width:28px;
   height:28px;
 
@@ -532,8 +428,7 @@ body {
 
   background:#ffffff;
 
-  border:
-    2px solid #111827;
+  border:2px solid #111827;
 
   border-radius:3px;
 
@@ -544,67 +439,52 @@ body {
   color:#111827;
 
   display:flex;
-
   align-items:center;
   justify-content:center;
 
   font-size:10px;
-
   font-weight:900;
 
   letter-spacing:-.3px;
-
 }
 
 
 /* =====================================================
-   CRC
+   SPECIALTY RUNNING
    ===================================================== */
 
 .crc-marker-wrap {
-
   position:relative;
-
   width:18px;
   height:16px;
-
 }
 
 
 .crc-triangle {
-
   position:absolute;
-
   left:1px;
   top:1px;
 
   width:0;
   height:0;
 
-  border-left:
-    8px solid transparent;
-
-  border-right:
-    8px solid transparent;
-
-  border-bottom:
-    14px solid #6b7280;
+  border-left:8px solid transparent;
+  border-right:8px solid transparent;
+  border-bottom:14px solid #6b7280;
 
   filter:
     drop-shadow(
       0 1px 1px
       rgba(0,0,0,.28)
     );
-
 }
 
 
 /* =====================================================
-   MAJOR RETAIL
+   MAJOR ATHLETIC RETAIL
    ===================================================== */
 
 .major-retail-marker {
-
   width:15px;
   height:15px;
 
@@ -612,15 +492,13 @@ body {
 
   background:#7b3fc6;
 
-  transform:
-    rotate(45deg);
+  transform:rotate(45deg);
 
   border-radius:1px;
 
   box-shadow:
     0 1px 3px
     rgba(0,0,0,.30);
-
 }
 
 
@@ -629,7 +507,6 @@ body {
    ===================================================== */
 
 .active-hexagon {
-
   width:17px;
   height:15px;
 
@@ -650,7 +527,6 @@ body {
       0 1px 1px
       rgba(0,0,0,.28)
     );
-
 }
 
 
@@ -659,14 +535,12 @@ body {
    ===================================================== */
 
 .legend {
-
   position:relative;
 
   background:
     rgba(255,255,255,.97);
 
-  padding:
-    9px 11px;
+  padding:9px 11px;
 
   border-radius:10px;
 
@@ -684,47 +558,32 @@ body {
   max-width:250px;
 
   box-sizing:border-box;
-
 }
 
 
 .legend-header {
-
   display:flex;
-
   align-items:center;
-
   justify-content:space-between;
-
   gap:8px;
-
 }
 
 
 .legend-title {
-
   font-size:10px;
-
   font-weight:900;
-
   letter-spacing:.06em;
-
   color:#334155;
-
   text-transform:uppercase;
-
   margin:0;
-
 }
 
 
 .legend-toggle {
-
   width:24px;
   height:24px;
 
   padding:0;
-
   border:0;
 
   border-radius:5px;
@@ -735,7 +594,6 @@ body {
   color:#475569;
 
   display:flex;
-
   align-items:center;
   justify-content:center;
 
@@ -744,79 +602,55 @@ body {
   flex:0 0 auto;
 
   touch-action:manipulation;
-
 }
 
 
 .legend-toggle:hover {
-
   background:#e8edf2;
-
 }
 
 
 .legend-toggle svg {
-
   width:13px;
   height:13px;
-
-  transition:
-    transform .18s ease;
-
+  transition:transform .18s ease;
 }
 
 
 .legend-content {
-
   display:block;
-
 }
 
 
 .legend.collapsed {
-
   width:96px;
-
   min-width:96px;
-
   max-width:96px;
 
-  padding:
-    6px 7px;
-
+  padding:6px 7px;
 }
 
 
 .legend.collapsed .legend-content {
-
   display:none;
-
 }
 
 
 .legend.collapsed .legend-toggle svg {
-
-  transform:
-    rotate(180deg);
-
+  transform:rotate(180deg);
 }
 
 
 .legend-section {
-
   font-weight:800;
-
   color:#172b4d;
 
   margin-top:7px;
-
   margin-bottom:3px;
-
 }
 
 
 .legend-row {
-
   display:grid;
 
   grid-template-columns:
@@ -825,34 +659,26 @@ body {
   align-items:center;
 
   min-height:17px;
-
 }
 
 
 .legend-symbol {
-
   width:24px;
 
   display:flex;
-
   align-items:center;
   justify-content:center;
-
 }
 
 
 .legend-dot {
-
   width:9px;
   height:9px;
-
   border-radius:50%;
-
 }
 
 
 .legend-nb {
-
   width:14px;
   height:14px;
 
@@ -860,57 +686,42 @@ body {
 
   background:white;
 
-  border:
-    1.5px solid #111827;
+  border:1.5px solid #111827;
 
   border-radius:2px;
 
   display:flex;
-
   align-items:center;
   justify-content:center;
 
   font-size:5.5px;
-
   font-weight:900;
 
   color:#111827;
-
 }
 
 
 .legend-diamond {
-
   width:10px;
   height:10px;
 
   background:#7b3fc6;
 
-  transform:
-    rotate(45deg);
-
+  transform:rotate(45deg);
 }
 
 
 .legend-triangle {
-
   width:0;
   height:0;
 
-  border-left:
-    6px solid transparent;
-
-  border-right:
-    6px solid transparent;
-
-  border-bottom:
-    10px solid #6b7280;
-
+  border-left:6px solid transparent;
+  border-right:6px solid transparent;
+  border-bottom:10px solid #6b7280;
 }
 
 
 .legend-hexagon {
-
   width:13px;
   height:11px;
 
@@ -925,12 +736,10 @@ body {
       25% 100%,
       0% 50%
     );
-
 }
 
 
 .legend-ring {
-
   width:16px;
   height:8px;
 
@@ -940,39 +749,33 @@ body {
     1.5px dashed #64748b;
 
   border-radius:50%;
-
 }
 
 
 .legend-line {
-
   width:17px;
 
   border-top:
     2.5px solid #2b9fb3;
-
 }
 
 
 /* =====================================================
    NORTH ARROW
-   SMALLER + ALIGNED WITH SCALE BAR
    ===================================================== */
 
 #northArrow {
-
   position:absolute;
 
   left:10px;
 
-  bottom:80px;
+  bottom:72px;
 
   z-index:1005;
 
   width:27px;
 
   display:flex;
-
   flex-direction:column;
 
   align-items:flex-start;
@@ -986,12 +789,10 @@ body {
   text-shadow:
     0 1px 2px
     rgba(255,255,255,.9);
-
 }
 
 
 #northArrow .north-letter {
-
   font-size:9px;
 
   font-weight:900;
@@ -1003,12 +804,10 @@ body {
   width:20px;
 
   text-align:center;
-
 }
 
 
 #northArrow svg {
-
   width:20px;
   height:24px;
 
@@ -1017,18 +816,15 @@ body {
       0 1px 1px
       rgba(255,255,255,.8)
     );
-
 }
 
 
 /* =====================================================
-   SCALE CLEARANCE
+   SCALE
    ===================================================== */
 
 .leaflet-bottom.leaflet-left {
-
   bottom:30px;
-
 }
 
 
@@ -1037,22 +833,16 @@ body {
    ===================================================== */
 
 .popup-title {
-
   font-weight:800;
-
   font-size:14px;
-
   margin-bottom:4px;
-
 }
 
 
 .popup-category {
-
   color:#64748b;
 
   font-size:10px;
-
   font-weight:700;
 
   text-transform:uppercase;
@@ -1060,50 +850,39 @@ body {
   letter-spacing:.04em;
 
   margin-bottom:5px;
-
 }
 
 
 .popup-score {
-
-  margin:
-    3px 0 6px;
+  margin:3px 0 6px;
 
   font-size:19px;
 
   font-weight:900;
 
   color:#172b4d;
-
 }
 
 
 .popup-role {
-
   margin-top:7px;
 
   font-size:12px;
-
   line-height:1.4;
-
 }
 
 
 .popup-note {
-
   margin-top:7px;
 
   font-size:11px;
-
   line-height:1.35;
 
   color:#64748b;
-
 }
 
 
 .maplibregl-map {
-
   font-family:
     -apple-system,
     BlinkMacSystemFont,
@@ -1111,27 +890,22 @@ body {
     Roboto,
     Arial,
     sans-serif;
-
 }
 
 
 .maplibregl-ctrl-bottom-right {
-
   bottom:18px;
-
 }
 
 
 /* =====================================================
-   MOBILE
+   MOBILE PORTRAIT / GENERAL MOBILE
    ===================================================== */
 
 @media
 (max-width:699px) {
 
-
   #title {
-
     top:10px;
 
     left:58px;
@@ -1143,95 +917,67 @@ body {
       8px 31px 8px 10px;
 
     border-radius:9px;
-
   }
 
 
   #title .eyebrow {
-
     font-size:7.5px;
-
     line-height:1.1;
-
     letter-spacing:.07em;
-
     margin-bottom:2px;
-
   }
 
 
   #title h1 {
-
-    margin:
-      0 0 3px;
-
+    margin:0 0 3px;
     font-size:13px;
-
     line-height:1.12;
-
   }
 
 
   #title .subtitle {
-
     font-size:8.5px;
-
     line-height:1.22;
-
   }
 
 
   #titleToggle {
-
     top:5px;
-
     right:5px;
 
     width:23px;
     height:23px;
 
     border-radius:5px;
-
   }
 
 
   #titleToggle svg {
-
     width:13px;
     height:13px;
-
   }
 
 
   #title.collapsed {
-
     padding:
       8px 31px 8px 10px;
-
   }
 
 
   #rightControls {
-
     top:10px;
-
     right:10px;
-
     gap:7px;
-
   }
 
 
   .map-control-button {
-
     width:42px;
     height:42px;
-
   }
 
 
   #layerPanel {
-
     right:10px;
 
     width:min(
@@ -1239,36 +985,27 @@ body {
       calc(100vw - 20px)
     );
 
-    padding:
-      8px 10px;
+    padding:8px 10px;
 
     border-radius:9px;
 
     font-size:10px;
-
   }
 
 
   .layer-option {
-
     min-height:25px;
-
   }
 
 
   .layer-panel-section {
-
     margin-top:6px;
-
     padding-top:6px;
-
   }
 
 
   .legend {
-
-    padding:
-      6px 8px;
+    padding:6px 8px;
 
     border-radius:8px;
 
@@ -1277,150 +1014,113 @@ body {
     line-height:1.25;
 
     max-width:190px;
-
   }
 
 
   .legend-title {
-
     font-size:8px;
-
   }
 
 
   .legend-toggle {
-
     width:20px;
     height:20px;
 
     border-radius:4px;
-
   }
 
 
   .legend-toggle svg {
-
     width:11px;
     height:11px;
-
   }
 
 
   .legend.collapsed {
-
     width:86px;
-
     min-width:86px;
-
     max-width:86px;
 
-    padding:
-      5px 6px;
-
+    padding:5px 6px;
   }
 
 
   .legend-section {
-
     margin-top:5px;
-
     margin-bottom:2px;
-
   }
 
 
   .legend-row {
-
     grid-template-columns:
       22px 1fr;
 
     min-height:15px;
-
   }
 
 
   .legend-symbol {
-
     width:22px;
-
   }
 
 
   .legend-dot {
-
     width:8px;
     height:8px;
-
   }
 
 
   .legend-nb {
-
     width:12px;
     height:12px;
 
     font-size:4.8px;
-
   }
 
 
   .legend-diamond {
-
     width:9px;
     height:9px;
-
   }
 
 
   .legend-triangle {
-
     border-left-width:5px;
-
     border-right-width:5px;
-
     border-bottom-width:9px;
-
   }
 
 
   .legend-hexagon {
-
     width:11px;
     height:9px;
-
   }
 
 
   .legend-ring {
-
     width:14px;
     height:7px;
-
   }
 
 
   .legend-line {
-
     width:15px;
-
     border-top-width:2px;
-
   }
 
 
   .leaflet-bottom.leaflet-left {
-
     bottom:38px;
-
   }
 
 
+  /*
+     Tighter grouping with the scale.
+  */
+
   #northArrow {
-
     left:10px;
-
-    bottom:84px;
-
+    bottom:76px;
   }
 
 }
@@ -1434,11 +1134,8 @@ body {
 (max-width:899px)
 and (orientation:landscape) {
 
-
   #title {
-
     top:10px;
-
     left:88px;
 
     width:min(
@@ -1450,63 +1147,43 @@ and (orientation:landscape) {
       7px 31px 7px 10px;
 
     border-radius:9px;
-
   }
 
 
   #title .eyebrow {
-
     font-size:7px;
-
     line-height:1.05;
-
     margin-bottom:2px;
-
   }
 
 
   #title h1 {
-
     font-size:12px;
-
     line-height:1.08;
-
-    margin:
-      0 0 3px;
-
+    margin:0 0 3px;
   }
 
 
   #title .subtitle {
-
     font-size:8px;
-
     line-height:1.14;
-
   }
 
 
   #title.collapsed {
-
     padding:
       7px 31px 7px 10px;
-
   }
 
 
   #rightControls {
-
     top:10px;
-
     right:10px;
-
     gap:7px;
-
   }
 
 
   .legend {
-
     max-width:225px;
 
     padding:
@@ -1519,155 +1196,112 @@ and (orientation:landscape) {
     margin-right:0;
 
     margin-bottom:1px;
-
   }
 
 
   .legend-header {
-
     min-height:15px;
-
   }
 
 
   .legend-title {
-
     font-size:7px;
-
   }
 
 
   .legend-toggle {
-
     width:17px;
     height:17px;
-
     border-radius:3px;
-
   }
 
 
   .legend-toggle svg {
-
     width:9px;
     height:9px;
-
   }
 
 
   .legend-section {
-
     margin-top:2px;
-
     margin-bottom:0;
-
   }
 
 
   .legend-row {
-
     grid-template-columns:
       18px 1fr;
 
     min-height:10px;
-
   }
 
 
   .legend-symbol {
-
     width:18px;
-
   }
 
 
   .legend-dot {
-
     width:7px;
     height:7px;
-
   }
 
 
   .legend-nb {
-
     width:10px;
     height:10px;
 
     font-size:4px;
-
   }
 
 
   .legend-diamond {
-
     width:8px;
     height:8px;
-
   }
 
 
   .legend-triangle {
-
     border-left-width:4px;
-
     border-right-width:4px;
-
     border-bottom-width:7px;
-
   }
 
 
   .legend-hexagon {
-
     width:9px;
     height:8px;
-
   }
 
 
   .legend-ring {
-
     width:12px;
     height:6px;
-
   }
 
 
   .legend-line {
-
     width:13px;
-
     border-top-width:1.7px;
-
   }
 
 
   .legend.collapsed {
-
     width:80px;
-
     min-width:80px;
-
     max-width:80px;
 
-    padding:
-      3px 5px;
-
+    padding:3px 5px;
   }
 
 
   .leaflet-bottom.leaflet-right {
-
     right:0;
-
     bottom:0;
-
   }
 
 
   #layerPanel {
-
     width:260px;
 
     max-height:
@@ -1679,71 +1313,59 @@ and (orientation:landscape) {
 
     -webkit-overflow-scrolling:touch;
 
-    padding:
-      7px 9px;
+    padding:7px 9px;
 
     font-size:8.5px;
 
     line-height:1.15;
 
     border-radius:8px;
-
   }
 
 
   .layer-panel-title {
-
     font-size:7.5px;
-
     margin-bottom:2px;
-
   }
 
 
   .layer-panel-section {
-
     margin-top:4px;
-
     padding-top:4px;
-
   }
 
 
   .layer-option {
-
     min-height:19px;
 
     grid-template-columns:
       17px 1fr;
 
     gap:2px;
-
   }
 
 
   .layer-option input {
-
     width:12px;
     height:12px;
-
   }
 
 
   .leaflet-bottom.leaflet-left {
-
     bottom:25px;
-
   }
 
 
   #northArrow {
-
     left:10px;
 
-    bottom:68px;
+    /*
+       Also tighter in landscape.
+    */
+
+    bottom:60px;
 
     transform:none;
-
   }
 
 }
@@ -1779,7 +1401,9 @@ and (orientation:landscape) {
 <div id="map"></div>
 
 
-<!-- NORTH ARROW -->
+<!-- =====================================================
+     NORTH ARROW
+     ===================================================== -->
 
 <div
   id="northArrow"
@@ -1813,7 +1437,9 @@ and (orientation:landscape) {
 </div>
 
 
-<!-- TITLE -->
+<!-- =====================================================
+     TITLE
+     ===================================================== -->
 
 <div id="title">
 
@@ -1865,10 +1491,11 @@ and (orientation:landscape) {
 </div>
 
 
-<!-- RIGHT CONTROLS -->
+<!-- =====================================================
+     RIGHT CONTROLS
+     ===================================================== -->
 
 <div id="rightControls">
-
 
   <button
     id="homeButton"
@@ -1884,11 +1511,7 @@ and (orientation:landscape) {
     >
 
       <path
-        d="
-          M3 11.2
-          L12 3.8
-          L21 11.2
-        "
+        d="M3 11.2 L12 3.8 L21 11.2"
         fill="none"
         stroke="#334155"
         stroke-width="2.2"
@@ -1897,16 +1520,7 @@ and (orientation:landscape) {
       />
 
       <path
-        d="
-          M5.5 10.5
-          V20
-          H10
-          V14
-          H14
-          V20
-          H18.5
-          V10.5
-        "
+        d="M5.5 10.5 V20 H10 V14 H14 V20 H18.5 V10.5"
         fill="none"
         stroke="#334155"
         stroke-width="2.2"
@@ -1934,13 +1548,7 @@ and (orientation:landscape) {
     >
 
       <path
-        d="
-          M12 3
-          L21 8
-          L12 13
-          L3 8
-          Z
-        "
+        d="M12 3 L21 8 L12 13 L3 8 Z"
         fill="none"
         stroke="#334155"
         stroke-width="1.9"
@@ -1948,11 +1556,7 @@ and (orientation:landscape) {
       />
 
       <path
-        d="
-          M4.5 12
-          L12 16
-          L19.5 12
-        "
+        d="M4.5 12 L12 16 L19.5 12"
         fill="none"
         stroke="#334155"
         stroke-width="1.9"
@@ -1961,11 +1565,7 @@ and (orientation:landscape) {
       />
 
       <path
-        d="
-          M4.5 16
-          L12 20
-          L19.5 16
-        "
+        d="M4.5 16 L12 20 L19.5 16"
         fill="none"
         stroke="#334155"
         stroke-width="1.9"
@@ -1980,7 +1580,9 @@ and (orientation:landscape) {
 </div>
 
 
-<!-- LAYER PANEL -->
+<!-- =====================================================
+     LAYER PANEL
+     ===================================================== -->
 
 <div
   id="layerPanel"
@@ -2132,10 +1734,13 @@ and (orientation:landscape) {
 <script>
 
 
+/* =====================================================
+   GEOGRAPHY
+   ===================================================== */
+
 const points = [
 
   {
-
     id:"A",
 
     name:
@@ -2157,12 +1762,10 @@ const points = [
 
     role:
       "Expand the owned retail network into a high-value mixed-use market with strong lifestyle and experiential alignment."
-
   },
 
 
   {
-
     id:"B",
 
     name:
@@ -2184,12 +1787,10 @@ const points = [
 
     role:
       "Build deeper brand relevance through an urban location closely connected to running, community, culture, and lifestyle."
-
   },
 
 
   {
-
     id:"C",
 
     name:
@@ -2211,12 +1812,10 @@ const points = [
 
     role:
       "Capture regional destination traffic and maximize visibility within an established athletic and lifestyle retail cluster."
-
   },
 
 
   {
-
     id:"NB-SUNBURY",
 
     name:
@@ -2230,88 +1829,86 @@ const points = [
 
     description:
       "Existing New Balance-owned factory store serving the Columbus market from the north."
-
   },
 
 
-  {
+  /* QC: 6465 Perimeter Drive */
 
+  {
     id:"CRC-DUBLIN",
 
     name:
       "Columbus Running Company - Dublin",
 
-    lat:40.1020,
+    lat:40.1051567,
 
-    lon:-83.1620,
+    lon:-83.1622049,
 
     type:"crc",
 
     description:
       "Specialty running retailer with New Balance distribution and community running activity."
-
   },
 
 
-  {
+  /* QC: 765 N High Street */
 
+  {
     id:"CRC-SHORTNORTH",
 
     name:
       "Columbus Running Company - Short North",
 
-    lat:39.977984,
+    lat:39.978131,
 
-    lon:-83.004006,
+    lon:-83.004031,
 
     type:"crc",
 
     description:
       "Specialty running retailer with New Balance distribution and recurring community running activity."
-
   },
 
 
-  {
+  /* QC: 50 N State Street */
 
+  {
     id:"CRC-WESTERVILLE",
 
     name:
       "Columbus Running Company - Westerville",
 
-    lat:40.1278,
+    lat:40.12724,
 
-    lon:-82.9290,
+    lon:-82.93195,
 
     type:"crc",
 
     description:
       "Specialty running retailer and New Balance distribution point."
-
   },
 
 
-  {
+  /* QC: 28 N Sandusky Street */
 
+  {
     id:"CRC-DELAWARE",
 
     name:
       "Columbus Running Company - Delaware",
 
-    lat:40.2998,
+    lat:40.299576,
 
-    lon:-83.0670,
+    lon:-83.067154,
 
     type:"crc",
 
     description:
       "Specialty running retailer and New Balance distribution point."
-
   },
 
 
   {
-
     id:"CRC-GROVECITY",
 
     name:
@@ -2325,31 +1922,34 @@ const points = [
 
     description:
       "Specialty running retailer and New Balance distribution point."
-
   },
 
 
-  {
+  /* QC: 1250 Hill Road N */
 
+  {
     id:"CRC-PICKERINGTON",
 
     name:
       "Columbus Running Company - Pickerington",
 
-    lat:39.9050,
+    lat:39.915026,
 
-    lon:-82.7530,
+    lon:-82.779773,
 
     type:"crc",
 
     description:
       "Specialty running retailer and New Balance distribution point."
-
   },
 
 
-  {
+  /*
+     Deliberate display offset from Candidate C
+     so both symbols remain visible.
+  */
 
+  {
     id:"EASTON-NODE",
 
     name:
@@ -2366,12 +1966,10 @@ const points = [
 
     role:
       "Provides strong retail visibility and market draw, while also representing substantial existing multibrand athletic distribution."
-
   },
 
 
   {
-
     id:"POLARIS",
 
     name:
@@ -2388,36 +1986,40 @@ const points = [
 
     role:
       "Provides important context for the existing athletic-retail ecosystem north of the candidate areas."
-
   }
 
 ];
 
 
+/* =====================================================
+   ACTIVE-LIFESTYLE POINTS
+   ===================================================== */
+
 const activePoints = [
 
-  {
+  /*
+     QC: Dublin Link bridge itself.
+  */
 
+  {
     id:"AL-DUBLIN",
 
     name:
       "Dublin Link / Bridge Park",
 
-    lat:40.0997,
+    lat:40.10205,
 
-    lon:-83.1143,
+    lon:-83.11186,
 
     description:
       "Major pedestrian connection across the Scioto River linking Historic Dublin and Bridge Park.",
 
     role:
       "Supports the active-lifestyle character of Candidate A and connects Bridge Park directly into a walkable riverfront environment."
-
   },
 
 
   {
-
     id:"AL-OLENTANGY",
 
     name:
@@ -2432,12 +2034,10 @@ const activePoints = [
 
     role:
       "CRC's Short North running routes use both the north and south Olentangy Trail, reinforcing Candidate B's connection to established running infrastructure."
-
   },
 
 
   {
-
     id:"AL-BRIDGEPARK-RUN",
 
     name:
@@ -2452,12 +2052,10 @@ const activePoints = [
 
     role:
       "Adds direct evidence of running-community activity within Candidate A's immediate mixed-use environment."
-
   },
 
 
   {
-
     id:"AL-SHORTNORTH-RUN",
 
     name:
@@ -2472,136 +2070,119 @@ const activePoints = [
 
     role:
       "Reinforces Candidate B as a location embedded in an established urban running and active-lifestyle community."
-
   }
 
 ];
 
 
+/* =====================================================
+   GENERALIZED CORRIDORS
+   ===================================================== */
+
 const activeCorridors = [
 
   {
-
     name:
       "Olentangy Running Corridor",
 
     coordinates:[
 
       [40.1160,-83.0330],
-
       [40.0960,-83.0320],
-
       [40.0750,-83.0290],
-
       [40.0540,-83.0260],
-
       [40.0350,-83.0240],
-
       [40.0170,-83.0220],
-
       [39.9980,-83.0200],
-
       [39.9835,-83.0194],
-
       [39.9680,-83.0165],
-
       [39.9520,-83.0125]
 
     ],
 
     description:
       "Generalized representation of the Olentangy recreational corridor through central Columbus."
-
   },
 
 
   {
-
     name:
       "Dublin Scioto / Bridge Park Active Corridor",
 
     coordinates:[
 
       [40.1130,-83.1175],
-
       [40.1080,-83.1165],
-
       [40.1030,-83.1150],
-
       [40.0997,-83.1143],
-
       [40.0950,-83.1135],
-
       [40.0900,-83.1125]
 
     ],
 
     description:
       "Generalized active-lifestyle corridor centered on the Dublin Link, Scioto riverfront, and Bridge Park environment."
-
   }
 
 ];
 
 
+/* =====================================================
+   DEFAULT EXTENT
+   ===================================================== */
+
 const finalBounds =
 L.latLngBounds(
-
   [
-
     [39.865,-83.185],
-
     [40.315,-82.735]
-
   ]
-
 );
 
+
+/* =====================================================
+   MAP
+   ===================================================== */
 
 const map =
 L.map(
-
   "map",
-
   {
-
     zoomControl:true,
-
     preferCanvas:true
-
   }
-
 );
 
 
+/* =====================================================
+   BASEMAPS
+   ===================================================== */
+
 const positronLayer =
 L.maplibreGL({
-
   style:
     "https://tiles.openfreemap.org/styles/positron"
-
 });
 
 
 const osmLayer =
 L.tileLayer(
-
   "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
-
   {
-
     maxZoom:19,
 
     attribution:
       '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-
   }
-
 );
 
 
 positronLayer.addTo(map);
 
+
+/* =====================================================
+   LAYERS
+   ===================================================== */
 
 const layers = {
 
@@ -2629,13 +2210,15 @@ const layers = {
 const candidateColors = {
 
   A:"#d73027",
-
   B:"#245bbf",
-
   C:"#18864b"
 
 };
 
+
+/* =====================================================
+   ICONS
+   ===================================================== */
 
 function makeCandidateIcon(id) {
 
@@ -2648,14 +2231,11 @@ function makeCandidateIcon(id) {
         ${id}
       </div>`,
 
-    iconSize:
-      [40,40],
+    iconSize:[40,40],
 
-    iconAnchor:
-      [20,20],
+    iconAnchor:[20,20],
 
-    popupAnchor:
-      [0,-21]
+    popupAnchor:[0,-21]
 
   });
 
@@ -2673,14 +2253,11 @@ function makeNBIcon() {
         NB
       </div>`,
 
-    iconSize:
-      [28,28],
+    iconSize:[28,28],
 
-    iconAnchor:
-      [14,14],
+    iconAnchor:[14,14],
 
-    popupAnchor:
-      [0,-15]
+    popupAnchor:[0,-15]
 
   });
 
@@ -2698,14 +2275,11 @@ function makeCRCIcon() {
         <div class="crc-triangle"></div>
       </div>`,
 
-    iconSize:
-      [18,16],
+    iconSize:[18,16],
 
-    iconAnchor:
-      [9,8],
+    iconAnchor:[9,8],
 
-    popupAnchor:
-      [0,-10]
+    popupAnchor:[0,-10]
 
   });
 
@@ -2721,14 +2295,11 @@ function makeMajorRetailIcon() {
     html:
       `<div class="major-retail-marker"></div>`,
 
-    iconSize:
-      [15,15],
+    iconSize:[15,15],
 
-    iconAnchor:
-      [7.5,7.5],
+    iconAnchor:[7.5,7.5],
 
-    popupAnchor:
-      [0,-10]
+    popupAnchor:[0,-10]
 
   });
 
@@ -2744,19 +2315,20 @@ function makeActiveIcon() {
     html:
       `<div class="active-hexagon"></div>`,
 
-    iconSize:
-      [17,15],
+    iconSize:[17,15],
 
-    iconAnchor:
-      [8.5,7.5],
+    iconAnchor:[8.5,7.5],
 
-    popupAnchor:
-      [0,-10]
+    popupAnchor:[0,-10]
 
   });
 
 }
 
+
+/* =====================================================
+   POPUP CONTENT
+   ===================================================== */
 
 function candidatePopup(p) {
 
@@ -2882,20 +2454,19 @@ function generalPopup(p) {
 }
 
 
-/* RINGS */
+/* =====================================================
+   RINGS
+   ===================================================== */
 
 points
 
 .filter(
-
   p =>
     p.type ===
     "candidate"
-
 )
 
 .forEach(
-
   p => {
 
     L.circle(
@@ -2903,17 +2474,14 @@ points
       [p.lat,p.lon],
 
       {
-
-        radius:
-          4828.032,
+        radius:4828.032,
 
         color:
           candidateColors[p.id],
 
         weight:2,
 
-        dashArray:
-          "7 6",
+        dashArray:"7 6",
 
         opacity:.85,
 
@@ -2921,7 +2489,6 @@ points
           candidateColors[p.id],
 
         fillOpacity:.025
-
       }
 
     )
@@ -2931,48 +2498,34 @@ points
     );
 
   }
-
 );
 
 
-/* NB */
+/* =====================================================
+   NB
+   ===================================================== */
 
 const nb =
 points.find(
-
   p =>
     p.id ===
     "NB-SUNBURY"
-
 );
 
 
 L.marker(
-
   [nb.lat,nb.lon],
-
   {
-
-    icon:
-      makeNBIcon(),
-
-    zIndexOffset:
-      500
-
+    icon:makeNBIcon(),
+    zIndexOffset:500
   }
-
 )
 
 .bindPopup(
-
   generalPopup(nb),
-
   {
-
     maxWidth:300
-
   }
-
 )
 
 .addTo(
@@ -2980,20 +2533,19 @@ L.marker(
 );
 
 
-/* CRC */
+/* =====================================================
+   CRC
+   ===================================================== */
 
 points
 
 .filter(
-
   p =>
     p.type ===
     "crc"
-
 )
 
 .forEach(
-
   p => {
 
     L.marker(
@@ -3001,27 +2553,17 @@ points
       [p.lat,p.lon],
 
       {
-
-        icon:
-          makeCRCIcon(),
-
-        zIndexOffset:
-          520
-
+        icon:makeCRCIcon(),
+        zIndexOffset:520
       }
 
     )
 
     .bindPopup(
-
       generalPopup(p),
-
       {
-
         maxWidth:300
-
       }
-
     )
 
     .addTo(
@@ -3029,24 +2571,22 @@ points
     );
 
   }
-
 );
 
 
-/* MAJOR RETAIL */
+/* =====================================================
+   MAJOR RETAIL
+   ===================================================== */
 
 points
 
 .filter(
-
   p =>
     p.type ===
     "major_retail"
-
 )
 
 .forEach(
-
   p => {
 
     L.marker(
@@ -3054,27 +2594,19 @@ points
       [p.lat,p.lon],
 
       {
-
         icon:
           makeMajorRetailIcon(),
 
-        zIndexOffset:
-          540
-
+        zIndexOffset:540
       }
 
     )
 
     .bindPopup(
-
       generalPopup(p),
-
       {
-
         maxWidth:300
-
       }
-
     )
 
     .addTo(
@@ -3082,16 +2614,16 @@ points
     );
 
   }
-
 );
 
 
-/* ACTIVE CORRIDORS */
+/* =====================================================
+   ACTIVE CORRIDORS
+   ===================================================== */
 
 activeCorridors
 
 .forEach(
-
   corridor => {
 
     L.polyline(
@@ -3099,20 +2631,15 @@ activeCorridors
       corridor.coordinates,
 
       {
-
-        color:
-          "#2b9fb3",
+        color:"#2b9fb3",
 
         weight:3,
 
         opacity:1,
 
-        lineCap:
-          "round",
+        lineCap:"round",
 
-        lineJoin:
-          "round"
-
+        lineJoin:"round"
       }
 
     )
@@ -3150,16 +2677,16 @@ activeCorridors
     );
 
   }
-
 );
 
 
-/* ACTIVE NODES */
+/* =====================================================
+   ACTIVE NODES
+   ===================================================== */
 
 activePoints
 
 .forEach(
-
   p => {
 
     L.marker(
@@ -3167,13 +2694,10 @@ activePoints
       [p.lat,p.lon],
 
       {
-
         icon:
           makeActiveIcon(),
 
-        zIndexOffset:
-          560
-
+        zIndexOffset:560
       }
 
     )
@@ -3208,9 +2732,7 @@ activePoints
       `,
 
       {
-
         maxWidth:310
-
       }
 
     )
@@ -3220,24 +2742,23 @@ activePoints
     );
 
   }
-
 );
 
 
-/* CANDIDATES LAST */
+/* =====================================================
+   CANDIDATES
+   ADDED LAST
+   ===================================================== */
 
 points
 
 .filter(
-
   p =>
     p.type ===
     "candidate"
-
 )
 
 .forEach(
-
   p => {
 
     L.marker(
@@ -3245,29 +2766,21 @@ points
       [p.lat,p.lon],
 
       {
-
         icon:
           makeCandidateIcon(
             p.id
           ),
 
-        zIndexOffset:
-          1000
-
+        zIndexOffset:1000
       }
 
     )
 
     .bindPopup(
-
       candidatePopup(p),
-
       {
-
         maxWidth:320
-
       }
-
     )
 
     .addTo(
@@ -3275,41 +2788,90 @@ points
     );
 
   }
-
 );
 
 
-/* SCALE */
+/* =====================================================
+   SCALE
+   ===================================================== */
 
 L.control.scale(
-
   {
-
     imperial:true,
-
     metric:false,
-
     position:"bottomleft"
-
   }
-
 )
-
 .addTo(map);
 
 
-/* LEGEND */
+/* =====================================================
+   LEGEND
+   ===================================================== */
+
+let legendElement = null;
+
 
 const legend =
 L.control(
-
   {
-
     position:"bottomright"
+  }
+);
 
+
+function setLegendCollapsed(
+  collapsed
+) {
+
+  if (
+    !legendElement
+  ) {
+    return;
   }
 
-);
+
+  const toggle =
+  legendElement
+    .querySelector(
+      ".legend-toggle"
+    );
+
+
+  legendElement
+    .classList
+    .toggle(
+      "collapsed",
+      collapsed
+    );
+
+
+  toggle.setAttribute(
+
+    "aria-label",
+
+    collapsed
+      ?
+      "Expand map key"
+      :
+      "Collapse map key"
+
+  );
+
+
+  toggle.setAttribute(
+
+    "title",
+
+    collapsed
+      ?
+      "Expand map key"
+      :
+      "Collapse map key"
+
+  );
+
+}
 
 
 legend.onAdd =
@@ -3320,6 +2882,10 @@ function() {
     "div",
     "legend"
   );
+
+
+  legendElement =
+    d;
 
 
   d.innerHTML = `
@@ -3528,49 +3094,23 @@ function() {
 
 
   toggle.addEventListener(
-
     "click",
-
     function(event) {
 
       event.preventDefault();
-
       event.stopPropagation();
 
 
-      const isCollapsed =
-      d.classList.toggle(
-        "collapsed"
-      );
+      setLegendCollapsed(
 
-
-      toggle.setAttribute(
-
-        "aria-label",
-
-        isCollapsed
-          ?
-          "Expand map key"
-          :
-          "Collapse map key"
-
-      );
-
-
-      toggle.setAttribute(
-
-        "title",
-
-        isCollapsed
-          ?
-          "Expand map key"
-          :
-          "Collapse map key"
+        !d.classList
+          .contains(
+            "collapsed"
+          )
 
       );
 
     }
-
   );
 
 
@@ -3588,37 +3128,24 @@ legend.addTo(map);
 
 function goHome() {
 
-
   map.once(
-
     "moveend",
-
     function() {
 
-
       map.panBy(
-
         [18,24],
-
         {
-
           animate:false
-
         }
-
       );
 
     }
-
   );
 
 
   map.fitBounds(
-
     finalBounds,
-
     {
-
       paddingTopLeft:
         [20,20],
 
@@ -3626,9 +3153,7 @@ function goHome() {
         [20,20],
 
       animate:false
-
     }
-
   );
 
 }
@@ -3638,7 +3163,7 @@ goHome();
 
 
 /* =====================================================
-   HOME BUTTON
+   HOME
    ===================================================== */
 
 const homeButton =
@@ -3648,19 +3173,15 @@ document.getElementById(
 
 
 homeButton.addEventListener(
-
   "click",
-
   function(event) {
 
     event.preventDefault();
-
     event.stopPropagation();
 
     goHome();
 
   }
-
 );
 
 
@@ -3681,13 +3202,10 @@ document.getElementById(
 
 
 titleToggle.addEventListener(
-
   "click",
-
   function(event) {
 
     event.preventDefault();
-
     event.stopPropagation();
 
 
@@ -3724,17 +3242,14 @@ titleToggle.addEventListener(
 
 
     requestAnimationFrame(
-
       () => {
 
         updateLayerPanelPosition();
 
       }
-
     );
 
   }
-
 );
 
 
@@ -3754,6 +3269,21 @@ document.getElementById(
 );
 
 
+let layersOpenedOnMobile =
+false;
+
+
+function isMobile() {
+
+  return window.matchMedia(
+
+    "(max-width:899px)"
+
+  ).matches;
+
+}
+
+
 function isMobileLandscape() {
 
   return window.matchMedia(
@@ -3767,11 +3297,9 @@ function isMobileLandscape() {
 
 function updateLayerPanelPosition() {
 
-
   if (
     isMobileLandscape()
   ) {
-
 
     layerPanel.style.top =
       "10px";
@@ -3806,7 +3334,63 @@ function updateLayerPanelPosition() {
 }
 
 
+/*
+   Mobile UX:
+
+   Open Layers
+   -> collapse Map Key.
+
+   Close Layers
+   -> reopen Map Key.
+*/
+
+function collapseLegendForLayers() {
+
+  if (
+    isMobile()
+  ) {
+
+    layersOpenedOnMobile =
+      true;
+
+
+    setLegendCollapsed(
+      true
+    );
+
+  }
+
+}
+
+
+function restoreLegendAfterLayers() {
+
+  if (
+    layersOpenedOnMobile
+  ) {
+
+    setLegendCollapsed(
+      false
+    );
+
+
+    layersOpenedOnMobile =
+      false;
+
+  }
+
+}
+
+
 function closeLayerPanel() {
+
+  const wasOpen =
+  layerPanel
+    .classList
+    .contains(
+      "open"
+    );
+
 
   layerPanel
     .classList
@@ -3816,21 +3400,24 @@ function closeLayerPanel() {
 
 
   layerPanel.setAttribute(
-
     "aria-hidden",
-
     "true"
-
   );
 
 
   layersButton.setAttribute(
-
     "aria-expanded",
-
     "false"
-
   );
+
+
+  if (
+    wasOpen
+  ) {
+
+    restoreLegendAfterLayers();
+
+  }
 
 }
 
@@ -3838,6 +3425,9 @@ function closeLayerPanel() {
 function openLayerPanel() {
 
   updateLayerPanelPosition();
+
+
+  collapseLegendForLayers();
 
 
   layerPanel
@@ -3848,44 +3438,33 @@ function openLayerPanel() {
 
 
   layerPanel.setAttribute(
-
     "aria-hidden",
-
     "false"
-
   );
 
 
   layersButton.setAttribute(
-
     "aria-expanded",
-
     "true"
-
   );
 
 }
 
 
 layersButton.addEventListener(
-
   "click",
-
   function(event) {
 
     event.preventDefault();
-
     event.stopPropagation();
 
 
     if (
-
       layerPanel
-      .classList
-      .contains(
-        "open"
-      )
-
+        .classList
+        .contains(
+          "open"
+        )
     ) {
 
       closeLayerPanel();
@@ -3899,27 +3478,21 @@ layersButton.addEventListener(
     }
 
   }
-
 );
 
 
 layerPanel.addEventListener(
-
   "click",
-
   function(event) {
 
     event.stopPropagation();
 
   }
-
 );
 
 
 document.addEventListener(
-
   "click",
-
   function(event) {
 
     if (
@@ -3941,7 +3514,6 @@ document.addEventListener(
     }
 
   }
-
 );
 
 
@@ -3956,22 +3528,16 @@ document
 )
 
 .forEach(
-
   input => {
 
     input.addEventListener(
-
       "change",
-
       function() {
-
 
         if (
           !this.checked
         ) {
-
           return;
-
         }
 
 
@@ -3979,7 +3545,6 @@ document
           this.value ===
           "positron"
         ) {
-
 
           if (
             map.hasLayer(
@@ -4013,7 +3578,6 @@ document
           "osm"
         ) {
 
-
           if (
             map.hasLayer(
               positronLayer
@@ -4045,11 +3609,9 @@ document
         }
 
       }
-
     );
 
   }
-
 );
 
 
@@ -4064,15 +3626,11 @@ document
 )
 
 .forEach(
-
   input => {
 
     input.addEventListener(
-
       "change",
-
       function() {
-
 
         const layerName =
         this.dataset.layer;
@@ -4085,16 +3643,13 @@ document
         if (
           !layer
         ) {
-
           return;
-
         }
 
 
         if (
           this.checked
         ) {
-
 
           if (
             !map.hasLayer(
@@ -4110,7 +3665,6 @@ document
         }
 
         else {
-
 
           if (
             map.hasLayer(
@@ -4128,16 +3682,14 @@ document
         }
 
       }
-
     );
 
   }
-
 );
 
 
 /* =====================================================
-   UI PROPAGATION
+   UI EVENT PROPAGATION
    ===================================================== */
 
 [
@@ -4152,9 +3704,7 @@ document
 ]
 
 .forEach(
-
   element => {
-
 
     L.DomEvent
       .disableClickPropagation(
@@ -4168,7 +3718,6 @@ document
       );
 
   }
-
 );
 
 
@@ -4186,38 +3735,29 @@ function refreshLayout() {
 
 
 window.addEventListener(
-
   "resize",
-
   function() {
 
     refreshLayout();
 
   }
-
 );
 
 
 window.addEventListener(
-
   "orientationchange",
-
   function() {
 
     setTimeout(
-
       function() {
 
         refreshLayout();
 
       },
-
       300
-
     );
 
   }
-
 );
 
 
