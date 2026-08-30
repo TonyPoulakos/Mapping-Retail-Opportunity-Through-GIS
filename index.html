@@ -311,84 +311,6 @@
       display: block;
     }
 
-    /* NEW BALANCE TEMPORARY VISUAL */
-
-    .new-balance-preview {
-      height: 300px;
-      position: relative;
-      overflow: hidden;
-      background:
-        linear-gradient(135deg, #e8eef2, #f8fafb);
-      border-bottom: 1px solid var(--line);
-    }
-
-    .new-balance-preview::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background-image:
-        linear-gradient(rgba(16,36,58,0.04) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(16,36,58,0.04) 1px, transparent 1px);
-      background-size: 30px 30px;
-    }
-
-    .nb-preview-content {
-      position: absolute;
-      left: 28px;
-      bottom: 27px;
-      z-index: 2;
-    }
-
-    .nb-preview-market {
-      font-size: 0.75rem;
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-      font-weight: 800;
-      color: var(--muted);
-    }
-
-    .nb-preview-title {
-      color: var(--navy);
-      font-weight: 800;
-      font-size: 1.7rem;
-      margin-top: 4px;
-    }
-
-    .nb-node {
-      position: absolute;
-      width: 13px;
-      height: 13px;
-      background: var(--accent);
-      border: 3px solid white;
-      border-radius: 50%;
-      box-shadow: 0 0 0 1px rgba(16,36,58,0.18);
-    }
-
-    .nb-node.one {
-      right: 80px;
-      top: 62px;
-    }
-
-    .nb-node.two {
-      right: 150px;
-      top: 122px;
-    }
-
-    .nb-node.three {
-      right: 210px;
-      top: 79px;
-    }
-
-    .nb-ring {
-      position: absolute;
-      width: 115px;
-      height: 115px;
-      border: 1px solid rgba(16,36,58,0.16);
-      border-radius: 50%;
-      right: 27px;
-      top: 11px;
-    }
-
     /* CARD TEXT */
 
     .card-top {
@@ -448,12 +370,6 @@
       font-size: 0.76rem;
     }
 
-    .development-badge {
-      background: #f4eee7;
-      color: #7b5b3d;
-      border: 1px solid #dfd0c0;
-    }
-
     .card-body {
       padding: 24px 28px 28px;
       display: flex;
@@ -500,16 +416,6 @@
 
     .button-secondary:hover {
       background: var(--soft);
-    }
-
-    .coming-soon-button {
-      cursor: default;
-      opacity: 0.7;
-      user-select: none;
-    }
-
-    .coming-soon-button:hover {
-      background: white;
     }
 
     /* ABOUT / AUTHOR */
@@ -587,8 +493,7 @@
         padding-top: 52px;
       }
 
-      .project-visual,
-      .new-balance-preview {
+      .project-visual {
         height: 280px;
       }
     }
@@ -608,8 +513,7 @@
         border-bottom: 0;
       }
 
-      .project-visual,
-      .new-balance-preview {
+      .project-visual {
         height: 230px;
       }
 
@@ -969,26 +873,18 @@
 
         <article class="card">
 
-          <div class="new-balance-preview">
-
-            <div class="nb-ring"></div>
-
-            <span class="nb-node one"></span>
-            <span class="nb-node two"></span>
-            <span class="nb-node three"></span>
-
-            <div class="nb-preview-content">
-
-              <div class="nb-preview-market">
-                Columbus, Ohio
-              </div>
-
-              <div class="nb-preview-title">
-                New Balance
-              </div>
-
-            </div>
-
+          <div class="project-visual">
+            <a
+              class="thumbnail-link"
+              href="New-Balance-Columbus-Ohio/NewBalance_Columbus_Ohio.pdf"
+              target="_blank"
+              rel="noopener"
+            >
+              <img
+                src="New-Balance-Columbus-Ohio/NewBalance_Columbus_Thumbnail.jpeg"
+                alt="Preview of the New Balance Columbus GIS retail ecosystem analysis"
+              />
+            </a>
           </div>
 
           <div class="card-top">
@@ -1004,13 +900,13 @@
             </div>
 
             <div class="project-tags">
-              <span class="tag">Brand Presence</span>
-              <span class="tag">Retail Ecosystem</span>
               <span class="tag">Brand-Market Fit</span>
+              <span class="tag">Active-Lifestyle Geography</span>
+              <span class="tag">Retail-Network Strategy</span>
             </div>
 
-            <div class="interactive-badge development-badge">
-              In Development
+            <div class="interactive-badge">
+              Interactive GIS Analysis
             </div>
 
           </div>
@@ -1018,20 +914,29 @@
           <div class="card-body">
 
             <p>
-              Examines the distinction between retail whitespace and brand whitespace,
-              evaluating where an owned retail presence could add value in a market where
-              New Balance already reaches consumers through specialty and multibrand
-              distribution.
+              Evaluates how owned retail could strengthen New Balance’s position within a
+              market it already reaches through specialty running and multibrand
+              distribution, comparing three locations through brand-market fit,
+              active-lifestyle geography, and retail-network strategy.
             </p>
 
             <div class="actions">
 
-              <span
-                class="button button-secondary coming-soon-button"
-                aria-disabled="true"
+              <a
+                class="button button-primary"
+                href="New-Balance-Columbus-Ohio/NewBalance_Columbus_Ohio.pdf"
+                target="_blank"
+                rel="noopener"
               >
-                Interactive Map Coming Soon
-              </span>
+                View Infographic
+              </a>
+
+              <a
+                class="button button-secondary"
+                href="New-Balance-Columbus-Ohio/"
+              >
+                Explore Interactive Map
+              </a>
 
             </div>
 
