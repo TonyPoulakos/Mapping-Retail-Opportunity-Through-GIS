@@ -516,12 +516,12 @@ body {
 
 /* =====================================================
    CUSTOM INTERSTATE SHIELDS
-   40% OF ORIGINAL SIZE
+   55% OF ORIGINAL SIZE
    ===================================================== */
 
 .interstate-shield-wrapper {
-  width:13.6px;
-  height:14.8px;
+  width:18.7px;
+  height:18.7px;
 
   display:flex;
   align-items:center;
@@ -532,8 +532,8 @@ body {
 
 
 .interstate-shield-wrapper.three-digit {
-  width:15.6px;
-  height:15.6px;
+  width:21.45px;
+  height:20.35px;
 }
 
 
@@ -1432,6 +1432,17 @@ let homeReferenceZoom =
   null;
 
 
+function isDesktopHome() {
+
+  return window
+    .matchMedia(
+      "(min-width:900px)"
+    )
+    .matches;
+
+}
+
+
 /* =====================================================
    BASEMAPS
    ===================================================== */
@@ -1622,7 +1633,7 @@ const interstateReferenceLayer =
 
 
 /* =====================================================
-   CLEAN INTERSTATE SHIELD SVG
+   INTERSTATE SHIELD SVG
    ===================================================== */
 
 function interstateShieldSVG(
@@ -1671,7 +1682,6 @@ function interstateShieldSVG(
         xmlns="http://www.w3.org/2000/svg"
         aria-hidden="true"
       >
-
 
         <path
 
@@ -1793,7 +1803,7 @@ function interstateShieldSVG(
 
 /* =====================================================
    INTERSTATE ICON
-   40% OF ORIGINAL
+   55% OF ORIGINAL SIZE
    ===================================================== */
 
 function interstateShieldIcon(
@@ -1806,14 +1816,14 @@ function interstateShieldIcon(
 
   const width =
     isThreeDigit
-      ? 15.6
-      : 13.6;
+      ? 21.45
+      : 18.7;
 
 
   const height =
     isThreeDigit
-      ? 15.6
-      : 14.8;
+      ? 20.35
+      : 18.7;
 
 
   return L.divIcon(
@@ -1846,11 +1856,6 @@ function interstateShieldIcon(
 
 const interstateReferences = [
 
-  /* -------------------------
-     I-270 WEST
-     moved farther east
-     ------------------------- */
-
   {
     route:"270",
     position:"West",
@@ -1860,24 +1865,20 @@ const interstateReferences = [
   },
 
 
-  /* -------------------------
-     I-270 EAST / NORTHEAST
-     moved west-southwest
-     ------------------------- */
+  /*
+    EASTERN I-270
+    moved slightly north from 40.0925
+    to better align with the interstate.
+  */
 
   {
     route:"270",
     position:"East",
 
-    lat:40.0925,
+    lat:40.0990,
     lon:-82.9255
   },
 
-
-  /* -------------------------
-     I-71 NORTH
-     unchanged
-     ------------------------- */
 
   {
     route:"71",
@@ -1888,11 +1889,6 @@ const interstateReferences = [
   },
 
 
-  /* -------------------------
-     I-71 SOUTH
-     unchanged
-     ------------------------- */
-
   {
     route:"71",
     position:"South",
@@ -1902,11 +1898,6 @@ const interstateReferences = [
   },
 
 
-  /* -------------------------
-     I-70 WEST
-     unchanged
-     ------------------------- */
-
   {
     route:"70",
     position:"West",
@@ -1915,11 +1906,6 @@ const interstateReferences = [
     lon:-83.1465
   },
 
-
-  /* -------------------------
-     I-70 EAST
-     unchanged
-     ------------------------- */
 
   {
     route:"70",
@@ -2049,7 +2035,7 @@ map.on(
 
 
 /* =====================================================
-   HOME
+   DEVICE-SPECIFIC HOME
    ===================================================== */
 
 function goHome() {
@@ -2059,7 +2045,54 @@ function goHome() {
 
   map.once(
     "moveend",
-    function () {
+    function afterInitialFit() {
+
+
+      if (
+        isDesktopHome()
+      ) {
+
+        const desktopZoom =
+          Math.min(
+            map.getZoom() + 1,
+            map.getMaxZoom()
+          );
+
+
+        map.once(
+          "moveend",
+          function afterDesktopZoom() {
+
+            map.panBy(
+              [18,-55],
+              {
+                animate:false
+              }
+            );
+
+
+            homeReferenceZoom =
+              map.getZoom();
+
+
+            updateInterstateReferenceVisibility();
+
+          }
+        );
+
+
+        map.setZoom(
+          desktopZoom,
+          {
+            animate:false
+          }
+        );
+
+
+        return;
+
+      }
+
 
       homeReferenceZoom =
         map.getZoom();
