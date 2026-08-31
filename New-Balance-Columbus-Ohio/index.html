@@ -96,11 +96,6 @@ body {
     env(safe-area-inset-top)
   );
 
-  /*
-    Desktop fix:
-    Leaflet zoom controls occupy the upper-left corner.
-    70px moves the title safely to their right.
-  */
   left:70px;
 
   z-index:1100;
@@ -1397,7 +1392,6 @@ and
       Basemap
     </div>
 
-
     <label class="layer-option">
 
       <input
@@ -1574,11 +1568,6 @@ function goHome() {
     "moveend",
     function () {
 
-      /*
-        Small cartographic offset retained from the
-        approved V5 home composition.
-      */
-
       map.panBy(
         [18, 24],
         {
@@ -1646,19 +1635,18 @@ positron.addTo(map);
 
 
 /* =====================================================
-   POSITRON HIGHWAY LABEL ENHANCEMENT
+   POSITRON HIGHWAY / ROUTE LABEL ENHANCEMENT
    ===================================================== */
 
 /*
-  The OpenFreeMap Positron style intentionally keeps
-  road labeling subdued.
+  OpenFreeMap Positron intentionally keeps road labels
+  subdued at wider zoom levels.
 
-  For this retail-planning map we want interstate and
-  major-highway references to remain easier to read at
-  the metro-level home extent.
+  For this retail-planning map, major interstate and
+  highway references are useful geographic anchors.
 
-  This adjusts ONLY the MapLibre label styling.
-  It does not alter any road geography.
+  These changes affect ONLY label styling and zoom
+  visibility. No road geography is changed.
 */
 
 function enhancePositronRoadLabels() {
@@ -1688,6 +1676,7 @@ function enhancePositronRoadLabels() {
       const style =
         glMap.getStyle();
 
+
       if (
         !style ||
         !style.layers
@@ -1702,10 +1691,10 @@ function enhancePositronRoadLabels() {
         );
 
 
-      /*
-        Interstate / motorway references
-        such as I-70, I-71 and I-270.
-      */
+      /* ---------------------------------------------
+         INTERSTATE / MOTORWAY REFERENCES
+         Examples: I-70, I-71, I-270
+         --------------------------------------------- */
 
       if (
         layerIds.includes(
@@ -1730,10 +1719,13 @@ function enhancePositronRoadLabels() {
               ["linear"],
               ["zoom"],
 
-              5, 9,
-              7, 10,
-              9, 11,
-              12, 12
+              5, 10,
+              6, 10.5,
+              7, 11,
+              8, 11.5,
+              9, 12,
+              11, 12.5,
+              14, 13
             ]
           );
 
@@ -1741,41 +1733,48 @@ function enhancePositronRoadLabels() {
           glMap.setLayoutProperty(
             "highway_name_motorway",
             "symbol-spacing",
-            230
+            180
           );
 
 
           glMap.setLayoutProperty(
             "highway_name_motorway",
             "text-allow-overlap",
-            true
+            false
           );
 
 
           glMap.setPaintProperty(
             "highway_name_motorway",
             "text-color",
-            "#66778a"
+            "#52677d"
           );
 
 
           glMap.setPaintProperty(
             "highway_name_motorway",
             "text-halo-color",
-            "rgba(255,255,255,.96)"
+            "rgba(255,255,255,.98)"
           );
 
 
           glMap.setPaintProperty(
             "highway_name_motorway",
             "text-halo-width",
-            1.6
+            2
+          );
+
+
+          glMap.setPaintProperty(
+            "highway_name_motorway",
+            "text-halo-blur",
+            0.5
           );
 
         } catch (error) {
 
           console.log(
-            "Motorway label enhancement skipped.",
+            "Motorway reference enhancement skipped.",
             error
           );
 
@@ -1784,13 +1783,9 @@ function enhancePositronRoadLabels() {
       }
 
 
-      /*
-        Major named roads.
-
-        These remain more restrained than the
-        interstate labels so the basemap does not
-        compete with the analysis.
-      */
+      /* ---------------------------------------------
+         MAJOR NON-MOTORWAY ROAD NAMES
+         --------------------------------------------- */
 
       if (
         layerIds.includes(
@@ -1802,7 +1797,7 @@ function enhancePositronRoadLabels() {
 
           glMap.setLayerZoomRange(
             "highway_name_other",
-            8,
+            7.5,
             24
           );
 
@@ -1815,7 +1810,8 @@ function enhancePositronRoadLabels() {
               ["linear"],
               ["zoom"],
 
-              8, 9,
+              7.5, 8.5,
+              8.5, 9,
               10, 10,
               12, 11,
               15, 12
@@ -1826,28 +1822,35 @@ function enhancePositronRoadLabels() {
           glMap.setLayoutProperty(
             "highway_name_other",
             "symbol-spacing",
-            290
+            360
+          );
+
+
+          glMap.setLayoutProperty(
+            "highway_name_other",
+            "text-allow-overlap",
+            false
           );
 
 
           glMap.setPaintProperty(
             "highway_name_other",
             "text-color",
-            "#8a939d"
+            "#8b959f"
           );
 
 
           glMap.setPaintProperty(
             "highway_name_other",
             "text-halo-color",
-            "rgba(255,255,255,.95)"
+            "rgba(255,255,255,.96)"
           );
 
 
           glMap.setPaintProperty(
             "highway_name_other",
             "text-halo-width",
-            1.5
+            1.6
           );
 
         } catch (error) {
@@ -2356,13 +2359,6 @@ const majorRetailNodes = [
     name:
       "Easton Athletic Retail Cluster",
 
-    /*
-      Deliberate cartographic display offset from
-      Candidate C so both symbols remain visible.
-      This represents the broader Easton retail cluster,
-      not a single storefront.
-    */
-
     lat:40.0525,
     lon:-82.9168,
 
@@ -2427,10 +2423,6 @@ const activePoints = [
 
     name:
       "Dublin Link / Bridge Park",
-
-    /*
-      Updated to the actual Dublin Link bridge area.
-    */
 
     lat:40.10205,
     lon:-83.11186,
@@ -3061,10 +3053,6 @@ let layersOpenedOnMobile =
 
 function updateLayerPanelPosition() {
 
-  /*
-    Landscape has its own fixed CSS position.
-  */
-
   if (
     window.matchMedia(
       "(max-width:899px) and (orientation:landscape)"
@@ -3149,11 +3137,6 @@ function openLayerPanel() {
   updateLayerPanelPosition();
 
 
-  /*
-    On mobile, temporarily collapse the map key
-    while the Layers menu is open.
-  */
-
   if (isMobileUI()) {
 
     layersOpenedOnMobile =
@@ -3185,11 +3168,6 @@ function closeLayerPanel() {
     "false"
   );
 
-
-  /*
-    User requested that closing Layers on mobile
-    reopens the map key.
-  */
 
   if (
     isMobileUI() &&
@@ -3333,14 +3311,6 @@ document
             }
 
           }
-
-
-          /*
-            Keep analysis layers above either basemap.
-          */
-
-          ringLayer.bringToFront?.();
-          activeLayer.bringToFront?.();
 
         }
       );
