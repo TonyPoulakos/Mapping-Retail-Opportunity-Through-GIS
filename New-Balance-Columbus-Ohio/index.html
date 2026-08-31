@@ -516,18 +516,12 @@ body {
 
 /* =====================================================
    CUSTOM INTERSTATE SHIELDS
-
-   Previous:
-   two digit ≈ 34px
-   three digit ≈ 39px
-
-   New:
-   approximately 25% of previous dimensions
+   40% OF ORIGINAL SIZE
    ===================================================== */
 
 .interstate-shield-wrapper {
-  width:8.5px;
-  height:9.25px;
+  width:13.6px;
+  height:14.8px;
 
   display:flex;
   align-items:center;
@@ -538,8 +532,8 @@ body {
 
 
 .interstate-shield-wrapper.three-digit {
-  width:9.75px;
-  height:9.75px;
+  width:15.6px;
+  height:15.6px;
 }
 
 
@@ -1631,26 +1625,6 @@ const interstateReferenceLayer =
    CLEAN INTERSTATE SHIELD SVG
    ===================================================== */
 
-/*
-  This version uses deliberately simple,
-  symmetric geometry.
-
-  Top sequence:
-    left shoulder
-    shallow dip
-    center crown
-    shallow dip
-    right shoulder
-
-  No irregular spline transitions.
-
-  Crown, border and text:
-    #4B5563
-
-  Body:
-    #FFFFFF
-*/
-
 function interstateShieldSVG(
   route
 ) {
@@ -1699,10 +1673,6 @@ function interstateShieldSVG(
       >
 
 
-        <!--
-          COMPLETE WHITE SHIELD
-        -->
-
         <path
 
           d="
@@ -1748,10 +1718,6 @@ function interstateShieldSVG(
         />
 
 
-        <!--
-          DARK CROWN
-        -->
-
         <path
 
           d="
@@ -1784,10 +1750,6 @@ function interstateShieldSVG(
 
         />
 
-
-        <!--
-          ROUTE NUMBER
-        -->
 
         <text
 
@@ -1831,6 +1793,7 @@ function interstateShieldSVG(
 
 /* =====================================================
    INTERSTATE ICON
+   40% OF ORIGINAL
    ===================================================== */
 
 function interstateShieldIcon(
@@ -1841,20 +1804,16 @@ function interstateShieldIcon(
     String(route).length === 3;
 
 
-  /*
-    25% of previous marker dimensions
-  */
-
   const width =
     isThreeDigit
-      ? 9.75
-      : 8.5;
+      ? 15.6
+      : 13.6;
 
 
   const height =
     isThreeDigit
-      ? 9.75
-      : 9.25;
+      ? 15.6
+      : 14.8;
 
 
   return L.divIcon(
@@ -1885,24 +1844,11 @@ function interstateShieldIcon(
    SIX INTERSTATE REFERENCE POINTS
    ===================================================== */
 
-/*
-  I-71:
-    north + south retained
-
-  I-70:
-    west moved slightly north
-    east moved materially south
-
-  I-270:
-    west moved slightly east and slightly north
-    east moved north/west toward the outerbelt
-    above the Minerva Park / Candidate C area
-*/
-
 const interstateReferences = [
 
   /* -------------------------
      I-270 WEST
+     moved farther east
      ------------------------- */
 
   {
@@ -1910,20 +1856,21 @@ const interstateReferences = [
     position:"West",
 
     lat:40.0395,
-    lon:-83.1335
+    lon:-83.1230
   },
 
 
   /* -------------------------
      I-270 EAST / NORTHEAST
+     moved west-southwest
      ------------------------- */
 
   {
     route:"270",
     position:"East",
 
-    lat:40.1060,
-    lon:-82.9140
+    lat:40.0925,
+    lon:-82.9255
   },
 
 
@@ -1957,7 +1904,7 @@ const interstateReferences = [
 
   /* -------------------------
      I-70 WEST
-     slightly north
+     unchanged
      ------------------------- */
 
   {
@@ -1971,7 +1918,7 @@ const interstateReferences = [
 
   /* -------------------------
      I-70 EAST
-     moved south
+     unchanged
      ------------------------- */
 
   {
