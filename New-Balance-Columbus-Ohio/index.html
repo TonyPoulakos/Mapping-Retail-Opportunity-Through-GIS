@@ -571,6 +571,32 @@ body {
 
 
 /* =====================================================
+   CUSTOM INTERSTATE SHIELDS
+   ===================================================== */
+
+.interstate-shield {
+  width:32px;
+  height:30px;
+
+  filter:
+    drop-shadow(
+      0 1px 2px
+      rgba(0,0,0,.16)
+    );
+
+  pointer-events:none;
+}
+
+
+.interstate-shield svg {
+  display:block;
+
+  width:32px;
+  height:30px;
+}
+
+
+/* =====================================================
    LEGEND
    ===================================================== */
 
@@ -1095,6 +1121,13 @@ and
   }
 
 
+  .interstate-shield,
+  .interstate-shield svg {
+    width:27px;
+    height:26px;
+  }
+
+
   #northArrow {
     bottom:68px;
   }
@@ -1238,6 +1271,13 @@ and
 
   .legend-symbol {
     width:20px;
+  }
+
+
+  .interstate-shield,
+  .interstate-shield svg {
+    width:28px;
+    height:26px;
   }
 
 
@@ -1391,6 +1431,7 @@ and
     <div class="layer-panel-title">
       Basemap
     </div>
+
 
     <label class="layer-option">
 
@@ -1560,13 +1601,32 @@ const finalBounds =
   );
 
 
+let homeReferenceZoom =
+  null;
+
+
 function goHome() {
 
   map.closePopup();
 
+
   map.once(
     "moveend",
     function () {
+
+      /*
+        Record the device-specific home zoom.
+
+        Custom interstate shields will display at
+        Home and Home + 1, then disappear at Home + 2.
+      */
+
+      homeReferenceZoom =
+        map.getZoom();
+
+
+      updateInterstateReferenceVisibility();
+
 
       map.panBy(
         [18, 24],
@@ -1635,21 +1695,22 @@ positron.addTo(map);
 
 
 /* =====================================================
-   POSITRON HIGHWAY / ROUTE LABEL ENHANCEMENT
+   POSITRON NATIVE ROAD LABEL DENSITY
    ===================================================== */
 
 /*
-  OpenFreeMap Positron intentionally keeps road labels
-  subdued at wider zoom levels.
+  Positron's native motorway-reference spacing is
+  approximately 350 px.
 
-  For this retail-planning map, major interstate and
-  highway references are useful geographic anchors.
+  The earlier V5 experiment used 180 px, which caused
+  excessive repetition.
 
-  These changes affect ONLY label styling and zoom
-  visibility. No road geography is changed.
+  We restore motorway references to a restrained
+  density and leave Positron's native zoom behavior
+  intact.
 */
 
-function enhancePositronRoadLabels() {
+function tunePositronNativeRoadLabels() {
 
   let glMap;
 
@@ -1670,7 +1731,7 @@ function enhancePositronRoadLabels() {
   }
 
 
-  const applyEnhancements =
+  const applyTuning =
     function () {
 
       const style =
@@ -1691,11 +1752,6 @@ function enhancePositronRoadLabels() {
         );
 
 
-      /* ---------------------------------------------
-         INTERSTATE / MOTORWAY REFERENCES
-         Examples: I-70, I-71, I-270
-         --------------------------------------------- */
-
       if (
         layerIds.includes(
           "highway_name_motorway"
@@ -1704,77 +1760,16 @@ function enhancePositronRoadLabels() {
 
         try {
 
-          glMap.setLayerZoomRange(
-            "highway_name_motorway",
-            5,
-            24
-          );
-
-
-          glMap.setLayoutProperty(
-            "highway_name_motorway",
-            "text-size",
-            [
-              "interpolate",
-              ["linear"],
-              ["zoom"],
-
-              5, 10,
-              6, 10.5,
-              7, 11,
-              8, 11.5,
-              9, 12,
-              11, 12.5,
-              14, 13
-            ]
-          );
-
-
           glMap.setLayoutProperty(
             "highway_name_motorway",
             "symbol-spacing",
-            180
-          );
-
-
-          glMap.setLayoutProperty(
-            "highway_name_motorway",
-            "text-allow-overlap",
-            false
-          );
-
-
-          glMap.setPaintProperty(
-            "highway_name_motorway",
-            "text-color",
-            "#52677d"
-          );
-
-
-          glMap.setPaintProperty(
-            "highway_name_motorway",
-            "text-halo-color",
-            "rgba(255,255,255,.98)"
-          );
-
-
-          glMap.setPaintProperty(
-            "highway_name_motorway",
-            "text-halo-width",
-            2
-          );
-
-
-          glMap.setPaintProperty(
-            "highway_name_motorway",
-            "text-halo-blur",
-            0.5
+            360
           );
 
         } catch (error) {
 
           console.log(
-            "Motorway reference enhancement skipped.",
+            "Motorway spacing tuning skipped.",
             error
           );
 
@@ -1782,10 +1777,6 @@ function enhancePositronRoadLabels() {
 
       }
 
-
-      /* ---------------------------------------------
-         MAJOR NON-MOTORWAY ROAD NAMES
-         --------------------------------------------- */
 
       if (
         layerIds.includes(
@@ -1795,68 +1786,22 @@ function enhancePositronRoadLabels() {
 
         try {
 
-          glMap.setLayerZoomRange(
-            "highway_name_other",
-            7.5,
-            24
-          );
-
-
-          glMap.setLayoutProperty(
-            "highway_name_other",
-            "text-size",
-            [
-              "interpolate",
-              ["linear"],
-              ["zoom"],
-
-              7.5, 8.5,
-              8.5, 9,
-              10, 10,
-              12, 11,
-              15, 12
-            ]
-          );
-
+          /*
+            Keep major non-motorway road names
+            slightly less frequent than the native
+            350 px default.
+          */
 
           glMap.setLayoutProperty(
             "highway_name_other",
             "symbol-spacing",
-            360
-          );
-
-
-          glMap.setLayoutProperty(
-            "highway_name_other",
-            "text-allow-overlap",
-            false
-          );
-
-
-          glMap.setPaintProperty(
-            "highway_name_other",
-            "text-color",
-            "#8b959f"
-          );
-
-
-          glMap.setPaintProperty(
-            "highway_name_other",
-            "text-halo-color",
-            "rgba(255,255,255,.96)"
-          );
-
-
-          glMap.setPaintProperty(
-            "highway_name_other",
-            "text-halo-width",
-            1.6
+            430
           );
 
         } catch (error) {
 
           console.log(
-            "Major-road label enhancement skipped.",
+            "Road-name spacing tuning skipped.",
             error
           );
 
@@ -1869,13 +1814,13 @@ function enhancePositronRoadLabels() {
 
   if (glMap.loaded()) {
 
-    applyEnhancements();
+    applyTuning();
 
   } else {
 
     glMap.once(
       "load",
-      applyEnhancements
+      applyTuning
     );
 
   }
@@ -1883,7 +1828,7 @@ function enhancePositronRoadLabels() {
 }
 
 
-enhancePositronRoadLabels();
+tunePositronNativeRoadLabels();
 
 
 /* =====================================================
@@ -1913,6 +1858,10 @@ const crcLayer =
 const activeLayer =
   L.layerGroup()
    .addTo(map);
+
+
+const interstateReferenceLayer =
+  L.layerGroup();
 
 
 const candidateLayer =
@@ -2019,6 +1968,261 @@ const activeIcon =
       popupAnchor:[0,-8]
     }
   );
+
+
+/* =====================================================
+   POSITRON-LIKE INTERSTATE SHIELD ICON
+   ===================================================== */
+
+function interstateShieldIcon(
+  number
+) {
+
+  return L.divIcon(
+    {
+      className:"",
+
+      html:
+        `
+        <div class="interstate-shield">
+
+          <svg
+            viewBox="0 0 32 30"
+            xmlns="http://www.w3.org/2000/svg"
+            aria-hidden="true"
+          >
+
+            <!-- white shield body -->
+
+            <path
+              d="
+                M4.2 3
+                H27.8
+                V12.2
+                C27.8 20.4 23.4 25.6 16 28
+                C8.6 25.6 4.2 20.4 4.2 12.2
+                Z
+              "
+              fill="#ffffff"
+              stroke="#aeb6bf"
+              stroke-width="1.25"
+            />
+
+
+            <!-- light gray Positron-like top crown -->
+
+            <path
+              d="
+                M5.1 4.1
+                H10.3
+                C11.4 4.1 11.6 7.0 13.7 7.0
+                H18.3
+                C20.4 7.0 20.6 4.1 21.7 4.1
+                H26.9
+                L26.4 9.1
+                H5.6
+                Z
+              "
+              fill="#d7dce1"
+            />
+
+
+            <!-- route number -->
+
+            <text
+              x="16"
+              y="20.3"
+              text-anchor="middle"
+              dominant-baseline="middle"
+              font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif"
+              font-size="${number.length === 3 ? 9.2 : 10.2}"
+              font-weight="700"
+              fill="#667381"
+            >
+              ${number}
+            </text>
+
+          </svg>
+
+        </div>
+        `,
+
+      iconSize:[32,30],
+
+      iconAnchor:[16,15],
+
+      interactive:false
+    }
+  );
+
+}
+
+
+/* =====================================================
+   CUSTOM INTERSTATE REFERENCES
+   ===================================================== */
+
+/*
+  These three points are geographically anchored
+  directly on their corresponding interstate corridors.
+
+  They are intentionally placed where they provide
+  useful orientation without obscuring A/B/C.
+
+  I-270:
+  ODOT reference point at I-270 / SR 161.
+
+  I-71:
+  documented I-71 location in north-central Columbus.
+
+  I-70:
+  documented I-70 corridor location near
+  South Central Avenue.
+*/
+
+const interstateReferences = [
+
+  {
+    ref:"270",
+
+    lat:40.103445,
+    lon:-82.939851
+  },
+
+
+  {
+    ref:"71",
+
+    lat:40.020100,
+    lon:-82.996700
+  },
+
+
+  {
+    ref:"70",
+
+    lat:39.951256,
+    lon:-83.038903
+  }
+
+];
+
+
+interstateReferences.forEach(
+  reference => {
+
+    L.marker(
+      [
+        reference.lat,
+        reference.lon
+      ],
+      {
+        icon:
+          interstateShieldIcon(
+            reference.ref
+          ),
+
+        interactive:false,
+
+        keyboard:false,
+
+        zIndexOffset:80
+      }
+    )
+    .addTo(
+      interstateReferenceLayer
+    );
+
+  }
+);
+
+
+/* =====================================================
+   CUSTOM INTERSTATE VISIBILITY
+   ===================================================== */
+
+function positronIsSelected() {
+
+  const selected =
+    document.querySelector(
+      'input[name="basemap"]:checked'
+    );
+
+
+  return (
+    selected &&
+    selected.value === "positron"
+  );
+
+}
+
+
+function updateInterstateReferenceVisibility() {
+
+  if (
+    homeReferenceZoom === null
+  ) {
+    return;
+  }
+
+
+  const zoom =
+    map.getZoom();
+
+
+  /*
+    Visible at:
+
+    Home
+    Home + 1
+
+    Hidden at:
+
+    Home + 2 and closer
+  */
+
+  const shouldShow =
+    positronIsSelected() &&
+    zoom <=
+      (homeReferenceZoom + 1);
+
+
+  if (shouldShow) {
+
+    if (
+      !map.hasLayer(
+        interstateReferenceLayer
+      )
+    ) {
+
+      interstateReferenceLayer
+        .addTo(map);
+
+    }
+
+  } else {
+
+    if (
+      map.hasLayer(
+        interstateReferenceLayer
+      )
+    ) {
+
+      map.removeLayer(
+        interstateReferenceLayer
+      );
+
+    }
+
+  }
+
+}
+
+
+map.on(
+  "zoomend",
+  updateInterstateReferenceVisibility
+);
 
 
 /* =====================================================
@@ -2704,7 +2908,8 @@ const legend =
   );
 
 
-let legendElement = null;
+let legendElement =
+  null;
 
 
 legend.onAdd =
@@ -2850,9 +3055,14 @@ legend.onAdd =
       `;
 
 
-    L.DomEvent.disableClickPropagation(div);
+    L.DomEvent.disableClickPropagation(
+      div
+    );
 
-    L.DomEvent.disableScrollPropagation(div);
+
+    L.DomEvent.disableScrollPropagation(
+      div
+    );
 
 
     legendElement =
@@ -3142,6 +3352,7 @@ function openLayerPanel() {
     layersOpenedOnMobile =
       true;
 
+
     setLegendCollapsed(
       true
     );
@@ -3275,7 +3486,7 @@ document
 
               positron.addTo(map);
 
-              enhancePositronRoadLabels();
+              tunePositronNativeRoadLabels();
 
             }
 
@@ -3311,6 +3522,14 @@ document
             }
 
           }
+
+
+          /*
+            Custom shields are only used with Positron.
+            OSM provides its own road reference rendering.
+          */
+
+          updateInterstateReferenceVisibility();
 
         }
       );
