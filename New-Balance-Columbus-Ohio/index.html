@@ -52,10 +52,6 @@
 
 <style>
 
-/* =====================================================
-   PAGE
-   ===================================================== */
-
 html,
 body {
   height:100%;
@@ -106,16 +102,13 @@ body {
 
   box-sizing:border-box;
 
-  background:
-    rgba(255,255,255,.97);
+  background:rgba(255,255,255,.97);
 
-  border:
-    1px solid rgba(15,23,42,.08);
+  border:1px solid rgba(15,23,42,.08);
 
   border-radius:12px;
 
-  padding:
-    12px 42px 12px 14px;
+  padding:12px 42px 12px 14px;
 
   box-shadow:
     0 4px 18px rgba(15,23,42,.16);
@@ -158,12 +151,10 @@ body {
   height:28px;
 
   padding:0;
-
   border:0;
   border-radius:6px;
 
-  background:
-    rgba(241,245,249,.90);
+  background:rgba(241,245,249,.90);
 
   color:#475569;
 
@@ -241,15 +232,12 @@ body {
   padding:0;
   box-sizing:border-box;
 
-  border:
-    1px solid rgba(0,0,0,.18);
-
+  border:1px solid rgba(0,0,0,.18);
   border-radius:8px;
 
   background:#ffffff;
 
-  box-shadow:
-    0 1px 5px rgba(0,0,0,.22);
+  box-shadow:0 1px 5px rgba(0,0,0,.22);
 
   display:flex;
   align-items:center;
@@ -259,8 +247,7 @@ body {
 
   touch-action:manipulation;
 
-  -webkit-tap-highlight-color:
-    transparent;
+  -webkit-tap-highlight-color:transparent;
 }
 
 
@@ -297,19 +284,16 @@ body {
 
   box-sizing:border-box;
 
-  background:
-    rgba(255,255,255,.98);
+  background:rgba(255,255,255,.98);
 
-  border:
-    1px solid rgba(15,23,42,.10);
+  border:1px solid rgba(15,23,42,.10);
 
   border-radius:10px;
 
   box-shadow:
     0 4px 16px rgba(15,23,42,.20);
 
-  padding:
-    10px 12px;
+  padding:10px 12px;
 
   font-size:11px;
   line-height:1.3;
@@ -384,8 +368,7 @@ body {
 
   border-radius:50%;
 
-  border:
-    3px solid rgba(255,255,255,.98);
+  border:3px solid rgba(255,255,255,.98);
 
   box-sizing:border-box;
 
@@ -432,8 +415,7 @@ body {
 
   background:#ffffff;
 
-  border:
-    2px solid #111827;
+  border:2px solid #111827;
 
   border-radius:3px;
 
@@ -473,14 +455,9 @@ body {
   width:0;
   height:0;
 
-  border-left:
-    8px solid transparent;
-
-  border-right:
-    8px solid transparent;
-
-  border-bottom:
-    14px solid #6b7280;
+  border-left:8px solid transparent;
+  border-right:8px solid transparent;
+  border-bottom:14px solid #6b7280;
 
   filter:
     drop-shadow(
@@ -539,11 +516,18 @@ body {
 
 /* =====================================================
    CUSTOM INTERSTATE SHIELDS
+
+   Previous:
+   two digit ≈ 34px
+   three digit ≈ 39px
+
+   New:
+   approximately 25% of previous dimensions
    ===================================================== */
 
 .interstate-shield-wrapper {
-  width:34px;
-  height:34px;
+  width:8.5px;
+  height:9.25px;
 
   display:flex;
   align-items:center;
@@ -554,8 +538,8 @@ body {
 
 
 .interstate-shield-wrapper.three-digit {
-  width:39px;
-  height:37px;
+  width:9.75px;
+  height:9.75px;
 }
 
 
@@ -566,11 +550,6 @@ body {
   height:100%;
 
   overflow:visible;
-
-  filter:
-    drop-shadow(
-      0 .5px .6px rgba(255,255,255,.95)
-    );
 }
 
 
@@ -581,15 +560,13 @@ body {
 .legend {
   position:relative;
 
-  background:
-    rgba(255,255,255,.97);
+  background:rgba(255,255,255,.97);
 
   padding:9px 11px;
 
   border-radius:10px;
 
-  border:
-    1px solid rgba(15,23,42,.08);
+  border:1px solid rgba(15,23,42,.08);
 
   box-shadow:
     0 2px 11px rgba(15,23,42,.15);
@@ -630,8 +607,7 @@ body {
 
   border-radius:5px;
 
-  background:
-    rgba(241,245,249,.90);
+  background:rgba(241,245,249,.90);
 
   color:#475569;
 
@@ -672,14 +648,12 @@ body {
 }
 
 
-.legend.collapsed
-.legend-content {
+.legend.collapsed .legend-content {
   display:none;
 }
 
 
-.legend.collapsed
-.legend-toggle svg {
+.legend.collapsed .legend-toggle svg {
   transform:rotate(180deg);
 }
 
@@ -757,14 +731,9 @@ body {
   width:0;
   height:0;
 
-  border-left:
-    6px solid transparent;
-
-  border-right:
-    6px solid transparent;
-
-  border-bottom:
-    10px solid #6b7280;
+  border-left:6px solid transparent;
+  border-right:6px solid transparent;
+  border-bottom:10px solid #6b7280;
 }
 
 
@@ -792,8 +761,7 @@ body {
 
   box-sizing:border-box;
 
-  border:
-    1.5px dashed #64748b;
+  border:1.5px dashed #64748b;
 
   border-radius:50%;
 }
@@ -802,8 +770,7 @@ body {
 .legend-line {
   width:17px;
 
-  border-top:
-    2.5px solid #2b9fb3;
+  border-top:2.5px solid #2b9fb3;
 }
 
 
@@ -835,8 +802,7 @@ body {
 }
 
 
-#northArrow
-.north-letter {
+#northArrow .north-letter {
   font-size:9px;
   font-weight:900;
   line-height:1;
@@ -852,11 +818,6 @@ body {
 #northArrow svg {
   width:20px;
   height:24px;
-
-  filter:
-    drop-shadow(
-      0 1px 1px rgba(255,255,255,.8)
-    );
 }
 
 
@@ -1062,18 +1023,6 @@ and
     bottom:28px;
   }
 
-
-  .interstate-shield-wrapper {
-    width:30px;
-    height:30px;
-  }
-
-
-  .interstate-shield-wrapper.three-digit {
-    width:35px;
-    height:33px;
-  }
-
 }
 
 
@@ -1213,18 +1162,6 @@ and
     bottom:22px;
   }
 
-
-  .interstate-shield-wrapper {
-    width:29px;
-    height:29px;
-  }
-
-
-  .interstate-shield-wrapper.three-digit {
-    width:34px;
-    height:32px;
-  }
-
 }
 
 
@@ -1254,10 +1191,6 @@ and
 
 <div id="map"></div>
 
-
-<!-- =====================================================
-     TITLE
-     ===================================================== -->
 
 <div id="title">
 
@@ -1297,10 +1230,6 @@ and
 
 </div>
 
-
-<!-- =====================================================
-     RIGHT CONTROLS
-     ===================================================== -->
 
 <div id="rightControls">
 
@@ -1355,10 +1284,6 @@ and
 </div>
 
 
-<!-- =====================================================
-     LAYER PANEL
-     ===================================================== -->
-
 <div id="layerPanel">
 
   <div class="layer-panel-section">
@@ -1409,61 +1334,37 @@ and
 
 
     <label class="layer-option">
-      <input
-        id="toggleCandidates"
-        type="checkbox"
-        checked
-      >
+      <input id="toggleCandidates" type="checkbox" checked>
       <span>Candidate Areas</span>
     </label>
 
 
     <label class="layer-option">
-      <input
-        id="toggleRings"
-        type="checkbox"
-        checked
-      >
+      <input id="toggleRings" type="checkbox" checked>
       <span>3-Mile Evaluation Areas</span>
     </label>
 
 
     <label class="layer-option">
-      <input
-        id="toggleNB"
-        type="checkbox"
-        checked
-      >
+      <input id="toggleNB" type="checkbox" checked>
       <span>New Balance Owned Retail</span>
     </label>
 
 
     <label class="layer-option">
-      <input
-        id="toggleMajorRetail"
-        type="checkbox"
-        checked
-      >
+      <input id="toggleMajorRetail" type="checkbox" checked>
       <span>Major Athletic Retail Nodes</span>
     </label>
 
 
     <label class="layer-option">
-      <input
-        id="toggleCRC"
-        type="checkbox"
-        checked
-      >
+      <input id="toggleCRC" type="checkbox" checked>
       <span>Specialty Running / NB Distribution</span>
     </label>
 
 
     <label class="layer-option">
-      <input
-        id="toggleActive"
-        type="checkbox"
-        checked
-      >
+      <input id="toggleActive" type="checkbox" checked>
       <span>Running &amp; Active-Lifestyle Geography</span>
     </label>
 
@@ -1471,10 +1372,6 @@ and
 
 </div>
 
-
-<!-- =====================================================
-     NORTH ARROW
-     ===================================================== -->
 
 <div
   id="northArrow"
@@ -1645,12 +1542,8 @@ function tunePositronNativeRoadLabels() {
           if (
             layer.id &&
             (
-              layer.id.includes(
-                "shield"
-              ) ||
-              layer.id.includes(
-                "interstate"
-              )
+              layer.id.includes("shield") ||
+              layer.id.includes("interstate")
             )
           ) {
 
@@ -1658,9 +1551,7 @@ function tunePositronNativeRoadLabels() {
 
               if (
                 layer.layout &&
-                layer.layout[
-                  "symbol-placement"
-                ] === "line"
+                layer.layout["symbol-placement"] === "line"
               ) {
 
                 glMap.setLayoutProperty(
@@ -1705,70 +1596,59 @@ tunePositronNativeRoadLabels();
    ===================================================== */
 
 const ringLayer =
-  L.layerGroup()
-   .addTo(map);
+  L.layerGroup().addTo(map);
 
 
 const nbLayer =
-  L.layerGroup()
-   .addTo(map);
+  L.layerGroup().addTo(map);
 
 
 const majorRetailLayer =
-  L.layerGroup()
-   .addTo(map);
+  L.layerGroup().addTo(map);
 
 
 const crcLayer =
-  L.layerGroup()
-   .addTo(map);
+  L.layerGroup().addTo(map);
 
 
 const activeLayer =
-  L.layerGroup()
-   .addTo(map);
+  L.layerGroup().addTo(map);
 
 
 const candidateLayer =
-  L.layerGroup()
-   .addTo(map);
+  L.layerGroup().addTo(map);
 
 
 /* =====================================================
-   CUSTOM LOW-ZOOM INTERSTATE REFERENCES
+   CUSTOM INTERSTATE LAYER
    ===================================================== */
-
-/*
-  These are deliberately sparse cartographic
-  reference shields.
-
-  They are visible only at:
-  HOME
-  HOME + 1
-
-  Beginning at HOME + 2 they disappear so
-  the native Positron transportation labels
-  become the sole interstate references.
-*/
 
 const interstateReferenceLayer =
   L.layerGroup();
 
 
 /* =====================================================
-   INTERSTATE SHIELD SVG
+   CLEAN INTERSTATE SHIELD SVG
    ===================================================== */
 
 /*
-  Agreed visual treatment:
+  This version uses deliberately simple,
+  symmetric geometry.
 
-  Crown:        #4B5563
-  Border:       #4B5563
-  Number:       #4B5563
-  Lower body:   #FFFFFF
+  Top sequence:
+    left shoulder
+    shallow dip
+    center crown
+    shallow dip
+    right shoulder
 
-  The SVG is embedded directly in this HTML.
-  No external shield image or sprite is loaded.
+  No irregular spline transitions.
+
+  Crown, border and text:
+    #4B5563
+
+  Body:
+    #FFFFFF
 */
 
 function interstateShieldSVG(
@@ -1779,105 +1659,81 @@ function interstateShieldSVG(
     String(route).length === 3;
 
 
-  const width =
+  const viewWidth =
     isThreeDigit
-      ? 41
-      : 36;
-
-
-  const height =
-    isThreeDigit
-      ? 39
-      : 37;
-
-
-  const fontSize =
-    isThreeDigit
-      ? 13.2
-      : 15.5;
-
-
-  const textY =
-    isThreeDigit
-      ? 25.5
-      : 24.8;
-
-
-  const viewBoxWidth =
-    isThreeDigit
-      ? 46
+      ? 48
       : 42;
 
 
-  /*
-    Shield geometry:
+  const center =
+    viewWidth / 2;
 
-    The outer path creates:
-    - two upper shoulder rises
-    - a central crown rise
-    - gently curved sides
-    - pointed lower shield
 
-    Crown uses the same dark gray as the
-    route number and outer border.
-  */
+  const right =
+    viewWidth - 4;
+
+
+  const rightShoulder =
+    viewWidth - 9;
+
+
+  const textSize =
+    isThreeDigit
+      ? 13
+      : 15;
+
 
   return `
-    <div class="interstate-shield-wrapper ${isThreeDigit ? "three-digit" : ""}">
+
+    <div
+      class="
+        interstate-shield-wrapper
+        ${isThreeDigit ? "three-digit" : ""}
+      "
+    >
 
       <svg
-        width="${width}"
-        height="${height}"
-        viewBox="0 0 ${viewBoxWidth} 44"
+        viewBox="0 0 ${viewWidth} 44"
         xmlns="http://www.w3.org/2000/svg"
         aria-hidden="true"
       >
 
-        <!-- WHITE SHIELD BODY -->
+
+        <!--
+          COMPLETE WHITE SHIELD
+        -->
 
         <path
-          d="
-            M 4 10
 
-            C 6 8,
-              7 6,
+          d="
+            M 4 14
+
+            C 4 10,
+              6 6,
               9 5
 
-            C 12 7,
-              15 8,
-              18 8
+            C 12 7.5,
+              16 8.5,
+              ${center} 5
 
-            C 21 8,
-              23 7,
-              ${viewBoxWidth / 2} 5
+            C ${center + 5} 8.5,
+              ${rightShoulder - 3} 7.5,
+              ${rightShoulder} 5
 
-            C ${viewBoxWidth / 2 + 3} 7,
-              ${viewBoxWidth / 2 + 6} 8,
-              ${viewBoxWidth / 2 + 9} 8
+            C ${right - 2} 6,
+              ${right} 10,
+              ${right} 14
 
-            C ${viewBoxWidth - 13} 8,
-              ${viewBoxWidth - 10} 7,
-              ${viewBoxWidth - 8} 5
+            L ${right} 22
 
-            C ${viewBoxWidth - 5} 7,
-              ${viewBoxWidth - 4} 10,
-              ${viewBoxWidth - 3} 13
+            C ${right} 30,
+              ${viewWidth - 11} 37,
+              ${center} 41
 
-            L ${viewBoxWidth - 3} 21
+            C 11 37,
+              4 30,
+              4 22
 
-            C ${viewBoxWidth - 3} 30,
-              ${viewBoxWidth - 10} 37,
-              ${viewBoxWidth / 2} 41
-
-            C 10 37,
-              3 30,
-              3 21
-
-            L 3 14
-
-            C 3 12,
-              3.5 11,
-              4 10
             Z
           "
 
@@ -1885,63 +1741,59 @@ function interstateShieldSVG(
 
           stroke="#4B5563"
 
-          stroke-width="1.8"
+          stroke-width="1.65"
 
           stroke-linejoin="round"
+
         />
 
 
-        <!-- DARK GRAY CROWN -->
+        <!--
+          DARK CROWN
+        -->
 
         <path
+
           d="
-            M 4.5 11
+            M 4.8 14
 
-            C 6 8,
-              7 6,
-              9 5.5
+            C 4.8 10.5,
+              6.4 7,
+              9 5.8
 
-            C 12 7.5,
-              15 8.5,
-              18 8.5
+            C 12 8,
+              16 9,
+              ${center} 5.8
 
-            C 21 8.5,
-              23 7.5,
-              ${viewBoxWidth / 2} 5.5
+            C ${center + 5} 9,
+              ${rightShoulder - 3} 8,
+              ${rightShoulder} 5.8
 
-            C ${viewBoxWidth / 2 + 3} 7.5,
-              ${viewBoxWidth / 2 + 6} 8.5,
-              ${viewBoxWidth / 2 + 9} 8.5
+            C ${right - 2.5} 7,
+              ${right - .8} 10.5,
+              ${right - .8} 14
 
-            C ${viewBoxWidth - 13} 8.5,
-              ${viewBoxWidth - 10} 7.5,
-              ${viewBoxWidth - 8} 5.5
+            L ${right - .8} 15.5
 
-            C ${viewBoxWidth - 5} 7.5,
-              ${viewBoxWidth - 4} 10,
-              ${viewBoxWidth - 3.5} 12.5
+            L 4.8 15.5
 
-            L ${viewBoxWidth - 3.5} 15
-
-            L 3.5 15
-
-            L 3.5 13
-
-            C 3.5 12,
-              4 11,
-              4.5 11
             Z
           "
 
           fill="#4B5563"
+
         />
 
 
-        <!-- ROUTE NUMBER -->
+        <!--
+          ROUTE NUMBER
+        -->
 
         <text
-          x="${viewBoxWidth / 2}"
-          y="${textY}"
+
+          x="${center}"
+
+          y="26.2"
 
           text-anchor="middle"
 
@@ -1957,18 +1809,21 @@ function interstateShieldSVG(
             sans-serif
           "
 
-          font-size="${fontSize}"
+          font-size="${textSize}"
 
           font-weight="700"
 
           letter-spacing="-0.35"
+
         >
           ${route}
         </text>
 
+
       </svg>
 
     </div>
+
   `;
 
 }
@@ -1982,14 +1837,24 @@ function interstateShieldIcon(
   route
 ) {
 
-  const threeDigit =
+  const isThreeDigit =
     String(route).length === 3;
 
 
-  const size =
-    threeDigit
-      ? [39,37]
-      : [34,34];
+  /*
+    25% of previous marker dimensions
+  */
+
+  const width =
+    isThreeDigit
+      ? 9.75
+      : 8.5;
+
+
+  const height =
+    isThreeDigit
+      ? 9.75
+      : 9.25;
 
 
   return L.divIcon(
@@ -2001,12 +1866,14 @@ function interstateShieldIcon(
           route
         ),
 
-      iconSize:
-        size,
+      iconSize:[
+        width,
+        height
+      ],
 
       iconAnchor:[
-        size[0] / 2,
-        size[1] / 2
+        width / 2,
+        height / 2
       ]
     }
   );
@@ -2019,45 +1886,54 @@ function interstateShieldIcon(
    ===================================================== */
 
 /*
-  Two I-270 references:
-  west and east sides of the outerbelt.
+  I-71:
+    north + south retained
 
-  Two I-71 references:
-  north and south of central Columbus.
+  I-70:
+    west moved slightly north
+    east moved materially south
 
-  Two I-70 references:
-  west/southwest and east/southeast.
-
-  These points are intentionally distributed
-  across the map so the highway system is easy
-  to read without producing repetitive labels.
+  I-270:
+    west moved slightly east and slightly north
+    east moved north/west toward the outerbelt
+    above the Minerva Park / Candidate C area
 */
 
 const interstateReferences = [
 
+  /* -------------------------
+     I-270 WEST
+     ------------------------- */
+
   {
     route:"270",
-
     position:"West",
 
-    lat:40.0315,
-    lon:-83.1435
+    lat:40.0395,
+    lon:-83.1335
   },
 
+
+  /* -------------------------
+     I-270 EAST / NORTHEAST
+     ------------------------- */
 
   {
     route:"270",
-
     position:"East",
 
-    lat:40.0155,
-    lon:-82.8370
+    lat:40.1060,
+    lon:-82.9140
   },
 
+
+  /* -------------------------
+     I-71 NORTH
+     unchanged
+     ------------------------- */
 
   {
     route:"71",
-
     position:"North",
 
     lat:40.0616,
@@ -2065,9 +1941,13 @@ const interstateReferences = [
   },
 
 
+  /* -------------------------
+     I-71 SOUTH
+     unchanged
+     ------------------------- */
+
   {
     route:"71",
-
     position:"South",
 
     lat:39.8790,
@@ -2075,22 +1955,30 @@ const interstateReferences = [
   },
 
 
+  /* -------------------------
+     I-70 WEST
+     slightly north
+     ------------------------- */
+
   {
     route:"70",
-
     position:"West",
 
-    lat:39.9730,
+    lat:39.9810,
     lon:-83.1465
   },
 
 
+  /* -------------------------
+     I-70 EAST
+     moved south
+     ------------------------- */
+
   {
     route:"70",
-
     position:"East",
 
-    lat:39.9568,
+    lat:39.9385,
     lon:-82.8755
   }
 
@@ -2144,8 +2032,7 @@ function positronIsSelected() {
 
   return (
     selected &&
-    selected.value ===
-      "positron"
+    selected.value === "positron"
   );
 
 }
@@ -2168,23 +2055,11 @@ function updateInterstateReferenceVisibility() {
     map.getZoom();
 
 
-  /*
-    Show only:
-
-    HOME
-    HOME + 1
-
-    Hide beginning at:
-
-    HOME + 2
-  */
-
   const shouldShow =
     positronIsSelected() &&
     currentZoom <=
       (
-        homeReferenceZoom +
-        1
+        homeReferenceZoom + 1
       );
 
 
@@ -2383,8 +2258,7 @@ const candidates = [
   {
     id:"A",
 
-    name:
-      "Dublin / Bridge Park",
+    name:"Dublin / Bridge Park",
 
     lat:40.10424,
     lon:-83.11018,
@@ -2409,8 +2283,7 @@ const candidates = [
   {
     id:"B",
 
-    name:
-      "Short North / High Street",
+    name:"Short North / High Street",
 
     lat:39.977984,
     lon:-83.004006,
@@ -2435,8 +2308,7 @@ const candidates = [
   {
     id:"C",
 
-    name:
-      "Easton Town Center",
+    name:"Easton Town Center",
 
     lat:40.0510,
     lon:-82.9150,
@@ -2475,8 +2347,7 @@ candidates.forEach(
       {
         radius:4828.032,
 
-        color:
-          candidate.color,
+        color:candidate.color,
 
         weight:2,
 
@@ -2484,8 +2355,7 @@ candidates.forEach(
 
         dashArray:"7 6",
 
-        fillColor:
-          candidate.color,
+        fillColor:candidate.color,
 
         fillOpacity:.025,
 
@@ -3112,10 +2982,7 @@ legend.onAdd =
 
         <div class="legend-row">
           <span class="legend-symbol">
-            <span
-              class="legend-dot"
-              style="background:#d73027">
-            </span>
+            <span class="legend-dot" style="background:#d73027"></span>
           </span>
           <span>A — Dublin / Bridge Park</span>
         </div>
@@ -3123,10 +2990,7 @@ legend.onAdd =
 
         <div class="legend-row">
           <span class="legend-symbol">
-            <span
-              class="legend-dot"
-              style="background:#245bbf">
-            </span>
+            <span class="legend-dot" style="background:#245bbf"></span>
           </span>
           <span>B — Short North / High Street</span>
         </div>
@@ -3134,10 +2998,7 @@ legend.onAdd =
 
         <div class="legend-row">
           <span class="legend-symbol">
-            <span
-              class="legend-dot"
-              style="background:#18864b">
-            </span>
+            <span class="legend-dot" style="background:#18864b"></span>
           </span>
           <span>C — Easton Town Center</span>
         </div>
@@ -3360,7 +3221,7 @@ titleToggle.addEventListener(
 
 
 /* =====================================================
-   RIGHT CONTROL ELEMENTS
+   RIGHT CONTROLS
    ===================================================== */
 
 const homeButton =
@@ -3472,7 +3333,7 @@ function updateLayerPanelPosition() {
 
 
 /* =====================================================
-   OPEN / CLOSE LAYER PANEL
+   LAYER PANEL OPEN / CLOSE
    ===================================================== */
 
 function openLayerPanel() {
@@ -3614,30 +3475,23 @@ document
         function () {
 
           if (
-            this.value ===
-            "positron"
+            this.value === "positron"
           ) {
 
             if (
               map.hasLayer(osm)
             ) {
 
-              map.removeLayer(
-                osm
-              );
+              map.removeLayer(osm);
 
             }
 
 
             if (
-              !map.hasLayer(
-                positron
-              )
+              !map.hasLayer(positron)
             ) {
 
-              positron.addTo(
-                map
-              );
+              positron.addTo(map);
 
             }
 
@@ -3657,32 +3511,23 @@ document
 
 
           if (
-            this.value ===
-            "osm"
+            this.value === "osm"
           ) {
 
             if (
-              map.hasLayer(
-                positron
-              )
+              map.hasLayer(positron)
             ) {
 
-              map.removeLayer(
-                positron
-              );
+              map.removeLayer(positron);
 
             }
 
 
             if (
-              !map.hasLayer(
-                osm
-              )
+              !map.hasLayer(osm)
             ) {
 
-              osm.addTo(
-                map
-              );
+              osm.addTo(map);
 
             }
 
@@ -3699,7 +3544,7 @@ document
 
 
 /* =====================================================
-   ANALYSIS LAYER TOGGLES
+   ANALYSIS TOGGLES
    ===================================================== */
 
 function connectToggle(
@@ -3718,28 +3563,20 @@ function connectToggle(
         if (this.checked) {
 
           if (
-            !map.hasLayer(
-              layer
-            )
+            !map.hasLayer(layer)
           ) {
 
-            layer.addTo(
-              map
-            );
+            layer.addTo(map);
 
           }
 
         } else {
 
           if (
-            map.hasLayer(
-              layer
-            )
+            map.hasLayer(layer)
           ) {
 
-            map.removeLayer(
-              layer
-            );
+            map.removeLayer(layer);
 
           }
 
@@ -3788,7 +3625,7 @@ connectToggle(
 
 
 /* =====================================================
-   WINDOW RESIZE
+   RESIZE
    ===================================================== */
 
 window.addEventListener(
@@ -3816,7 +3653,7 @@ window.addEventListener(
 
 
 /* =====================================================
-   INITIAL POSITRON ENHANCEMENT
+   INITIAL POSITRON
    ===================================================== */
 
 function initializePositronEnhancements() {
