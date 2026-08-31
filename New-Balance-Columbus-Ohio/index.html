@@ -1865,12 +1865,6 @@ const interstateReferences = [
   },
 
 
-  /*
-    EASTERN I-270
-    moved slightly north from 40.0925
-    to better align with the interstate.
-  */
-
   {
     route:"270",
     position:"East",
@@ -1972,7 +1966,7 @@ function positronIsSelected() {
 
 
 /* =====================================================
-   INTERSTATE VISIBILITY
+   DEVICE-SPECIFIC INTERSTATE VISIBILITY
    ===================================================== */
 
 function updateInterstateReferenceVisibility() {
@@ -1988,12 +1982,41 @@ function updateInterstateReferenceVisibility() {
     map.getZoom();
 
 
+  /*
+    DESKTOP:
+
+      Home     = custom shields ON
+      Home + 1 = custom shields OFF
+
+    MOBILE:
+
+      Home     = custom shields ON
+      Home + 1 = custom shields ON
+      Home + 2 = custom shields OFF
+  */
+
+  let maximumCustomShieldZoom;
+
+
+  if (
+    isDesktopHome()
+  ) {
+
+    maximumCustomShieldZoom =
+      homeReferenceZoom;
+
+  } else {
+
+    maximumCustomShieldZoom =
+      homeReferenceZoom + 1;
+
+  }
+
+
   const shouldShow =
     positronIsSelected() &&
     currentZoom <=
-      (
-        homeReferenceZoom + 1
-      );
+      maximumCustomShieldZoom;
 
 
   if (shouldShow) {
@@ -2043,10 +2066,19 @@ function goHome() {
   map.closePopup();
 
 
+  /*
+    First establish the original full-market
+    bounds on every device.
+  */
+
   map.once(
     "moveend",
     function afterInitialFit() {
 
+
+      /* ===============================================
+         DESKTOP HOME
+         =============================================== */
 
       if (
         isDesktopHome()
@@ -2063,8 +2095,22 @@ function goHome() {
           "moveend",
           function afterDesktopZoom() {
 
+            /*
+              Previous desktop offset:
+                [18,-55]
+
+              New offset:
+                [18,-30]
+
+              This shifts the visible map content
+              upward approximately 25 pixels compared
+              with the previous desktop composition,
+              bringing A/B/C slightly closer to center
+              while retaining the northern NB store.
+            */
+
             map.panBy(
-              [18,-55],
+              [18,-30],
               {
                 animate:false
               }
@@ -2093,6 +2139,11 @@ function goHome() {
 
       }
 
+
+      /* ===============================================
+         MOBILE HOME
+         UNCHANGED
+         =============================================== */
 
       homeReferenceZoom =
         map.getZoom();
