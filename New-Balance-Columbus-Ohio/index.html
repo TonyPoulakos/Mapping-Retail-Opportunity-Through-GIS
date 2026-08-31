@@ -538,6 +538,43 @@ body {
 
 
 /* =====================================================
+   CUSTOM INTERSTATE SHIELDS
+   ===================================================== */
+
+.interstate-shield-wrapper {
+  width:34px;
+  height:34px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  pointer-events:none;
+}
+
+
+.interstate-shield-wrapper.three-digit {
+  width:39px;
+  height:37px;
+}
+
+
+.interstate-shield-wrapper svg {
+  display:block;
+
+  width:100%;
+  height:100%;
+
+  overflow:visible;
+
+  filter:
+    drop-shadow(
+      0 .5px .6px rgba(255,255,255,.95)
+    );
+}
+
+
+/* =====================================================
    LEGEND
    ===================================================== */
 
@@ -1025,6 +1062,18 @@ and
     bottom:28px;
   }
 
+
+  .interstate-shield-wrapper {
+    width:30px;
+    height:30px;
+  }
+
+
+  .interstate-shield-wrapper.three-digit {
+    width:35px;
+    height:33px;
+  }
+
 }
 
 
@@ -1162,6 +1211,18 @@ and
 
   .leaflet-bottom.leaflet-left {
     bottom:22px;
+  }
+
+
+  .interstate-shield-wrapper {
+    width:29px;
+    height:29px;
+  }
+
+
+  .interstate-shield-wrapper.three-digit {
+    width:34px;
+    height:32px;
   }
 
 }
@@ -1452,14 +1513,15 @@ and
    MAP
    ===================================================== */
 
-const map = L.map(
-  "map",
-  {
-    zoomControl:true,
-    preferCanvas:false,
-    minZoom:5
-  }
-);
+const map =
+  L.map(
+    "map",
+    {
+      zoomControl:true,
+      preferCanvas:false,
+      minZoom:5
+    }
+  );
 
 
 /* =====================================================
@@ -1469,57 +1531,14 @@ const map = L.map(
 const finalBounds =
   L.latLngBounds(
     [
-      [39.865, -83.185],
-      [40.315, -82.735]
+      [39.865,-83.185],
+      [40.315,-82.735]
     ]
   );
 
 
 let homeReferenceZoom =
   null;
-
-
-function goHome() {
-
-  map.closePopup();
-
-
-  map.once(
-    "moveend",
-    function () {
-
-      homeReferenceZoom =
-        map.getZoom();
-
-
-      updateInterstateReferenceVisibility();
-
-
-      map.panBy(
-        [18,24],
-        {
-          animate:false
-        }
-      );
-
-    }
-  );
-
-
-  map.fitBounds(
-    finalBounds,
-    {
-      paddingTopLeft:
-        [20,20],
-
-      paddingBottomRight:
-        [20,20],
-
-      animate:false
-    }
-  );
-
-}
 
 
 /* =====================================================
@@ -1562,7 +1581,7 @@ positron.addTo(map);
 
 
 /* =====================================================
-   POSITRON NATIVE LABEL DENSITY
+   POSITRON NATIVE ROAD LABEL DENSITY
    ===================================================== */
 
 function tunePositronNativeRoadLabels() {
@@ -1682,760 +1701,7 @@ tunePositronNativeRoadLabels();
 
 
 /* =====================================================
-   LOW-ZOOM INTERSTATE SHIELDS
-   ===================================================== */
-
-/*
-  We use exact OpenMapTiles interstate shield
-  sprite artwork instead of recreating the
-  shield ourselves.
-
-  Sprite source:
-  openmaptiles.github.io/osm-bright-gl-style
-
-  Two-digit shield:
-  us-interstate_2
-
-  Three-digit shield:
-  us-interstate_3
-*/
-
-const interstateSpriteBase =
-  "https://openmaptiles.github.io/osm-bright-gl-style/sprite";
-
-
-const customInterstateSourceId =
-  "columbus-custom-interstates";
-
-
-const customInterstateLayerId =
-  "columbus-custom-interstate-shields";
-
-
-let interstateLayerReady =
-  false;
-
-
-/* =====================================================
-   SIX GEOGRAPHIC REFERENCE POINTS
-   ===================================================== */
-
-/*
-  Two references per Interstate.
-
-  I-270:
-  west and east sides of the Columbus outerbelt.
-
-  I-71:
-  north Columbus and south/Grove City corridor.
-
-  I-70:
-  west Columbus and east Columbus corridor.
-
-  These are intentionally separated to give broad
-  regional orientation rather than repetitive labels.
-*/
-
-const interstateReferenceGeoJSON =
-{
-  type:"FeatureCollection",
-
-  features:[
-
-    /* -------------------------
-       I-270 WEST
-       ------------------------- */
-
-    {
-      type:"Feature",
-
-      properties:{
-        ref:"270",
-        ref_length:3
-      },
-
-      geometry:{
-        type:"Point",
-
-        coordinates:[
-          -83.1435,
-          40.0315
-        ]
-      }
-    },
-
-
-    /* -------------------------
-       I-270 EAST
-       ------------------------- */
-
-    {
-      type:"Feature",
-
-      properties:{
-        ref:"270",
-        ref_length:3
-      },
-
-      geometry:{
-        type:"Point",
-
-        coordinates:[
-          -82.8370,
-          40.0155
-        ]
-      }
-    },
-
-
-    /* -------------------------
-       I-71 NORTH
-       ------------------------- */
-
-    {
-      type:"Feature",
-
-      properties:{
-        ref:"71",
-        ref_length:2
-      },
-
-      geometry:{
-        type:"Point",
-
-        coordinates:[
-          -82.9971,
-          40.0616
-        ]
-      }
-    },
-
-
-    /* -------------------------
-       I-71 SOUTH
-       ------------------------- */
-
-    {
-      type:"Feature",
-
-      properties:{
-        ref:"71",
-        ref_length:2
-      },
-
-      geometry:{
-        type:"Point",
-
-        coordinates:[
-          -83.0440,
-          39.8790
-        ]
-      }
-    },
-
-
-    /* -------------------------
-       I-70 WEST
-       ------------------------- */
-
-    {
-      type:"Feature",
-
-      properties:{
-        ref:"70",
-        ref_length:2
-      },
-
-      geometry:{
-        type:"Point",
-
-        coordinates:[
-          -83.1465,
-          39.9730
-        ]
-      }
-    },
-
-
-    /* -------------------------
-       I-70 EAST
-       ------------------------- */
-
-    {
-      type:"Feature",
-
-      properties:{
-        ref:"70",
-        ref_length:2
-      },
-
-      geometry:{
-        type:"Point",
-
-        coordinates:[
-          -82.8755,
-          39.9568
-        ]
-      }
-    }
-
-  ]
-};
-
-
-/* =====================================================
-   LOAD EXACT SPRITE IMAGE
-   ===================================================== */
-
-async function loadInterstateSpriteImages(
-  glMap
-) {
-
-  if (
-    glMap.hasImage(
-      "columbus-us-interstate-2"
-    ) &&
-    glMap.hasImage(
-      "columbus-us-interstate-3"
-    )
-  ) {
-
-    return true;
-
-  }
-
-
-  try {
-
-    const spriteData =
-      await fetch(
-        interstateSpriteBase +
-        ".json"
-      )
-      .then(
-        response => {
-
-          if (!response.ok) {
-            throw new Error(
-              "Could not load sprite metadata."
-            );
-          }
-
-          return response.json();
-
-        }
-      );
-
-
-    const image =
-      await new Promise(
-        (resolve,reject) => {
-
-          const img =
-            new Image();
-
-
-          img.crossOrigin =
-            "anonymous";
-
-
-          img.onload =
-            function () {
-              resolve(img);
-            };
-
-
-          img.onerror =
-            function () {
-              reject(
-                new Error(
-                  "Could not load sprite image."
-                )
-              );
-            };
-
-
-          img.src =
-            interstateSpriteBase +
-            ".png";
-
-        }
-      );
-
-
-    const spriteIds = [
-      {
-        source:
-          "us-interstate_2",
-
-        target:
-          "columbus-us-interstate-2"
-      },
-
-      {
-        source:
-          "us-interstate_3",
-
-        target:
-          "columbus-us-interstate-3"
-      }
-    ];
-
-
-    for (
-      const sprite of spriteIds
-    ) {
-
-      const metadata =
-        spriteData[
-          sprite.source
-        ];
-
-
-      if (!metadata) {
-
-        throw new Error(
-          "Interstate sprite not found: " +
-          sprite.source
-        );
-
-      }
-
-
-      const canvas =
-        document.createElement(
-          "canvas"
-        );
-
-
-      canvas.width =
-        metadata.width;
-
-
-      canvas.height =
-        metadata.height;
-
-
-      const context =
-        canvas.getContext(
-          "2d",
-          {
-            willReadFrequently:true
-          }
-        );
-
-
-      context.clearRect(
-        0,
-        0,
-        canvas.width,
-        canvas.height
-      );
-
-
-      context.drawImage(
-        image,
-
-        metadata.x,
-        metadata.y,
-
-        metadata.width,
-        metadata.height,
-
-        0,
-        0,
-
-        metadata.width,
-        metadata.height
-      );
-
-
-      const imageData =
-        context.getImageData(
-          0,
-          0,
-          metadata.width,
-          metadata.height
-        );
-
-
-      if (
-        !glMap.hasImage(
-          sprite.target
-        )
-      ) {
-
-        glMap.addImage(
-          sprite.target,
-          imageData,
-          {
-            pixelRatio:
-              metadata.pixelRatio ||
-              1
-          }
-        );
-
-      }
-
-    }
-
-
-    return true;
-
-
-  } catch (error) {
-
-    console.error(
-      "Interstate sprite load failed:",
-      error
-    );
-
-
-    return false;
-
-  }
-
-}
-
-
-/* =====================================================
-   FIND POSITRON FONT
-   ===================================================== */
-
-function getPositronRoadFont(
-  glMap
-) {
-
-  const style =
-    glMap.getStyle();
-
-
-  if (
-    style &&
-    style.layers
-  ) {
-
-    const motorwayLayer =
-      style.layers.find(
-        layer =>
-          layer.id ===
-          "highway_name_motorway"
-      );
-
-
-    if (
-      motorwayLayer &&
-      motorwayLayer.layout &&
-      motorwayLayer.layout[
-        "text-font"
-      ]
-    ) {
-
-      return motorwayLayer.layout[
-        "text-font"
-      ];
-
-    }
-
-  }
-
-
-  return [
-    "Noto Sans Regular"
-  ];
-
-}
-
-
-/* =====================================================
-   INSTALL LOW-ZOOM SHIELD LAYER
-   ===================================================== */
-
-async function installInterstateReferenceLayer() {
-
-  let glMap;
-
-
-  try {
-
-    glMap =
-      positron.getMaplibreMap();
-
-  } catch (error) {
-
-    return;
-
-  }
-
-
-  if (!glMap) {
-    return;
-  }
-
-
-  if (
-    !glMap.loaded()
-  ) {
-
-    glMap.once(
-      "load",
-      installInterstateReferenceLayer
-    );
-
-    return;
-
-  }
-
-
-  if (
-    glMap.getLayer(
-      customInterstateLayerId
-    )
-  ) {
-
-    interstateLayerReady =
-      true;
-
-    updateInterstateReferenceVisibility();
-
-    return;
-
-  }
-
-
-  const spritesLoaded =
-    await loadInterstateSpriteImages(
-      glMap
-    );
-
-
-  if (!spritesLoaded) {
-    return;
-  }
-
-
-  if (
-    !glMap.getSource(
-      customInterstateSourceId
-    )
-  ) {
-
-    glMap.addSource(
-      customInterstateSourceId,
-      {
-        type:"geojson",
-
-        data:
-          interstateReferenceGeoJSON
-      }
-    );
-
-  }
-
-
-  const roadFont =
-    getPositronRoadFont(
-      glMap
-    );
-
-
-  glMap.addLayer(
-    {
-      id:
-        customInterstateLayerId,
-
-      type:"symbol",
-
-      source:
-        customInterstateSourceId,
-
-      layout:{
-
-        "symbol-placement":
-          "point",
-
-
-        "icon-image":[
-          "case",
-
-          [
-            "==",
-            ["get","ref_length"],
-            3
-          ],
-
-          "columbus-us-interstate-3",
-
-          "columbus-us-interstate-2"
-        ],
-
-
-        "icon-size":
-          1,
-
-
-        "icon-rotation-alignment":
-          "viewport",
-
-
-        "icon-allow-overlap":
-          true,
-
-
-        "icon-ignore-placement":
-          true,
-
-
-        "text-field":[
-          "to-string",
-          ["get","ref"]
-        ],
-
-
-        "text-font":
-          roadFont,
-
-
-        "text-size":
-          10,
-
-
-        "text-anchor":
-          "center",
-
-
-        "text-rotation-alignment":
-          "viewport",
-
-
-        "text-allow-overlap":
-          true,
-
-
-        "text-ignore-placement":
-          true
-      },
-
-
-      paint:{
-
-        "text-color":
-          "#202020",
-
-        "text-opacity":
-          1
-      }
-    }
-  );
-
-
-  interstateLayerReady =
-    true;
-
-
-  updateInterstateReferenceVisibility();
-
-}
-
-
-/* =====================================================
-   POSITRON SELECTED?
-   ===================================================== */
-
-function positronIsSelected() {
-
-  const selected =
-    document.querySelector(
-      'input[name="basemap"]:checked'
-    );
-
-
-  return (
-    selected &&
-    selected.value ===
-      "positron"
-  );
-
-}
-
-
-/* =====================================================
-   SHIELD VISIBILITY
-   ===================================================== */
-
-function updateInterstateReferenceVisibility() {
-
-  if (
-    homeReferenceZoom === null
-  ) {
-    return;
-  }
-
-
-  let glMap;
-
-
-  try {
-
-    glMap =
-      positron.getMaplibreMap();
-
-  } catch (error) {
-
-    return;
-
-  }
-
-
-  if (
-    !glMap ||
-    !interstateLayerReady ||
-    !glMap.getLayer(
-      customInterstateLayerId
-    )
-  ) {
-    return;
-  }
-
-
-  const currentZoom =
-    map.getZoom();
-
-
-  /*
-    HOME      = custom shields
-    HOME + 1  = custom shields
-    HOME + 2  = native Positron takes over
-  */
-
-  const shouldShow =
-    positronIsSelected() &&
-    currentZoom <=
-      (
-        homeReferenceZoom +
-        1
-      );
-
-
-  glMap.setLayoutProperty(
-    customInterstateLayerId,
-    "visibility",
-    shouldShow
-      ? "visible"
-      : "none"
-  );
-
-}
-
-
-map.on(
-  "zoomend",
-  updateInterstateReferenceVisibility
-);
-
-
-/* =====================================================
-   LAYER GROUPS
+   ANALYSIS LAYER GROUPS
    ===================================================== */
 
 const ringLayer =
@@ -2466,6 +1732,545 @@ const activeLayer =
 const candidateLayer =
   L.layerGroup()
    .addTo(map);
+
+
+/* =====================================================
+   CUSTOM LOW-ZOOM INTERSTATE REFERENCES
+   ===================================================== */
+
+/*
+  These are deliberately sparse cartographic
+  reference shields.
+
+  They are visible only at:
+  HOME
+  HOME + 1
+
+  Beginning at HOME + 2 they disappear so
+  the native Positron transportation labels
+  become the sole interstate references.
+*/
+
+const interstateReferenceLayer =
+  L.layerGroup();
+
+
+/* =====================================================
+   INTERSTATE SHIELD SVG
+   ===================================================== */
+
+/*
+  Agreed visual treatment:
+
+  Crown:        #4B5563
+  Border:       #4B5563
+  Number:       #4B5563
+  Lower body:   #FFFFFF
+
+  The SVG is embedded directly in this HTML.
+  No external shield image or sprite is loaded.
+*/
+
+function interstateShieldSVG(
+  route
+) {
+
+  const isThreeDigit =
+    String(route).length === 3;
+
+
+  const width =
+    isThreeDigit
+      ? 41
+      : 36;
+
+
+  const height =
+    isThreeDigit
+      ? 39
+      : 37;
+
+
+  const fontSize =
+    isThreeDigit
+      ? 13.2
+      : 15.5;
+
+
+  const textY =
+    isThreeDigit
+      ? 25.5
+      : 24.8;
+
+
+  const viewBoxWidth =
+    isThreeDigit
+      ? 46
+      : 42;
+
+
+  /*
+    Shield geometry:
+
+    The outer path creates:
+    - two upper shoulder rises
+    - a central crown rise
+    - gently curved sides
+    - pointed lower shield
+
+    Crown uses the same dark gray as the
+    route number and outer border.
+  */
+
+  return `
+    <div class="interstate-shield-wrapper ${isThreeDigit ? "three-digit" : ""}">
+
+      <svg
+        width="${width}"
+        height="${height}"
+        viewBox="0 0 ${viewBoxWidth} 44"
+        xmlns="http://www.w3.org/2000/svg"
+        aria-hidden="true"
+      >
+
+        <!-- WHITE SHIELD BODY -->
+
+        <path
+          d="
+            M 4 10
+
+            C 6 8,
+              7 6,
+              9 5
+
+            C 12 7,
+              15 8,
+              18 8
+
+            C 21 8,
+              23 7,
+              ${viewBoxWidth / 2} 5
+
+            C ${viewBoxWidth / 2 + 3} 7,
+              ${viewBoxWidth / 2 + 6} 8,
+              ${viewBoxWidth / 2 + 9} 8
+
+            C ${viewBoxWidth - 13} 8,
+              ${viewBoxWidth - 10} 7,
+              ${viewBoxWidth - 8} 5
+
+            C ${viewBoxWidth - 5} 7,
+              ${viewBoxWidth - 4} 10,
+              ${viewBoxWidth - 3} 13
+
+            L ${viewBoxWidth - 3} 21
+
+            C ${viewBoxWidth - 3} 30,
+              ${viewBoxWidth - 10} 37,
+              ${viewBoxWidth / 2} 41
+
+            C 10 37,
+              3 30,
+              3 21
+
+            L 3 14
+
+            C 3 12,
+              3.5 11,
+              4 10
+            Z
+          "
+
+          fill="#FFFFFF"
+
+          stroke="#4B5563"
+
+          stroke-width="1.8"
+
+          stroke-linejoin="round"
+        />
+
+
+        <!-- DARK GRAY CROWN -->
+
+        <path
+          d="
+            M 4.5 11
+
+            C 6 8,
+              7 6,
+              9 5.5
+
+            C 12 7.5,
+              15 8.5,
+              18 8.5
+
+            C 21 8.5,
+              23 7.5,
+              ${viewBoxWidth / 2} 5.5
+
+            C ${viewBoxWidth / 2 + 3} 7.5,
+              ${viewBoxWidth / 2 + 6} 8.5,
+              ${viewBoxWidth / 2 + 9} 8.5
+
+            C ${viewBoxWidth - 13} 8.5,
+              ${viewBoxWidth - 10} 7.5,
+              ${viewBoxWidth - 8} 5.5
+
+            C ${viewBoxWidth - 5} 7.5,
+              ${viewBoxWidth - 4} 10,
+              ${viewBoxWidth - 3.5} 12.5
+
+            L ${viewBoxWidth - 3.5} 15
+
+            L 3.5 15
+
+            L 3.5 13
+
+            C 3.5 12,
+              4 11,
+              4.5 11
+            Z
+          "
+
+          fill="#4B5563"
+        />
+
+
+        <!-- ROUTE NUMBER -->
+
+        <text
+          x="${viewBoxWidth / 2}"
+          y="${textY}"
+
+          text-anchor="middle"
+
+          dominant-baseline="middle"
+
+          fill="#4B5563"
+
+          font-family="
+            -apple-system,
+            BlinkMacSystemFont,
+            'Segoe UI',
+            Arial,
+            sans-serif
+          "
+
+          font-size="${fontSize}"
+
+          font-weight="700"
+
+          letter-spacing="-0.35"
+        >
+          ${route}
+        </text>
+
+      </svg>
+
+    </div>
+  `;
+
+}
+
+
+/* =====================================================
+   INTERSTATE ICON
+   ===================================================== */
+
+function interstateShieldIcon(
+  route
+) {
+
+  const threeDigit =
+    String(route).length === 3;
+
+
+  const size =
+    threeDigit
+      ? [39,37]
+      : [34,34];
+
+
+  return L.divIcon(
+    {
+      className:"",
+
+      html:
+        interstateShieldSVG(
+          route
+        ),
+
+      iconSize:
+        size,
+
+      iconAnchor:[
+        size[0] / 2,
+        size[1] / 2
+      ]
+    }
+  );
+
+}
+
+
+/* =====================================================
+   SIX INTERSTATE REFERENCE POINTS
+   ===================================================== */
+
+/*
+  Two I-270 references:
+  west and east sides of the outerbelt.
+
+  Two I-71 references:
+  north and south of central Columbus.
+
+  Two I-70 references:
+  west/southwest and east/southeast.
+
+  These points are intentionally distributed
+  across the map so the highway system is easy
+  to read without producing repetitive labels.
+*/
+
+const interstateReferences = [
+
+  {
+    route:"270",
+
+    position:"West",
+
+    lat:40.0315,
+    lon:-83.1435
+  },
+
+
+  {
+    route:"270",
+
+    position:"East",
+
+    lat:40.0155,
+    lon:-82.8370
+  },
+
+
+  {
+    route:"71",
+
+    position:"North",
+
+    lat:40.0616,
+    lon:-82.9971
+  },
+
+
+  {
+    route:"71",
+
+    position:"South",
+
+    lat:39.8790,
+    lon:-83.0440
+  },
+
+
+  {
+    route:"70",
+
+    position:"West",
+
+    lat:39.9730,
+    lon:-83.1465
+  },
+
+
+  {
+    route:"70",
+
+    position:"East",
+
+    lat:39.9568,
+    lon:-82.8755
+  }
+
+];
+
+
+/* =====================================================
+   CREATE INTERSTATE MARKERS
+   ===================================================== */
+
+interstateReferences.forEach(
+  reference => {
+
+    L.marker(
+      [
+        reference.lat,
+        reference.lon
+      ],
+      {
+        icon:
+          interstateShieldIcon(
+            reference.route
+          ),
+
+        interactive:false,
+
+        keyboard:false,
+
+        zIndexOffset:50
+      }
+    )
+    .addTo(
+      interstateReferenceLayer
+    );
+
+  }
+);
+
+
+/* =====================================================
+   POSITRON SELECTED?
+   ===================================================== */
+
+function positronIsSelected() {
+
+  const selected =
+    document.querySelector(
+      'input[name="basemap"]:checked'
+    );
+
+
+  return (
+    selected &&
+    selected.value ===
+      "positron"
+  );
+
+}
+
+
+/* =====================================================
+   INTERSTATE VISIBILITY
+   ===================================================== */
+
+function updateInterstateReferenceVisibility() {
+
+  if (
+    homeReferenceZoom === null
+  ) {
+    return;
+  }
+
+
+  const currentZoom =
+    map.getZoom();
+
+
+  /*
+    Show only:
+
+    HOME
+    HOME + 1
+
+    Hide beginning at:
+
+    HOME + 2
+  */
+
+  const shouldShow =
+    positronIsSelected() &&
+    currentZoom <=
+      (
+        homeReferenceZoom +
+        1
+      );
+
+
+  if (shouldShow) {
+
+    if (
+      !map.hasLayer(
+        interstateReferenceLayer
+      )
+    ) {
+
+      interstateReferenceLayer
+        .addTo(map);
+
+    }
+
+  } else {
+
+    if (
+      map.hasLayer(
+        interstateReferenceLayer
+      )
+    ) {
+
+      map.removeLayer(
+        interstateReferenceLayer
+      );
+
+    }
+
+  }
+
+}
+
+
+map.on(
+  "zoomend",
+  updateInterstateReferenceVisibility
+);
+
+
+/* =====================================================
+   HOME
+   ===================================================== */
+
+function goHome() {
+
+  map.closePopup();
+
+
+  map.once(
+    "moveend",
+    function () {
+
+      homeReferenceZoom =
+        map.getZoom();
+
+
+      updateInterstateReferenceVisibility();
+
+
+      map.panBy(
+        [18,24],
+        {
+          animate:false
+        }
+      );
+
+    }
+  );
+
+
+  map.fitBounds(
+    finalBounds,
+    {
+      paddingTopLeft:
+        [20,20],
+
+      paddingBottomRight:
+        [20,20],
+
+      animate:false
+    }
+  );
+
+}
 
 
 /* =====================================================
@@ -3817,7 +3622,9 @@ document
               map.hasLayer(osm)
             ) {
 
-              map.removeLayer(osm);
+              map.removeLayer(
+                osm
+              );
 
             }
 
@@ -3828,7 +3635,9 @@ document
               )
             ) {
 
-              positron.addTo(map);
+              positron.addTo(
+                map
+              );
 
             }
 
@@ -3837,8 +3646,6 @@ document
               function () {
 
                 tunePositronNativeRoadLabels();
-
-                installInterstateReferenceLayer();
 
                 updateInterstateReferenceVisibility();
 
@@ -3873,9 +3680,14 @@ document
               )
             ) {
 
-              osm.addTo(map);
+              osm.addTo(
+                map
+              );
 
             }
+
+
+            updateInterstateReferenceVisibility();
 
           }
 
@@ -3906,20 +3718,28 @@ function connectToggle(
         if (this.checked) {
 
           if (
-            !map.hasLayer(layer)
+            !map.hasLayer(
+              layer
+            )
           ) {
 
-            layer.addTo(map);
+            layer.addTo(
+              map
+            );
 
           }
 
         } else {
 
           if (
-            map.hasLayer(layer)
+            map.hasLayer(
+              layer
+            )
           ) {
 
-            map.removeLayer(layer);
+            map.removeLayer(
+              layer
+            );
 
           }
 
@@ -3996,7 +3816,7 @@ window.addEventListener(
 
 
 /* =====================================================
-   INITIAL MAPLIBRE SETUP
+   INITIAL POSITRON ENHANCEMENT
    ===================================================== */
 
 function initializePositronEnhancements() {
@@ -4025,8 +3845,6 @@ function initializePositronEnhancements() {
 
     tunePositronNativeRoadLabels();
 
-    installInterstateReferenceLayer();
-
   } else {
 
     glMap.once(
@@ -4034,8 +3852,6 @@ function initializePositronEnhancements() {
       function () {
 
         tunePositronNativeRoadLabels();
-
-        installInterstateReferenceLayer();
 
       }
     );
