@@ -19,7 +19,7 @@ The series explores different retail markets, brands, and location-planning chal
 - **LEGO | Mumbai, India** — Evaluating potential locations for retail market entry
 - **UNIQLO | Dallas–Fort Worth, Texas** — Examining geographic opportunity for continued market expansion
 - **ALDI | Phoenix, Arizona** — Identifying emerging opportunities within a growing retail network
-- **New Balance | Boston, Massachusetts** — Exploring retail location strategy through an interactive GIS-based analysis
+- **New Balance | Columbus, Ohio** — Exploring retail location strategy and brand-market fit through an interactive GIS-based analysis
 
 Additional analyses will be added as the series continues.
 
